@@ -1,69 +1,121 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { Logo, Mark } from '@/components/Logo'
+import { HeroPrints } from '@/components/LandingHero'
+import { HeroCta } from '@/components/LandingCta'
+import { Print, FrameCode } from '@/components/Print'
+import { IconLock } from '@/components/icons'
 
-export default function Home() {
+const strip = [
+  { id: 237, alt: 'Filhote de labrador preto olhando pra cima', who: '@duda' },
+  { id: 488, alt: 'Salada colorida numa tigela de barro', who: '@rafa.cozinha' },
+  { id: 64, alt: 'Garota de óculos escuros segurando flores', who: '@mel' },
+  { id: 349, alt: 'Pessoa sentada olhando o pôr do sol', who: '@joao.p' },
+  { id: 1005, alt: 'Rapaz de cachecol olhando o mar', who: '@theo' },
+]
+
+export default function Landing() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="flex min-h-dvh flex-col">
+      <section className="bg-envelope text-on-envelope">
+        <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-8">
+          <Logo className="text-3xl" />
+          <nav className="flex items-center gap-2 sm:gap-4">
+            <Link href="/login" className="rounded-md px-3 py-2.5 font-semibold underline-offset-4 hover:underline">Entrar</Link>
+            <Link href="/register" className="hidden rounded-md bg-on-envelope px-4 py-2.5 font-semibold text-envelope sm:inline-block">Criar conta</Link>
+          </nav>
+        </header>
+
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-6 sm:px-8 md:grid-cols-[1.1fr_1fr] md:pb-24 md:pt-10">
+          <div>
+            <h1 className="display text-[clamp(3rem,8vw,5.5rem)]">Revelado só pra sua galera.</h1>
+            <p className="mt-6 max-w-[34ch] text-lg leading-relaxed sm:text-xl">
+              Poste fotos e vídeos curtos do seu dia. Quem te segue vê tudo em ordem, do mais novo pro mais antigo. Sem algoritmo escolhendo por você.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <HeroCta />
+            </div>
+            <p className="mt-4 text-sm">Grátis. A partir de 14 anos.</p>
+          </div>
+          <HeroPrints />
+        </div>
+      </section>
+
+      <section aria-labelledby="ordem" className="bg-film py-16 text-white">
+        <div className="mx-auto max-w-6xl px-4 sm:px-8">
+          <h2 id="ordem" className="display max-w-[16ch] text-4xl sm:text-5xl">Seu feed é um rolo de filme.</h2>
+          <p className="mt-4 max-w-[52ch] text-lg text-white/75">
+            Cada post é um quadro na ordem em que foi feito. Você vê quem segue e perfis públicos. Nada de sugestão de estranho no meio.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <ol className="mt-10 flex gap-4 overflow-x-auto px-4 pb-4 sm:px-8 [scrollbar-width:thin]" aria-label="Exemplo de feed">
+          {strip.map((p, i) => (
+            <li key={p.id} className="w-56 shrink-0">
+              <div className="mb-2 flex justify-between text-envelope"><FrameCode n={i + 21} /><span className="edge text-xs">ZIVRA 400</span></div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/prints/${p.id}.jpg`} alt={p.alt} loading="lazy" className="aspect-[4/5] w-full rounded-sm object-cover" />
+              <p className="mt-2 text-sm text-white/80">{p.who}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="mx-auto mt-2 max-w-6xl px-4 text-xs text-white/50 sm:px-8">Fotos e perfis de exemplo.</p>
+      </section>
+
+      <section aria-labelledby="privado" className="bg-paper py-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-8 md:grid-cols-2">
+          <div className="order-2 md:order-1">
+            <div className="relative mx-auto aspect-[4/3] max-w-md rounded-sm bg-envelope p-8 text-on-envelope shadow-[0_24px_50px_-24px_rgb(27_31_59/0.5)]">
+              <div className="absolute inset-x-0 top-0 h-1/2 origin-top bg-envelope-deep [clip-path:polygon(0_0,100%_0,50%_100%)]" />
+              <div className="relative flex h-full flex-col items-center justify-end gap-2 text-center">
+                <IconLock className="size-8" />
+                <p className="wide text-xl font-bold">Perfil privado</p>
+                <p className="text-sm">Só abre pra quem você aceitou.</p>
+              </div>
+            </div>
+          </div>
+          <div className="order-1 md:order-2">
+            <h2 id="privado" className="display max-w-[14ch] text-4xl sm:text-5xl">Fecha o envelope quando quiser.</h2>
+            <p className="mt-4 max-w-[46ch] text-lg leading-relaxed text-ink-soft">
+              Deixe o perfil privado e cada pessoa nova pede pra te seguir. Você aceita ou recusa. Dá pra mudar a qualquer hora nos ajustes.
+            </p>
+          </div>
         </div>
-      </main>
+      </section>
+
+      <section aria-labelledby="circule" className="bg-print py-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-8 md:grid-cols-2">
+          <div>
+            <h2 id="circule" className="display max-w-[14ch] text-4xl sm:text-5xl">Circule o que você curtiu.</h2>
+            <p className="mt-4 max-w-[46ch] text-lg leading-relaxed text-ink-soft">
+              Curtir é marcar a foto com lápis vermelho, como na folha de contato do laboratório. Comente direto embaixo do quadro.
+            </p>
+          </div>
+          <Print src="/prints/64.jpg" alt="Garota de óculos escuros segurando flores" n={7} caption="@mel"
+            className="mx-auto w-full max-w-xs rotate-2">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" className="pointer-events-none absolute -inset-[6%] h-[112%] w-[112%] overflow-visible">
+              <path d="M54 4C80 5 97 22 96 50c-1 29-22 46-48 46C21 96 3 78 4 50 5 22 25 4 52 5c8 0 15 2 20 5" fill="none" stroke="var(--pencil)" strokeLinecap="round" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 3.5 }} />
+            </svg>
+          </Print>
+        </div>
+      </section>
+
+      <section className="bg-envelope py-20 text-on-envelope">
+        <div className="mx-auto flex max-w-6xl flex-col items-start gap-8 px-4 sm:px-8 md:flex-row md:items-end md:justify-between">
+          <h2 className="display max-w-[14ch] text-5xl sm:text-6xl">Seu primeiro rolo começa agora.</h2>
+          <Link href="/register" className="wide w-full rounded-md bg-on-envelope px-8 py-4 text-center text-lg font-bold text-envelope md:w-auto">
+            Criar minha conta
+          </Link>
+        </div>
+      </section>
+
+      <footer className="bg-film py-8 text-sm text-white/70">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <span className="flex items-center gap-2"><Mark className="size-5 text-envelope" /> Zivra, feito no Brasil.</span>
+          <nav className="flex gap-6">
+            <Link href="/privacy" className="hover:text-white">Privacidade</Link>
+            <Link href="/security" className="hover:text-white">Segurança</Link>
+          </nav>
+        </div>
+      </footer>
     </div>
-  );
+  )
 }
