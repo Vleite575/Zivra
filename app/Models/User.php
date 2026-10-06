@@ -15,7 +15,7 @@ class User extends Authenticatable
     /** Usernames that collide with frontend or API routes. */
     public const RESERVED_USERNAMES = [
         'api', 'storage', 'sanctum', 'login', 'register', 'forgot-password', 'reset-password',
-        'feed', 'settings', 'follow-requests', 'privacy', 'security', 'messages', 'p', '_next',
+        'feed', 'settings', 'follow-requests', 'privacy', 'security', 'messages', 'new', 'p', '_next',
     ];
 
     /**

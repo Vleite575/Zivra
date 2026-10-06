@@ -29,7 +29,7 @@ export function Shell({ me, children }: { me: User | null; children: React.React
           {me ? (
             <nav aria-label="Principal" className="flex items-center gap-1">
               <Link href="/feed" aria-label="Feed" aria-current={on('/feed')} className={`${tab} hidden sm:grid`}><IconFeed className="size-6" /></Link>
-              <Link href="/feed#novo" aria-label="Novo post" className={`${tab} hidden sm:grid`}><IconPlus className="size-6" /></Link>
+              <Link href="/new" aria-label="Novo post" aria-current={on('/new')} className={`${tab} hidden sm:grid`}><IconPlus className="size-6" /></Link>
               <Link href="/search" aria-label="Buscar pessoas" aria-current={on('/search')} className={`${tab} hidden sm:grid`}><IconSearch className="size-6" /></Link>
               <Link href="/messages" aria-label={chatLabel} aria-current={on('/messages')} className={`${tab} relative hidden sm:grid`}><IconChat className="size-6" />{chatBadge}</Link>
               <Link href="/follow-requests" aria-label={requestsLabel} aria-current={on('/follow-requests')} className={`${tab} relative`}><IconUserPlus className="size-6" />{badge}</Link>
@@ -50,7 +50,7 @@ export function Shell({ me, children }: { me: User | null; children: React.React
         <nav aria-label="Principal" className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t border-line bg-print sm:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
           <Link href="/feed" aria-label="Feed" aria-current={on('/feed')} className={`${tab} py-3`}><IconFeed className="size-7" /></Link>
           <Link href="/search" aria-label="Buscar pessoas" aria-current={on('/search')} className={`${tab} py-3`}><IconSearch className="size-7" /></Link>
-          <Link href="/feed#novo" aria-label="Novo post" className={`${tab} py-3`}><IconPlus className="size-7" /></Link>
+          <Link href="/new" aria-label="Novo post" aria-current={on('/new')} className={`${tab} py-3`}><IconPlus className="size-7" /></Link>
           <Link href="/messages" aria-label={chatLabel} aria-current={on('/messages')} className={`${tab} relative py-3`}><span className="relative"><IconChat className="size-7" />{chatBadge}</span></Link>
           <a href={profileHref(me.username)} aria-label="Seu perfil" className="grid place-items-center py-3">
             <Avatar path={me.profile_photo_path} name={me.name} size="size-7" />
