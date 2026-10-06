@@ -4,24 +4,33 @@
     </IfModule>
 
     RewriteEngine On
+    RewriteBase /zivra/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Block direct access to project files (.env, vendor, composer.json...) - only public/ is served
-    RewriteCond %{REQUEST_URI} !/public/
-    RewriteCond %{REQUEST_URI} !/index\.php$
+    # Laravel API (Sanctum SPA auth) and health check
+    RewriteRule ^(api|sanctum|up)(/.*)?$ index.php [END]
+
+    # Uploaded media
+    RewriteRule ^storage/(.*)$ public/storage/$1 [END]
+
+    # Next.js static export (web/out): home, exact files, then page.html
+    RewriteRule ^$ web/out/index.html [END]
+    RewriteCond %{DOCUMENT_ROOT}/zivra/web/out/$1 -f
+    RewriteRule ^(.+)$ web/out/$1 [END]
+    RewriteCond %{DOCUMENT_ROOT}/zivra/web/out/$1.html -f
+    RewriteRule ^(.+?)/?$ web/out/$1.html [END]
+
+    # Block direct access to project files (.env, vendor, composer.json, web sources...)
+    RewriteCond %{REQUEST_URI} !/zivra/public/
+    RewriteCond %{REQUEST_URI} !/zivra/web/out/
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [F,L]
 
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    # Any single path segment is a profile: /zivra/{username} -> static profile page
+    RewriteRule ^[A-Za-z0-9_-]+/?$ web/out/u.html [END]
 
-    # Handle Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    ErrorDocument 404 /zivra/web/out/404.html
 </IfModule>

@@ -1,6 +1,5 @@
 'use client'
-import Link from 'next/link'
-import { api, useApi, type User } from '@/lib/api'
+import { api, profileHref, useApi, type User } from '@/lib/api'
 import { Avatar } from '@/components/Avatar'
 
 export default function FollowRequests() {
@@ -24,10 +23,10 @@ export default function FollowRequests() {
       <ul className="mt-6 divide-y divide-line">
         {data?.map((u) => (
           <li key={u.id} className="flex flex-wrap items-center gap-3 py-4">
-            <Link href={`/${u.username}`} className="flex min-w-0 flex-1 items-center gap-3">
+            <a href={profileHref(u.username)} className="flex min-w-0 flex-1 items-center gap-3">
               <Avatar path={u.profile_photo_path} name={u.name} size="size-11" />
               <span className="min-w-0 leading-tight"><span className="block truncate font-bold">{u.name}</span><span className="text-sm text-ink-soft">@{u.username}</span></span>
-            </Link>
+            </a>
             <button onClick={() => answer(u, true)} className="btn-solid">Aceitar</button>
             <button onClick={() => answer(u, false)} className="rounded-md px-3 py-2.5 font-semibold underline">Recusar</button>
           </li>

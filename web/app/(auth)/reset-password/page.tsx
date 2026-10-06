@@ -1,12 +1,13 @@
 'use client'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { api } from '@/lib/api'
 import { Field, Submit, formJson, useSubmit } from '@/components/Form'
 import { Slip } from '@/components/Slip'
 
 export default function ResetPassword() {
-  const { token } = useParams<{ token: string }>()
-  const email = useSearchParams().get('email') ?? ''
+  const params = useSearchParams()
+  const token = params.get('token') ?? ''
+  const email = params.get('email') ?? ''
   const router = useRouter()
   const { errors, message, busy, run } = useSubmit()
   return (

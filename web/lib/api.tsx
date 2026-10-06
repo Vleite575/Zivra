@@ -15,19 +15,25 @@ export class ApiError extends Error {
 
 let onUnauthorized: (() => void) | null = null
 
+/** App base path (Apache serves the app under /zivra); prefix for raw fetch/img URLs. Next Link/router add it themselves. */
+export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+
+/** Profiles are served by one static page (app/u) via an Apache rewrite, so link with a plain <a>. */
+export const profileHref = (username: string) => `${BASE}/${username}`
+
 const xsrf = () => decodeURIComponent(document.cookie.match(/(?:^|; )XSRF-TOKEN=([^;]+)/)?.[1] ?? '')
 
 export async function api<T = unknown>(path: string, init: RequestInit = {}, retried = false): Promise<T> {
   const method = (init.method ?? 'GET').toUpperCase()
-  if (method !== 'GET' && !xsrf()) await fetch('/sanctum/csrf-cookie')
+  if (method !== 'GET' && !xsrf()) await fetch(`${BASE}/sanctum/csrf-cookie`)
   const json = init.body && !(init.body instanceof FormData)
-  const res = await fetch(path, {
+  const res = await fetch(BASE + path, {
     ...init,
     headers: { Accept: 'application/json', 'X-XSRF-TOKEN': xsrf(), ...(json ? { 'Content-Type': 'application/json' } : {}), ...init.headers },
   })
   // Stale CSRF token (session rotated by login/logout or expired): refresh it and retry once.
   if (res.status === 419 && !retried) {
-    await fetch('/sanctum/csrf-cookie')
+    await fetch(`${BASE}/sanctum/csrf-cookie`)
     return api<T>(path, init, true)
   }
   // Session gone mid-use: let MeProvider clear the user so the auth guard sends them to /login.
@@ -46,7 +52,7 @@ export function useApi<T>(path: string | null) {
   return { data, error, setData, reload }
 }
 
-export const media = (path: string) => `/storage/${path}`
+export const media = (path: string) => `${BASE}/storage/${path}`
 
 const MeContext = createContext<{ me: User | null | undefined; setMe: (u: User | null) => void }>({ me: undefined, setMe: () => {} })
 

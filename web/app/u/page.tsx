@@ -1,8 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { api, media, useApi, useMe, type Post, type Profile, type User } from '@/lib/api'
+import { Suspense, useEffect, useRef, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { api, BASE, media, profileHref, useApi, useMe, type Post, type Profile, type User } from '@/lib/api'
 import { Shell } from '@/components/Shell'
 import { Logo } from '@/components/Logo'
 import { Avatar } from '@/components/Avatar'
@@ -14,16 +14,22 @@ import { Loop } from '@/components/Loop'
 const SOLID = 'wide rounded-md bg-on-envelope px-6 py-3 text-center font-bold text-envelope'
 const OUTLINE = 'wide rounded-md border-2 border-on-envelope px-6 py-2.5 text-center font-bold'
 
+/**
+ * Public profile at /{username}. Static export has no dynamic routes, so Apache rewrites
+ * every single-segment path to this page and the nick is read from the browser URL.
+ */
 export default function ProfilePage() {
   const { me } = useMe()
-  if (me === undefined) return null
-  const page = <ProfileView />
+  const [username, setUsername] = useState<string>()
+  useEffect(() => { setUsername(decodeURIComponent(location.pathname.slice(BASE.length).split('/').filter(Boolean)[0] ?? '')) }, [])
+  if (me === undefined || !username) return null
+  const page = <Suspense><ProfileView username={username} /></Suspense>
   return me ? <Shell me={me}>{page}</Shell> : (
     <div className="min-h-dvh">
       <header className="flex items-center justify-between bg-envelope px-4 py-4 text-on-envelope sm:px-8">
         <Link href="/" aria-label="Zivra, página inicial"><Logo className="text-2xl" /></Link>
         <nav className="flex gap-2">
-          <LoginLink className="rounded-md px-3 py-2 font-semibold">Entrar</LoginLink>
+          <LoginLink username={username} className="rounded-md px-3 py-2 font-semibold">Entrar</LoginLink>
           <Link href="/register" className="rounded-md bg-on-envelope px-4 py-2 font-semibold text-envelope">Criar conta</Link>
         </nav>
       </header>
@@ -32,16 +38,13 @@ export default function ProfilePage() {
   )
 }
 
-function LoginLink({ className, children }: { className: string; children: React.ReactNode }) {
-  const path = usePathname()
-  return <Link href={`/login?redirect=${encodeURIComponent(path)}`} className={className}>{children}</Link>
+function LoginLink({ username, className, children }: { username: string; className: string; children: React.ReactNode }) {
+  return <Link href={`/login?redirect=${encodeURIComponent(`/${username}`)}`} className={className}>{children}</Link>
 }
 
-function ProfileView() {
-  const { username } = useParams<{ username: string }>()
+function ProfileView({ username }: { username: string }) {
   const { me } = useMe()
   const router = useRouter()
-  const path = usePathname()
   const openId = Number(useSearchParams().get('p')) || null
   const { data, error, setData, reload } = useApi<Profile>(`/api/users/${encodeURIComponent(username)}`)
   const [list, setList] = useState<'followers' | 'following' | null>(null)
@@ -55,7 +58,7 @@ function ProfileView() {
   const { user } = data
   const act = (method: string, url: string) => api(url, { method }).then(reload)
   const setPost = (p: Post) => setData({ ...data, posts: data.posts.map((x) => (x.id === p.id ? p : x)) })
-  const open = (id: number | null) => router.replace(id ? `${path}?p=${id}` : path, { scroll: false })
+  const open = (id: number | null) => router.replace(id ? `/${username}?p=${id}` : `/${username}`, { scroll: false })
   const selected = data.posts.find((p) => p.id === openId)
 
   return (
@@ -75,7 +78,7 @@ function ProfileView() {
               <Count n={user.following_count} label="seguindo" onClick={data.canSeeContent ? () => setList('following') : undefined} />
             </dl>
             {data.isOwnProfile ? <Link href="/settings" className={OUTLINE}>Editar perfil</Link>
-              : !me ? <LoginLink className={SOLID}>Seguir</LoginLink>
+              : !me ? <LoginLink username={username} className={SOLID}>Seguir</LoginLink>
               : data.isFollowing ? <button onClick={() => act('DELETE', `/api/follow/${user.id}`)} className={OUTLINE}>Seguindo</button>
               : data.hasRequestedToFollow ? <button onClick={() => act('DELETE', `/api/follow/${user.id}`)} className={OUTLINE}>Cancelar pedido</button>
               : <button onClick={() => act('POST', `/api/follow/${user.id}`)} className={SOLID}>Seguir</button>}
@@ -188,10 +191,10 @@ function FollowList({ username, kind, own }: { username: string; kind: 'follower
       <ul className="flex flex-col">
         {data?.map((u) => (
           <li key={u.id}>
-            <Link href={`/${u.username}`} className="flex items-center gap-3 rounded-md px-2 py-2.5 hover:bg-ink/5">
+            <a href={profileHref(u.username)} className="flex items-center gap-3 rounded-md px-2 py-2.5 hover:bg-ink/5">
               <Avatar path={u.profile_photo_path} name={u.name} />
               <span className="min-w-0 leading-tight"><span className="block truncate font-bold">{u.name}</span><span className="text-sm text-ink-soft">@{u.username}</span></span>
-            </Link>
+            </a>
           </li>
         ))}
       </ul>

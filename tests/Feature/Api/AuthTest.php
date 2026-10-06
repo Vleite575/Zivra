@@ -68,7 +68,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create();
         $this->postJson('/api/forgot-password', ['email' => $user->email])->assertOk();
         Notification::assertSentTo($user, ResetPassword::class, function ($n) use ($user) {
-            return str_starts_with($n->toMail($user)->actionUrl, config('app.frontend_url').'/reset-password/');
+            return str_starts_with($n->toMail($user)->actionUrl, config('app.frontend_url').'/reset-password?token=');
         });
     }
 

@@ -1,7 +1,6 @@
 'use client'
-import Link from 'next/link'
 import { useState } from 'react'
-import { api, media, useMe, type Comment, type Post } from '@/lib/api'
+import { api, media, profileHref, useMe, type Comment, type Post } from '@/lib/api'
 import { Avatar } from './Avatar'
 import { Loop } from './Loop'
 import { FrameCode } from './Print'
@@ -50,9 +49,9 @@ export function PostCard({ post, onChange }: { post: Post; onChange: (p: Post) =
   return (
     <article className="py-6" aria-labelledby={`post-${post.id}`}>
       <header className="mb-3 flex items-center gap-3">
-        <Link href={`/${post.user.username}`}><Avatar path={post.user.profile_photo_path} name={post.user.name} /></Link>
+        <a href={profileHref(post.user.username)}><Avatar path={post.user.profile_photo_path} name={post.user.name} /></a>
         <div className="min-w-0 flex-1 leading-tight">
-          <Link id={`post-${post.id}`} href={`/${post.user.username}`} className="block truncate font-bold hover:underline">{post.user.name}</Link>
+          <a id={`post-${post.id}`} href={profileHref(post.user.username)} className="block truncate font-bold hover:underline">{post.user.name}</a>
           <span className="text-sm text-ink-soft">@{post.user.username} · <time dateTime={post.created_at}>{ago(post.created_at)}</time></span>
         </div>
       </header>
@@ -83,7 +82,7 @@ export function PostCard({ post, onChange }: { post: Post; onChange: (p: Post) =
           <ul className="flex flex-col gap-3">
             {post.comments.map((c) => (
               <li key={c.id} className="group flex items-start gap-2 text-[15px]">
-                <p className="flex-1"><Link href={`/${c.user.username}`} className="mr-1.5 font-bold hover:underline">{c.user.username}</Link>{c.content}</p>
+                <p className="flex-1"><a href={profileHref(c.user.username)} className="mr-1.5 font-bold hover:underline">{c.user.username}</a>{c.content}</p>
                 {me?.id === c.user_id && (
                   <button onClick={() => remove(c.id)} aria-label="Apagar comentário" className="rounded p-1 text-ink-soft hover:text-pencil">
                     <IconTrash className="size-4" />

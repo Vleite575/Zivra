@@ -5,6 +5,7 @@ import { HeaderCta, HeroCta } from '@/components/LandingCta'
 import { Print, FrameCode } from '@/components/Print'
 import { IconLock } from '@/components/icons'
 import { Loop } from '@/components/Loop'
+import { BASE } from '@/lib/api'
 
 const strip = [
   { id: 237, alt: 'Filhote de labrador preto olhando pra cima', who: '@duda' },
@@ -54,7 +55,7 @@ export default function Landing() {
             <li key={p.id} className="w-56 shrink-0">
               <div className="mb-2 flex justify-between text-envelope"><FrameCode n={i + 21} /><span className="edge text-xs">ZIVRA 400</span></div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/prints/${p.id}.jpg`} alt={p.alt} loading="lazy" className="aspect-[4/5] w-full rounded-sm object-cover" />
+              <img src={`${BASE}/prints/${p.id}.jpg`} alt={p.alt} loading="lazy" className="aspect-[4/5] w-full rounded-sm object-cover" />
               <p className="mt-2 text-sm text-white/80">{p.who}</p>
             </li>
           ))}
@@ -91,7 +92,7 @@ export default function Landing() {
               Curtir é marcar a foto com lápis vermelho, como na folha de contato do laboratório. Comente direto embaixo do quadro.
             </p>
           </div>
-          <Print src="/prints/64.jpg" alt="Garota de óculos escuros segurando flores" n={7} caption="@mel"
+          <Print src={`${BASE}/prints/64.jpg`} alt="Garota de óculos escuros segurando flores" n={7} caption="@mel"
             className="relative mx-auto w-full max-w-xs rotate-2">
             <Loop drawn />
           </Print>
