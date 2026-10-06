@@ -29,6 +29,36 @@ class FollowController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Who to follow: people my follows follow (with one of them named), then the most followed.
+     * ponytail: two simple queries; rank with a real score if the user base grows.
+     */
+    public function suggestions()
+    {
+        $me = Auth::user();
+        $mine = $me->following()->pluck('users.id');
+        $skip = $me->allFollowing()->pluck('users.id')->push($me->id);
+
+        $viaFriends = \DB::table('follows')
+            ->whereIn('follower_id', $mine)->whereNotNull('accepted_at')->whereNotIn('following_id', $skip)
+            ->select('following_id', \DB::raw('count(*) as n'), \DB::raw('min(follower_id) as via'))
+            ->groupBy('following_id')->orderByDesc('n')->limit(5)->get();
+
+        $users = User::whereIn('id', $viaFriends->pluck('following_id'))->get()->keyBy('id');
+        $vias = User::whereIn('id', $viaFriends->pluck('via'))->pluck('username', 'id');
+        $result = $viaFriends->map(fn ($row) => $users[$row->following_id]->toArray() + ['followed_by' => $vias[$row->via]]);
+
+        if ($result->count() < 5) {
+            $popular = User::whereNotIn('id', $skip->merge($result->pluck('id')))
+                ->withCount('followers')->orderByDesc('followers_count')->orderByDesc('id')
+                ->limit(5 - $result->count())->get()
+                ->map(fn (User $u) => $u->toArray() + ['followed_by' => null]);
+            $result = $result->concat($popular);
+        }
+
+        return $result->values();
+    }
+
     public function destroy(User $user)
     {
         // Remove follow ou solicitação de follow

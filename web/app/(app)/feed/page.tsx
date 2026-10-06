@@ -2,6 +2,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { api, useApi, useMe, type Post } from '@/lib/api'
 import { Avatar } from '@/components/Avatar'
+import { useToast } from '@/components/Toast'
+import { FeedSidebar, SuggestionStrip } from '@/components/Suggestions'
 import { PostCard } from '@/components/PostCard'
 import { IconCamera, IconClose } from '@/components/icons'
 
@@ -12,8 +14,10 @@ export default function Feed() {
   const update = (p: Post) => setData((list) => list?.map((x) => (x.id === p.id ? p : x)))
 
   return (
-    <div className="mx-auto flex max-w-[500px] flex-col gap-4 py-4 sm:px-4 sm:py-8">
+    <div className="mx-auto flex max-w-[884px] justify-center gap-16 sm:px-4">
+    <div className="flex w-full max-w-[500px] flex-col gap-4 py-4 sm:py-8">
       <Composer onPost={(p) => setData((list) => [p, ...(list ?? [])])} />
+      <SuggestionStrip />
       {error && <p className="py-10 text-center text-ink-soft">Não deu pra carregar o feed. Atualize a página.</p>}
       {!posts && !error && <p className="py-10 text-center text-ink-soft" aria-live="polite">Carregando…</p>}
       {posts?.length === 0 && (
@@ -24,11 +28,14 @@ export default function Feed() {
       )}
       {posts?.map((p) => <PostCard key={p.id} post={p} onChange={update} onDelete={(id) => setData((list) => list?.filter((x) => x.id !== id))} />)}
     </div>
+    <FeedSidebar />
+    </div>
   )
 }
 
 function Composer({ onPost }: { onPost: (p: Post) => void }) {
   const { me } = useMe()
+  const toast = useToast()
   const [content, setContent] = useState('')
   const [file, setFile] = useState<File | null>(null)
   const [error, setError] = useState('')
@@ -52,6 +59,7 @@ function Composer({ onPost }: { onPost: (p: Post) => void }) {
     if (file) body.append('media', file)
     try {
       onPost(await api<Post>('/api/posts', { method: 'POST', body }))
+      toast('Post publicado')
       setContent(''); setFile(null)
       if (input.current) input.current.value = ''
     } catch {

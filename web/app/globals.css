@@ -91,6 +91,8 @@
 .badge-pop { animation: badge 280ms var(--ease-out-expo) both; }
 .like-pop[aria-pressed="true"] svg { animation: pop 360ms var(--ease-out-expo); }
 .feed-item { animation: rise 320ms var(--ease-out-expo) both; }
+.toast-in { animation: rise 240ms var(--ease-out-expo) both; }
+.removing { animation: none; opacity: 0; transform: scale(0.97); transition: opacity 200ms, transform 200ms var(--ease-out-expo); }
 
 /* Popovers and dialogs fade/scale in and out (discrete transitions keep them animating on close) */
 [popover], dialog {

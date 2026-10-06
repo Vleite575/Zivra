@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { api, postMedia, profileHref, useMe, type Comment, type Post } from '@/lib/api'
 import { Avatar } from './Avatar'
+import { useConfirm } from './Confirm'
+import { useToast } from './Toast'
 import { IconComment, IconLoop, IconTrash } from './icons'
 
 const rtf = new Intl.RelativeTimeFormat('pt-BR', { numeric: 'auto' })
@@ -18,6 +20,9 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
   const [busy, setBusy] = useState(false)
+  const [removing, setRemoving] = useState(false)
+  const [confirm, confirmDialog] = useConfirm()
+  const toast = useToast()
 
   async function like() {
     if (!me) return
@@ -40,9 +45,17 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
   }
 
   async function removePost() {
-    if (!confirm('Apagar este post? Não dá pra desfazer.')) return
-    await api(`/api/posts/${post.id}`, { method: 'DELETE' })
-    onDelete?.(post.id)
+    const ok = await confirm({ title: 'Apagar post?', body: 'A foto e os comentários somem pra sempre. Não dá pra desfazer.', confirmLabel: 'Apagar', danger: true })
+    if (!ok) return
+    setRemoving(true)
+    try {
+      await api(`/api/posts/${post.id}`, { method: 'DELETE' })
+      toast('Post apagado')
+      setTimeout(() => onDelete?.(post.id), 200)
+    } catch {
+      setRemoving(false)
+      toast('Não deu pra apagar. Tente de novo.')
+    }
   }
 
   async function remove(id: number) {
@@ -51,7 +64,7 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
   }
 
   return (
-    <article className="feed-item overflow-hidden border-line bg-print sm:rounded-xl sm:border" aria-labelledby={`post-${post.id}`}>
+    <article className={`feed-item overflow-hidden ${removing ? 'removing' : ''} border-line bg-print sm:rounded-xl sm:border`} aria-labelledby={`post-${post.id}`}>
       <header className="flex items-center gap-3 px-4 py-3">
         <a href={profileHref(post.user.username)}><Avatar path={post.user.profile_photo_path} name={post.user.name} size="size-8" /></a>
         <div className="min-w-0 flex-1 leading-tight">
@@ -123,6 +136,7 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
           </form>
         )}
       </div>
+      {confirmDialog}
     </article>
   )
 }

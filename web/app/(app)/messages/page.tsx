@@ -3,6 +3,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { api, ApiError, profileHref, useApi, useMe, type Conversation, type Message, type User } from '@/lib/api'
 import { Avatar } from '@/components/Avatar'
+import { useConfirm } from '@/components/Confirm'
 import { ago } from '@/components/PostCard'
 import { IconBack, IconChat, IconClose, IconPlus, IconSend } from '@/components/icons'
 
@@ -240,8 +241,12 @@ function Info({ c, me, onClose, onLeft, onChange }: { c: Conversation; me: User;
     for (const id of adding) onChange(await api<Conversation>(`/api/conversations/${c.id}/members`, { method: 'POST', body: JSON.stringify({ user_id: id }) }))
     setAdding([])
   }
+  const [confirm, confirmDialog] = useConfirm()
   const leave = async () => {
-    if (!confirm(c.is_group ? 'Sair do grupo?' : 'Apagar esta conversa da sua lista?')) return
+    const ok = await confirm(c.is_group
+      ? { title: 'Sair do grupo?', body: `Você deixa de receber as mensagens de ${c.name}.`, confirmLabel: 'Sair do grupo', danger: true }
+      : { title: 'Apagar conversa?', body: 'Ela sai da sua lista. A outra pessoa continua com o histórico.', confirmLabel: 'Apagar', danger: true })
+    if (!ok) return
     await api(`/api/conversations/${c.id}/members/me`, { method: 'DELETE' })
     onLeft()
   }
@@ -267,6 +272,7 @@ function Info({ c, me, onClose, onLeft, onChange }: { c: Conversation; me: User;
       <div className="border-t border-line p-4">
         <button onClick={leave} className="w-full rounded-lg py-2.5 font-semibold text-pencil hover:bg-pencil/10">{c.is_group ? 'Sair do grupo' : 'Apagar conversa'}</button>
       </div>
+      {confirmDialog}
     </Dialog>
   )
 }

@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', fn (Request $r) => $r->user()->makeVisible('email')->loadCount('pendingFollowers as pending_requests_count')
         ->setAttribute('unread_messages_count', (int) $r->user()->unreadByConversation()->sum()));
 
+    Route::get('suggestions', [FollowController::class, 'suggestions']);
     Route::get('chat/contacts', [ChatController::class, 'contacts']);
     Route::get('conversations', [ChatController::class, 'index']);
     Route::post('conversations', [ChatController::class, 'store'])->middleware('throttle:social');

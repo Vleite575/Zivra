@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Archivo } from 'next/font/google'
 import { MeProvider } from '@/lib/api'
+import { ToastProvider } from '@/components/Toast'
 import './globals.css'
 
 const archivo = Archivo({ subsets: ['latin', 'latin-ext'], axes: ['wdth'], variable: '--font-archivo' })
@@ -14,7 +15,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="pt-BR" className={`${archivo.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <MeProvider>{children}</MeProvider>
+        <MeProvider><ToastProvider>{children}</ToastProvider></MeProvider>
       </body>
     </html>
   )

@@ -59,4 +59,25 @@ class FollowTest extends TestCase
         $this->actingAs($a)->postJson("/api/follow/{$b->id}");
         $this->getJson("/api/users/{$b->username}/followers")->assertOk()->assertJsonMissingPath('0.pivot');
     }
+
+    public function test_suggestions_prefer_friends_of_friends_and_skip_known(): void
+    {
+        [$me, $friend, $fof, $popular, $followed, $pending] = User::factory(6)->create();
+        $me->following()->attach($friend->id, ['accepted_at' => now()]);
+        $me->following()->attach($followed->id, ['accepted_at' => now()]);
+        $me->allFollowing()->attach($pending->id); // request not accepted yet
+        $friend->following()->attach($fof->id, ['accepted_at' => now()]);
+        User::factory(3)->create()->each(fn ($u) => $u->following()->attach($popular->id, ['accepted_at' => now()]));
+
+        $json = $this->actingAs($me)->getJson('/api/suggestions')->assertOk()->json();
+        $ids = array_column($json, 'id');
+
+        $this->assertSame($fof->id, $ids[0]);
+        $this->assertSame($friend->username, $json[0]['followed_by']);
+        $this->assertContains($popular->id, $ids);
+        foreach ([$me, $friend, $followed, $pending] as $u) {
+            $this->assertNotContains($u->id, $ids);
+        }
+        $this->assertCount(5, $ids);
+    }
 }
