@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -32,11 +33,23 @@ class PostController extends Controller
 
         if ($file = $request->file('media')) {
             $post->media_path = $file->store('posts-media', 'public');
-            $post->media_type = in_array(strtolower($file->getClientOriginalExtension()), ['mp4', 'mov', 'avi']) ? 'video' : 'image';
+            $post->media_type = str_starts_with((string) $file->getMimeType(), 'video/') ? 'video' : 'image';
         }
 
         $post->save();
 
         return response()->json(Post::forViewer($request->user())->find($post->id), 201);
+    }
+
+    public function destroy(Request $request, Post $post)
+    {
+        abort_unless($post->user_id === $request->user()->id, 403);
+
+        if ($post->media_path) {
+            Storage::disk('public')->delete($post->media_path);
+        }
+        $post->delete();
+
+        return response()->noContent();
     }
 }

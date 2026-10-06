@@ -13,7 +13,7 @@ export function ago(iso: string) {
   return 'agora'
 }
 
-export function PostCard({ post, onChange }: { post: Post; onChange: (p: Post) => void }) {
+export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (p: Post) => void; onDelete?: (id: number) => void }) {
   const { me } = useMe()
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
@@ -39,6 +39,12 @@ export function PostCard({ post, onChange }: { post: Post; onChange: (p: Post) =
     } finally { setBusy(false) }
   }
 
+  async function removePost() {
+    if (!confirm('Apagar este post? Não dá pra desfazer.')) return
+    await api(`/api/posts/${post.id}`, { method: 'DELETE' })
+    onDelete?.(post.id)
+  }
+
   async function remove(id: number) {
     await api(`/api/comments/${id}`, { method: 'DELETE' })
     onChange({ ...post, comments: post.comments.filter((c) => c.id !== id), comments_count: post.comments_count - 1 })
@@ -52,6 +58,11 @@ export function PostCard({ post, onChange }: { post: Post; onChange: (p: Post) =
           <a id={`post-${post.id}`} href={profileHref(post.user.username)} className="font-semibold hover:underline">{post.user.username}</a>
           <span className="text-ink-soft"> · <time dateTime={post.created_at}>{ago(post.created_at)}</time></span>
         </div>
+        {me?.id === post.user.id && onDelete && (
+          <button onClick={removePost} aria-label="Apagar post" className="rounded-lg p-2 text-ink-soft hover:bg-ink/5 hover:text-pencil">
+            <IconTrash className="size-5" />
+          </button>
+        )}
       </header>
 
       {post.media_path ? (

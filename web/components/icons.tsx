@@ -18,6 +18,7 @@ export const IconLock = I('M6.5 11h11v8.5h-11ZM8.5 11V8a3.5 3.5 0 0 1 7 0v3')
 export const IconCheck = I('M5 12.5 9.5 17 19 7.5')
 export const IconClose = I('M6 6l12 12M18 6 6 18')
 export const IconTrash = I('M5 7h14M10 7V5h4v2M7 7l1 12.5h8L17 7')
+export const IconSearch = I('M10.5 17.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14ZM15.5 15.5 20 20')
 export const IconPlus = I('M12 5v14M5 12h14')
 /** Grease-pencil loop: the like mark */
 export const IconLoop = I('M12.5 5.2c4.6.2 7.3 2.7 7 6.4-.3 4-4.2 7-8.6 6.9-4.2-.1-7-2.6-6.9-6 .1-3.7 3.6-6.6 8.3-6.9 1.4-.1 2.6.1 3.6.5')

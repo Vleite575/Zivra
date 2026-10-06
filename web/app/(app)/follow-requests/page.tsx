@@ -1,12 +1,14 @@
 'use client'
-import { api, profileHref, useApi, type User } from '@/lib/api'
+import { api, profileHref, useApi, useMe, type User } from '@/lib/api'
 import { Avatar } from '@/components/Avatar'
 
 export default function FollowRequests() {
   const { data, error, setData } = useApi<User[]>('/api/follow-requests')
+  const { me, setMe } = useMe()
   const answer = async (u: User, accept: boolean) => {
     await api(`/api/follow-requests/${u.id}/${accept ? 'accept' : 'reject'}`, { method: accept ? 'POST' : 'DELETE' })
     setData((list) => list?.filter((x) => x.id !== u.id))
+    if (me) setMe({ ...me, pending_requests_count: Math.max(0, (me.pending_requests_count ?? 1) - 1) })
   }
 
   return (

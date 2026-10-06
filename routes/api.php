@@ -33,12 +33,22 @@ Route::get('users/{username}/followers', [ProfileController::class, 'getFollower
 Route::get('users/{username}/following', [ProfileController::class, 'getFollowing']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('user', fn (Request $r) => $r->user()->makeVisible('email'));
+    Route::get('user', fn (Request $r) => $r->user()->makeVisible('email')->loadCount('pendingFollowers as pending_requests_count'));
+    Route::get('users', function (Request $r) {
+        $q = trim((string) $r->query('q'));
+        if (mb_strlen($q) < 2) {
+            return [];
+        }
+        $like = '%'.str_replace(['%', '_'], ['\\%', '\\_'], $q).'%';
+
+        return User::where('username', 'like', $like)->orWhere('name', 'like', $like)->orderBy('username')->limit(20)->get();
+    });
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
     Route::put('password', [PasswordController::class, 'update']);
 
     Route::get('feed', [PostController::class, 'index']);
     Route::post('posts', [PostController::class, 'store']);
+    Route::delete('posts/{post}', [PostController::class, 'destroy']);
     Route::post('posts/{post}/like', [LikeController::class, 'toggle']);
     Route::post('posts/{post}/comments', [CommentController::class, 'store']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);

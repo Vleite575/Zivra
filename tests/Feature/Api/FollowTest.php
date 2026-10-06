@@ -43,4 +43,20 @@ class FollowTest extends TestCase
         $a = User::factory()->create();
         $this->actingAs($a)->postJson("/api/follow/{$a->id}")->assertStatus(422);
     }
+
+    public function test_going_public_accepts_pending_requests(): void
+    {
+        $a = User::factory()->create();
+        $b = User::factory()->create(['is_public' => false]);
+        $this->actingAs($a)->postJson("/api/follow/{$b->id}");
+        $this->actingAs($b)->patchJson('/api/profile/privacy', ['is_public' => true])->assertOk();
+        $this->assertTrue($a->isFollowing($b));
+    }
+
+    public function test_follow_lists_hide_pivot_dates(): void
+    {
+        [$a, $b] = User::factory(2)->create();
+        $this->actingAs($a)->postJson("/api/follow/{$b->id}");
+        $this->getJson("/api/users/{$b->username}/followers")->assertOk()->assertJsonMissingPath('0.pivot');
+    }
 }

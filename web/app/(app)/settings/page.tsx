@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { api, useMe, type User } from '@/lib/api'
+import { api, BASE, useMe, type User } from '@/lib/api'
 import { Avatar } from '@/components/Avatar'
 import { Field, Submit, formJson, useSubmit } from '@/components/Form'
 import { IconLock } from '@/components/icons'
@@ -148,7 +148,7 @@ function DeleteAccount() {
             await api('/api/profile', { method: 'DELETE', body: formJson(form) })
             // Full reload on purpose: drops all client state of the deleted account (router.push races the auth guard).
             // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-            window.location.assign('/')
+            window.location.assign(`${BASE}/`)
           })
         }}>
           <Field id="delete-password" label="Senha" name="password" type="password" autoComplete="current-password" required error={errors.password} />
@@ -164,10 +164,10 @@ function DeleteAccount() {
 }
 
 function Logout() {
-  const { setMe } = useMe()
   return (
     <Section title="Sessão">
-      <button onClick={async () => { await api('/api/logout', { method: 'POST' }); setMe(null) }} className="btn-outline">Sair da conta</button>
+      {/* eslint-disable-next-line @next/next/no-location-assign-relative-destination */}
+      <button onClick={async () => { await api('/api/logout', { method: 'POST' }); window.location.assign(`${BASE}/`) }} className="btn-outline">Sair da conta</button>
     </Section>
   )
 }

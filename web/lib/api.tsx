@@ -1,7 +1,7 @@
 'use client'
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 
-export type User = { id: number; name: string; username: string; bio: string | null; profile_photo_path: string | null; is_public: boolean; email?: string }
+export type User = { id: number; name: string; username: string; bio: string | null; profile_photo_path: string | null; is_public: boolean; email?: string; pending_requests_count?: number }
 export type Comment = { id: number; content: string; user_id: number; created_at: string; user: User }
 export type Post = { id: number; content: string; media_path: string | null; media_type: 'image' | 'video' | null; created_at: string; user: User; likes_count: number; comments_count: number; is_liked: boolean; comments: Comment[] }
 export type Profile = {

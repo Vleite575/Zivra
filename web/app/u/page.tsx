@@ -117,7 +117,7 @@ function ProfileView({ username }: { username: string }) {
 
       {selected && (
         <Sheet onClose={() => open(null)} label={`Post de @${user.username}`}>
-          <PostCard post={selected} onChange={setPost} />
+          <PostCard post={selected} onChange={setPost} onDelete={(id) => { open(null); setData({ ...data, posts: data.posts.filter((p) => p.id !== id), user: { ...user, posts_count: user.posts_count - 1 } }) }} />
         </Sheet>
       )}
       {list && (

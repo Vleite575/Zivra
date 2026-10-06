@@ -62,4 +62,23 @@ class ProfileTest extends TestCase
         $this->actingAs($u)->deleteJson('/api/profile', ['password' => 'password'])->assertNoContent();
         $this->assertNull($u->fresh());
     }
+
+    public function test_search_users_by_nick_or_name(): void
+    {
+        $me = User::factory()->create();
+        User::factory()->create(['username' => 'maria_luz', 'name' => 'Maria Luz']);
+        User::factory()->create(['username' => 'joao', 'name' => 'João Mariano']);
+        User::factory()->create(['username' => 'pedro', 'name' => 'Pedro']);
+        $json = $this->actingAs($me)->getJson('/api/users?q=mari')->assertOk()->json();
+        $this->assertEqualsCanonicalizing(['maria_luz', 'joao'], array_column($json, 'username'));
+        $this->assertArrayNotHasKey('email', $json[0]);
+    }
+
+    public function test_me_includes_pending_request_count(): void
+    {
+        $a = User::factory()->create();
+        $b = User::factory()->create(['is_public' => false]);
+        $this->actingAs($a)->postJson("/api/follow/{$b->id}");
+        $this->actingAs($b)->getJson('/api/user')->assertJsonPath('pending_requests_count', 1);
+    }
 }

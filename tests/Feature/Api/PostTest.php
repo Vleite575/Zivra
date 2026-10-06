@@ -88,4 +88,17 @@ class PostTest extends TestCase
         $this->actingAs($stranger)->postJson("/api/posts/{$p->id}/comments", ['content' => 'x'])->assertNotFound();
         $this->actingAs($private)->postJson("/api/posts/{$p->id}/like")->assertOk();
     }
+
+    public function test_only_author_deletes_post(): void
+    {
+        Storage::fake('public');
+        $a = User::factory()->create();
+        $b = User::factory()->create();
+        $id = $this->actingAs($a)->post('/api/posts', ['content' => 'x', 'media' => UploadedFile::fake()->image('a.jpg')], ['Accept' => 'application/json'])->json('id');
+        $path = Post::find($id)->media_path;
+        $this->actingAs($b)->deleteJson("/api/posts/$id")->assertForbidden();
+        $this->actingAs($a)->deleteJson("/api/posts/$id")->assertNoContent();
+        $this->assertNull(Post::find($id));
+        Storage::disk('public')->assertMissing($path);
+    }
 }

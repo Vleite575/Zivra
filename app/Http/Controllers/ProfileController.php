@@ -71,7 +71,7 @@ class ProfileController extends Controller
             $query->inRandomOrder();
         }
 
-        return $query->get();
+        return $query->get()->makeHidden('pivot');
     }
 
     public function followRequests(Request $request)
@@ -86,6 +86,11 @@ class ProfileController extends Controller
         $user = $request->user();
         $user->is_public = $request->boolean('is_public');
         $user->save();
+
+        // A public profile has nothing to approve: pending requests become follows.
+        if ($user->is_public) {
+            $user->pendingFollowers()->newPivotQuery()->whereNull('accepted_at')->update(['accepted_at' => now()]);
+        }
 
         return $user;
     }

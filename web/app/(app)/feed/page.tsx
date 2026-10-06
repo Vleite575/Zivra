@@ -22,7 +22,7 @@ export default function Feed() {
           <p className="mt-2 text-ink-soft">Poste a primeira foto. Pra seguir alguém, abra o perfil da pessoa pelo link dela.</p>
         </div>
       )}
-      {posts?.map((p) => <PostCard key={p.id} post={p} onChange={update} />)}
+      {posts?.map((p) => <PostCard key={p.id} post={p} onChange={update} onDelete={(id) => setData((list) => list?.filter((x) => x.id !== id))} />)}
     </div>
   )
 }
@@ -34,6 +34,13 @@ function Composer({ onPost }: { onPost: (p: Post) => void }) {
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const input = useRef<HTMLInputElement>(null)
+  // "Novo post" links to /feed#novo: focus the box on arrival and when the hash changes in place.
+  useEffect(() => {
+    const focus = () => { if (location.hash === '#novo') document.getElementById('content')?.focus() }
+    focus()
+    window.addEventListener('hashchange', focus)
+    return () => window.removeEventListener('hashchange', focus)
+  }, [])
   const preview = useMemo(() => (file ? URL.createObjectURL(file) : null), [file])
   useEffect(() => () => { if (preview) URL.revokeObjectURL(preview) }, [preview])
 
