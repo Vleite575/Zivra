@@ -92,7 +92,7 @@ export default function Landing() {
           <Print src="/prints/64.jpg" alt="Garota de óculos escuros segurando flores" n={7} caption="@mel"
             className="mx-auto w-full max-w-xs rotate-2">
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" className="pointer-events-none absolute -inset-[6%] h-[112%] w-[112%] overflow-visible">
-              <path d="M54 4C80 5 97 22 96 50c-1 29-22 46-48 46C21 96 3 78 4 50 5 22 25 4 52 5c8 0 15 2 20 5" fill="none" stroke="var(--pencil)" strokeLinecap="round" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 3.5 }} />
+              <path d="M54 4C80 5 97 22 96 50c-1 29-22 46-48 46C21 96 3 78 4 50 5 22 25 4 52 5c8 0 15 2 20 5" fill="none" stroke="var(--pencil)" strokeLinecap="round" style={{ strokeWidth: 0.9 }} />
             </svg>
           </Print>
         </div>
