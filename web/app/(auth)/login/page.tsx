@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { api, useMe, type User } from '@/lib/api'
 import { Field, Submit, formJson, useSubmit } from '@/components/Form'
 import { Slip } from '@/components/Slip'
+import { safeRedirect } from '@/lib/redirect'
 
 export default function Login() {
   const { setMe } = useMe()
@@ -20,7 +21,7 @@ export default function Login() {
         run(async () => {
           await api('/api/login', { method: 'POST', body: formJson(form) })
           setMe(await api<User>('/api/user'))
-          router.replace(redirect?.startsWith('/') ? redirect : '/feed')
+          router.replace(safeRedirect(redirect))
         })
       }}>
         <Field label="E-mail" name="email" type="email" autoComplete="email" required error={errors.email} />

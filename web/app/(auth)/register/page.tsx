@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { api, useMe, type User } from '@/lib/api'
 import { Field, Submit, formJson, useSubmit } from '@/components/Form'
 import { Slip } from '@/components/Slip'
+import { safeRedirect } from '@/lib/redirect'
 
 type Check = { available: boolean; reserved: boolean }
 
@@ -34,7 +35,7 @@ export default function Register() {
         run(async () => {
           await api('/api/register', { method: 'POST', body: formJson(form) })
           setMe(await api<User>('/api/user'))
-          router.replace(redirect?.startsWith('/') ? redirect : '/feed')
+          router.replace(safeRedirect(redirect))
         })
       }}>
         <Field label="Nome" name="name" autoComplete="name" required error={errors.name} />

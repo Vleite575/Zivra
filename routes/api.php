@@ -23,10 +23,7 @@ Route::middleware('guest')->group(function () {
 
 Route::get('check-username/{username}', function (string $username) {
     $exists = User::where('username', $username)->exists();
-    $reserved = in_array(strtolower($username), [
-        'api', 'storage', 'sanctum', 'login', 'register', 'forgot-password', 'reset-password',
-        'feed', 'settings', 'follow-requests', 'privacy', 'security', 'messages', 'p',
-    ]);
+    $reserved = in_array(strtolower($username), User::RESERVED_USERNAMES);
 
     return ['available' => ! $exists && ! $reserved, 'exists' => $exists, 'reserved' => $reserved];
 });

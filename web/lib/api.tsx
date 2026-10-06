@@ -13,6 +13,8 @@ export class ApiError extends Error {
   constructor(public status: number, public errors: Record<string, string[]> = {}, message = '') { super(message) }
 }
 
+let onUnauthorized: (() => void) | null = null
+
 const xsrf = () => decodeURIComponent(document.cookie.match(/(?:^|; )XSRF-TOKEN=([^;]+)/)?.[1] ?? '')
 
 export async function api<T = unknown>(path: string, init: RequestInit = {}, retried = false): Promise<T> {
@@ -28,6 +30,8 @@ export async function api<T = unknown>(path: string, init: RequestInit = {}, ret
     await fetch('/sanctum/csrf-cookie')
     return api<T>(path, init, true)
   }
+  // Session gone mid-use: let MeProvider clear the user so the auth guard sends them to /login.
+  if (res.status === 401 && path !== '/api/user') onUnauthorized?.()
   if (res.status === 204) return undefined as T
   const data = await res.json().catch(() => ({}))
   if (!res.ok) throw new ApiError(res.status, data.errors, data.message)
@@ -48,7 +52,10 @@ const MeContext = createContext<{ me: User | null | undefined; setMe: (u: User |
 
 export function MeProvider({ children }: { children: ReactNode }) {
   const [me, setMe] = useState<User | null>()
-  useEffect(() => { api<User>('/api/user').then(setMe, () => setMe(null)) }, [])
+  useEffect(() => {
+    onUnauthorized = () => setMe(null)
+    api<User>('/api/user').then(setMe, () => setMe(null))
+  }, [])
   return <MeContext.Provider value={{ me, setMe }}>{children}</MeContext.Provider>
 }
 

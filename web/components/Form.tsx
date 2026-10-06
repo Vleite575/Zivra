@@ -35,6 +35,7 @@ export function useSubmit() {
     setBusy(true); setErrors({}); setMessage('')
     try { await fn() } catch (e) {
       if (e instanceof ApiError && e.status === 422) setErrors(e.errors)
+      else if (e instanceof ApiError && e.status === 401) setMessage('Sua sessão expirou. Entre de novo.')
       else if (e instanceof ApiError && e.status === 429) setMessage('Muitas tentativas. Espere um minuto e tente de novo.')
       else setMessage('Não deu pra conectar. Confira sua internet e tente de novo.')
     } finally { setBusy(false) }

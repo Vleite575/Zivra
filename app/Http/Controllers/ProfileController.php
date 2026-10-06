@@ -20,7 +20,7 @@ class ProfileController extends Controller
 
         $isOwnProfile = $me?->id === $user->id;
         $isFollowing = $me ? $me->isFollowing($user) : false;
-        $canSeeContent = $user->is_public || $isOwnProfile || $isFollowing;
+        $canSeeContent = $user->isVisibleTo($me);
 
         return [
             'user' => [
@@ -59,7 +59,7 @@ class ProfileController extends Controller
         $me = $request->user('sanctum');
         $isOwnProfile = $me?->id === $user->id;
 
-        if (! $user->is_public && ! $isOwnProfile && ! ($me && $me->isFollowing($user))) {
+        if (! $user->isVisibleTo($me)) {
             return response()->json(['error' => 'Perfil privado'], 403);
         }
 

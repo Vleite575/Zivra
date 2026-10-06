@@ -78,4 +78,10 @@ class AuthTest extends TestCase
             $this->getJson("/api/check-username/$name")->assertJsonPath('available', false);
         }
     }
+
+    public function test_register_rejects_reserved_username(): void
+    {
+        $this->postJson('/api/register', $this->payload(['username' => 'feed']))
+            ->assertStatus(422)->assertJsonValidationErrors('username');
+    }
 }

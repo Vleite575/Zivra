@@ -11,6 +11,8 @@ class CommentController extends Controller
 {
     public function store(Request $request, Post $post)
     {
+        abort_unless($post->user->isVisibleTo($request->user()), 404);
+
         $request->validate([
             'content' => 'required|string|max:1000',
         ]);

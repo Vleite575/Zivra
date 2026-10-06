@@ -78,4 +78,14 @@ class PostTest extends TestCase
         $this->actingAs($b)->deleteJson("/api/comments/$id")->assertForbidden();
         $this->actingAs($a)->deleteJson("/api/comments/$id")->assertNoContent();
     }
+
+    public function test_cannot_like_or_comment_private_post_not_followed(): void
+    {
+        $private = User::factory()->create(['is_public' => false]);
+        $p = $this->postBy($private);
+        $stranger = User::factory()->create();
+        $this->actingAs($stranger)->postJson("/api/posts/{$p->id}/like")->assertNotFound();
+        $this->actingAs($stranger)->postJson("/api/posts/{$p->id}/comments", ['content' => 'x'])->assertNotFound();
+        $this->actingAs($private)->postJson("/api/posts/{$p->id}/like")->assertOk();
+    }
 }

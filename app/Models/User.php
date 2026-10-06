@@ -12,6 +12,12 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    /** Usernames that collide with frontend or API routes. */
+    public const RESERVED_USERNAMES = [
+        'api', 'storage', 'sanctum', 'login', 'register', 'forgot-password', 'reset-password',
+        'feed', 'settings', 'follow-requests', 'privacy', 'security', 'messages', 'p', '_next',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -104,5 +110,11 @@ class User extends Authenticatable
         return $this->pendingFollowing()
             ->where('following_id', $user->id)
             ->exists();
+    }
+
+    /** Whether $viewer may see this user's posts. */
+    public function isVisibleTo(?User $viewer): bool
+    {
+        return $this->is_public || $viewer?->id === $this->id || ($viewer && $viewer->isFollowing($this));
     }
 }
