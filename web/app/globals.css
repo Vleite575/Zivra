@@ -17,11 +17,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ink: #eef0f8;
-    --ink-soft: #a8adc6;
-    --paper: #0f1124;
-    --print: #181b33;
-    --line: #2c3050;
+    /* Darkroom: the film base itself, warm black, never a navy */
+    --ink: #f1eee8;
+    --ink-soft: #b5ad9f;
+    --paper: #17140f;
+    --print: #221e18;
+    --line: #3a342b;
     --pencil: #ff4a52;
     color-scheme: dark;
   }
@@ -58,6 +59,10 @@
   :focus-visible {
     outline: 2px solid var(--ink);
     outline-offset: 2px;
+  }
+  /* On envelope-yellow and white print surfaces the ring uses envelope ink in both schemes */
+  .bg-envelope :focus-visible, .bg-white :focus-visible {
+    outline-color: var(--on-envelope);
   }
   a {
     text-underline-offset: 3px;

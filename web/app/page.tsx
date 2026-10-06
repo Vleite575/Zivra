@@ -4,6 +4,7 @@ import { HeroPrints } from '@/components/LandingHero'
 import { HeaderCta, HeroCta } from '@/components/LandingCta'
 import { Print, FrameCode } from '@/components/Print'
 import { IconLock } from '@/components/icons'
+import { Loop } from '@/components/Loop'
 
 const strip = [
   { id: 237, alt: 'Filhote de labrador preto olhando pra cima', who: '@duda' },
@@ -17,16 +18,18 @@ export default function Landing() {
   return (
     <div className="flex min-h-dvh flex-col">
       <section className="bg-envelope text-on-envelope">
-        <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-8">
-          <Logo className="text-3xl" />
+        <header className="mx-auto flex max-w-6xl items-center justify-end px-4 py-5 sm:px-8">
           <nav className="flex items-center gap-2 sm:gap-4">
             <HeaderCta />
           </nav>
         </header>
+        <div className="mx-auto max-w-6xl overflow-hidden px-4 sm:px-8">
+          <Logo className="text-[clamp(4.5rem,21vw,17rem)] tracking-tight" />
+        </div>
 
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-6 sm:px-8 md:grid-cols-[1.1fr_1fr] md:pb-24 md:pt-10">
+        <div className="mx-auto grid max-w-6xl items-start gap-12 px-4 pb-16 pt-8 sm:px-8 md:grid-cols-[1.1fr_1fr] md:pb-24">
           <div>
-            <h1 className="display text-[clamp(3rem,8vw,5.5rem)]">Revelado só pra sua galera.</h1>
+            <h1 className="display text-[clamp(2.5rem,5.5vw,4.25rem)]">Revelado só pra sua galera.</h1>
             <p className="mt-6 max-w-[34ch] text-lg leading-relaxed sm:text-xl">
               Poste fotos e vídeos curtos do seu dia. Quem te segue vê tudo em ordem, do mais novo pro mais antigo. Sem algoritmo escolhendo por você.
             </p>
@@ -90,9 +93,7 @@ export default function Landing() {
           </div>
           <Print src="/prints/64.jpg" alt="Garota de óculos escuros segurando flores" n={7} caption="@mel"
             className="relative mx-auto w-full max-w-xs rotate-2">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" className="pointer-events-none absolute -inset-[6%] h-[112%] w-[112%] overflow-visible">
-              <path d="M54 4C80 5 97 22 96 50c-1 29-22 46-48 46C21 96 3 78 4 50 5 22 25 4 52 5c8 0 15 2 20 5" fill="none" stroke="var(--pencil)" strokeLinecap="round" style={{ strokeWidth: 0.9 }} />
-            </svg>
+            <Loop drawn />
           </Print>
         </div>
       </section>

@@ -9,6 +9,10 @@ import { Avatar } from '@/components/Avatar'
 import { PostCard } from '@/components/PostCard'
 import { FrameCode } from '@/components/Print'
 import { IconClose, IconLock } from '@/components/icons'
+import { Loop } from '@/components/Loop'
+
+const SOLID = 'wide rounded-md bg-on-envelope px-6 py-3 text-center font-bold text-envelope'
+const OUTLINE = 'wide rounded-md border-2 border-on-envelope px-6 py-2.5 text-center font-bold'
 
 export default function ProfilePage() {
   const { me } = useMe()
@@ -56,34 +60,34 @@ function ProfileView() {
 
   return (
     <div>
-      <section className="border-b border-line px-4 py-8 sm:px-8 md:py-12">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 sm:flex-row sm:items-start">
-          <Avatar path={user.profile_photo_path} name={user.name} size="size-24 text-3xl!" />
-          <div className="min-w-0 flex-1">
-            <h1 className="display break-words text-4xl sm:text-5xl">{user.name}</h1>
-            <p className="mt-1 flex items-center gap-2 text-ink-soft">@{user.username}{!user.is_public && <IconLock className="size-4" aria-label="Perfil privado" />}</p>
-            {user.bio && <p className="mt-3 max-w-[60ch] whitespace-pre-line">{user.bio}</p>}
-            <dl className="mt-5 flex gap-6">
-              <Count n={user.posts_count} label="posts" />
-              <Count n={user.followers_count} label="seguidores" onClick={data.canSeeContent ? () => setList('followers') : undefined} />
+      <section className="bg-envelope px-4 pb-8 pt-8 text-on-envelope sm:px-8 md:pt-12">
+        <div className="mx-auto max-w-4xl">
+          <div className="flex items-center gap-3">
+            <Avatar path={user.profile_photo_path} name={user.name} size="size-14 text-xl!" />
+            <p className="edge flex items-center gap-1.5 text-sm">@{user.username}{!user.is_public && <IconLock className="size-4" aria-label="Perfil privado" />}</p>
+          </div>
+          <h1 className="display mt-4 break-words text-5xl sm:text-7xl">{user.name}</h1>
+          {user.bio && <p className="mt-4 max-w-[60ch] whitespace-pre-line text-lg">{user.bio}</p>}
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <dl className="grid grid-cols-3 divide-x divide-on-envelope/25 border-y border-on-envelope/25 sm:min-w-96">
+              <Count n={user.posts_count} label={user.posts_count === 1 ? 'post' : 'posts'} />
+              <Count n={user.followers_count} label={user.followers_count === 1 ? 'seguidor' : 'seguidores'} onClick={data.canSeeContent ? () => setList('followers') : undefined} />
               <Count n={user.following_count} label="seguindo" onClick={data.canSeeContent ? () => setList('following') : undefined} />
             </dl>
+            {data.isOwnProfile ? <Link href="/settings" className={OUTLINE}>Editar perfil</Link>
+              : !me ? <LoginLink className={SOLID}>Seguir</LoginLink>
+              : data.isFollowing ? <button onClick={() => act('DELETE', `/api/follow/${user.id}`)} className={OUTLINE}>Seguindo</button>
+              : data.hasRequestedToFollow ? <button onClick={() => act('DELETE', `/api/follow/${user.id}`)} className={OUTLINE}>Cancelar pedido</button>
+              : <button onClick={() => act('POST', `/api/follow/${user.id}`)} className={SOLID}>Seguir</button>}
           </div>
-          <div className="flex shrink-0 flex-col gap-2 sm:items-end">
-            {data.isOwnProfile ? <Link href="/settings" className="btn-outline">Editar perfil</Link>
-              : !me ? <LoginLink className="btn-solid">Seguir</LoginLink>
-              : data.isFollowing ? <button onClick={() => act('DELETE', `/api/follow/${user.id}`)} className="btn-outline">Seguindo</button>
-              : data.hasRequestedToFollow ? <button onClick={() => act('DELETE', `/api/follow/${user.id}`)} className="btn-outline">Cancelar pedido</button>
-              : <button onClick={() => act('POST', `/api/follow/${user.id}`)} className="btn-solid">Seguir</button>}
-          </div>
+          {data.hasPendingRequestFrom && (
+            <div className="mt-6 flex flex-wrap items-center gap-3 rounded-sm bg-white p-4">
+              <p className="flex-1 font-semibold">{user.name} quer te seguir.</p>
+              <button onClick={() => act('POST', `/api/follow-requests/${user.id}/accept`)} className="rounded-md bg-on-envelope px-4 py-2 font-bold text-envelope">Aceitar</button>
+              <button onClick={() => act('DELETE', `/api/follow-requests/${user.id}/reject`)} className="rounded-md px-4 py-2 font-semibold underline">Recusar</button>
+            </div>
+          )}
         </div>
-        {data.hasPendingRequestFrom && (
-          <div className="mx-auto mt-6 flex max-w-4xl flex-wrap items-center gap-3 rounded-sm bg-envelope p-4 text-on-envelope">
-            <p className="flex-1 font-semibold">{user.name} quer te seguir.</p>
-            <button onClick={() => act('POST', `/api/follow-requests/${user.id}/accept`)} className="rounded-md bg-on-envelope px-4 py-2 font-bold text-envelope">Aceitar</button>
-            <button onClick={() => act('DELETE', `/api/follow-requests/${user.id}/reject`)} className="rounded-md px-4 py-2 font-semibold underline">Recusar</button>
-          </div>
-        )}
       </section>
 
       {!data.canSeeContent ? (
@@ -100,23 +104,27 @@ function ProfileView() {
       ) : data.posts.length === 0 ? (
         <p className="px-4 py-20 text-center text-ink-soft">{data.isOwnProfile ? 'Você ainda não postou. Seu primeiro quadro aparece aqui.' : 'Nenhum post ainda.'}</p>
       ) : (
-        <ol className="grid grid-cols-3 gap-1 bg-film p-1 sm:gap-3 sm:p-4 md:mx-auto md:my-8 md:max-w-4xl" aria-label="Posts">
-          {data.posts.map((p) => (
-            <li key={p.id}>
-              <button onClick={() => open(p.id)} className="group relative block w-full text-left" aria-label={`Abrir post: ${p.content.slice(0, 60)}`}>
-                {p.media_path
-                  ? (p.media_type === 'video'
-                    ? <video src={media(p.media_path)} preload="metadata" muted className="aspect-square w-full bg-black object-cover" />
-                    // eslint-disable-next-line @next/next/no-img-element
-                    : <img src={media(p.media_path)} alt="" loading="lazy" className="aspect-square w-full object-cover" />)
-                  : <span className="wide line-clamp-5 aspect-square w-full bg-white p-3 text-sm font-bold text-on-envelope sm:text-base">{p.content}</span>}
-                <span className="absolute inset-0 transition-colors group-hover:bg-white/10" />
-                {p.is_liked && <span className="absolute inset-1 rounded-[50%] border-[3px] border-pencil" aria-hidden="true" />}
-              </button>
-              <FrameCode n={p.id} className="mt-1 hidden px-0.5 text-envelope sm:inline-flex" />
-            </li>
-          ))}
-        </ol>
+        <section aria-label="Folha de contato" className="bg-film">
+          <Sprockets />
+          <ol className="mx-auto grid max-w-4xl grid-cols-3 gap-x-2 gap-y-4 px-2 py-3 sm:gap-x-4 sm:px-6">
+            {data.posts.map((p) => (
+              <li key={p.id}>
+                <button onClick={() => open(p.id)} className="group relative block w-full text-left" aria-label={`Abrir post: ${p.content.slice(0, 60)}`}>
+                  {p.media_path
+                    ? (p.media_type === 'video'
+                      ? <video src={media(p.media_path)} preload="metadata" muted className="aspect-square w-full bg-black object-cover" />
+                      // eslint-disable-next-line @next/next/no-img-element
+                      : <img src={media(p.media_path)} alt="" loading="lazy" className="aspect-square w-full object-cover" />)
+                    : <span className="wide line-clamp-5 aspect-square w-full bg-white p-3 text-sm font-bold text-on-envelope sm:text-base">{p.content}</span>}
+                  <span className="absolute inset-0 transition-colors group-hover:bg-white/10" />
+                  <Loop drawn={p.is_liked} />
+                </button>
+                <FrameCode n={p.id} className="mt-1.5 px-0.5 text-envelope" />
+              </li>
+            ))}
+          </ol>
+          <Sprockets />
+        </section>
       )}
 
       {selected && (
@@ -134,10 +142,15 @@ function ProfileView() {
 }
 
 function Count({ n, label, onClick }: { n: number; label: string; onClick?: () => void }) {
-  const inner = <><dt className="text-sm text-ink-soft">{label}</dt><dd className="wide text-xl font-bold">{n}</dd></>
+  const inner = <><dt className="edge text-xs uppercase opacity-75">{label}</dt><dd className="wide text-2xl font-bold">{n}</dd></>
   return onClick
-    ? <button onClick={onClick} className="flex flex-col-reverse items-start rounded hover:underline">{inner}</button>
-    : <div className="flex flex-col-reverse">{inner}</div>
+    ? <button onClick={onClick} className="flex flex-col-reverse items-start px-3 py-2 text-left hover:bg-envelope-deep">{inner}</button>
+    : <div className="flex flex-col-reverse px-3 py-2">{inner}</div>
+}
+
+/** Film rebate: a row of sprocket holes above and below the contact sheet. */
+function Sprockets() {
+  return <div aria-hidden="true" className="h-5" style={{ background: 'repeating-linear-gradient(90deg, rgb(255 255 255 / 0.75) 0 12px, transparent 12px 24px) left 6px center / 100% 8px no-repeat' }} />
 }
 
 /** Native <dialog> sheet: bottom sheet on mobile, centered panel on desktop. */

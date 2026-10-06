@@ -57,7 +57,7 @@ function Composer({ onPost }: { onPost: (p: Post) => void }) {
     <form onSubmit={submit} className="mb-4 rounded-sm bg-envelope p-4 text-on-envelope">
       <label htmlFor="content" className="sr-only">O que rolou hoje?</label>
       <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} maxLength={280} rows={2} required
-        placeholder="O que rolou hoje?" className="w-full resize-none bg-transparent text-lg outline-none placeholder:text-on-envelope/55" />
+        placeholder="O que rolou hoje?" className="w-full resize-none bg-transparent text-lg outline-none placeholder:text-on-envelope/75" />
       {preview && (
         <div className="relative mt-2 w-32">
           {file?.type.startsWith('video')
@@ -75,7 +75,7 @@ function Composer({ onPost }: { onPost: (p: Post) => void }) {
           <input ref={input} type="file" accept={ACCEPT} className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
         </label>
         <span className={`edge ml-auto text-xs ${content.length > 260 ? 'text-pencil' : 'text-on-envelope/60'}`}>{content.length}/280</span>
-        <button disabled={busy || !content.trim()} className="wide rounded-md bg-on-envelope px-5 py-2.5 font-bold text-envelope disabled:opacity-50">
+        <button disabled={busy || !content.trim()} className="wide rounded-md bg-on-envelope px-5 py-2.5 font-bold text-envelope disabled:bg-transparent disabled:text-on-envelope/60 disabled:ring-2 disabled:ring-inset disabled:ring-on-envelope/30">
           {busy ? 'Postando…' : 'Postar'}
         </button>
       </div>

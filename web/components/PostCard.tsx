@@ -55,7 +55,6 @@ export function PostCard({ post, onChange }: { post: Post; onChange: (p: Post) =
           <Link id={`post-${post.id}`} href={`/${post.user.username}`} className="block truncate font-bold hover:underline">{post.user.name}</Link>
           <span className="text-sm text-ink-soft">@{post.user.username} · <time dateTime={post.created_at}>{ago(post.created_at)}</time></span>
         </div>
-        <FrameCode n={post.id} className="text-ink-soft" />
       </header>
 
       <div className="relative bg-white p-3 pb-4 text-on-envelope shadow-[0_18px_40px_-22px_rgb(27_31_59/0.5)] sm:p-4">
@@ -64,6 +63,7 @@ export function PostCard({ post, onChange }: { post: Post; onChange: (p: Post) =
           // eslint-disable-next-line @next/next/no-img-element
           : <img src={media(post.media_path)} alt={`Foto de @${post.user.username}`} className="max-h-[70vh] w-full object-cover" loading="lazy" onDoubleClick={() => !post.is_liked && like()} />)}
         <p className={post.media_path ? 'mt-3 whitespace-pre-line text-[15px] leading-relaxed' : 'wide whitespace-pre-line px-1 py-6 text-2xl font-bold leading-snug'}>{post.content}</p>
+        <div className="mt-2 flex justify-end text-on-envelope/60"><FrameCode n={post.id} /></div>
         <Loop drawn={post.is_liked} />
       </div>
 
@@ -79,7 +79,7 @@ export function PostCard({ post, onChange }: { post: Post; onChange: (p: Post) =
       </div>
 
       {open && (
-        <div className="mt-2 border-l-2 border-line pl-4">
+        <div className="mt-2 border-l border-line pl-4">
           <ul className="flex flex-col gap-3">
             {post.comments.map((c) => (
               <li key={c.id} className="group flex items-start gap-2 text-[15px]">
