@@ -1,297 +1,292 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-06T16:19:21.059581+00:00",
+  "generatedAt": "2026-10-06T17:28:13.702761+00:00",
   "title": "Design System: Zivra",
   "extensions": {
     "colorMeta": {
       "envelope": {
         "role": "primary",
-        "displayName": "Envelope Chrome Yellow",
+        "displayName": "Envelope Yellow",
         "canonical": "oklch(85.6% 0.172 86)",
         "tonalRamp": [
-          "oklch(15% 0.085 86)",
-          "oklch(26% 0.17 86)",
-          "oklch(38% 0.17 86)",
-          "oklch(49% 0.17 86)",
-          "oklch(61% 0.17 86)",
-          "oklch(72% 0.17 86)",
-          "oklch(84% 0.17 86)",
-          "oklch(95% 0.085 86)"
+          "oklch(15% 0.086 86)",
+          "oklch(26% 0.118 86)",
+          "oklch(38% 0.152 86)",
+          "oklch(50% 0.172 86)",
+          "oklch(62% 0.172 86)",
+          "oklch(74% 0.172 86)",
+          "oklch(85% 0.143 86)",
+          "oklch(95% 0.115 86)"
         ]
       },
       "envelope-deep": {
         "role": "primary",
-        "displayName": "Envelope Fold Yellow",
-        "canonical": "oklch(81.4% 0.168 82)",
+        "displayName": "Envelope Deep",
+        "canonical": "oklch(80.5% 0.166 82)",
         "tonalRamp": [
           "oklch(15% 0.083 82)",
-          "oklch(26% 0.165 82)",
-          "oklch(38% 0.165 82)",
-          "oklch(49% 0.165 82)",
-          "oklch(61% 0.165 82)",
-          "oklch(72% 0.165 82)",
-          "oklch(84% 0.165 82)",
-          "oklch(95% 0.083 82)"
+          "oklch(26% 0.113 82)",
+          "oklch(38% 0.147 82)",
+          "oklch(50% 0.166 82)",
+          "oklch(62% 0.166 82)",
+          "oklch(74% 0.166 82)",
+          "oklch(85% 0.138 82)",
+          "oklch(95% 0.111 82)"
         ]
       },
       "on-envelope": {
-        "role": "secondary",
-        "displayName": "Envelope Ink Blue-Black",
-        "canonical": "oklch(25.3% 0.06 278)",
+        "role": "primary",
+        "displayName": "Envelope Ink",
+        "canonical": "oklch(25% 0.06 278)",
         "tonalRamp": [
           "oklch(15% 0.03 278)",
-          "oklch(26% 0.06 278)",
-          "oklch(38% 0.06 278)",
-          "oklch(49% 0.06 278)",
-          "oklch(61% 0.06 278)",
-          "oklch(72% 0.06 278)",
-          "oklch(84% 0.06 278)",
-          "oklch(95% 0.03 278)"
+          "oklch(26% 0.041 278)",
+          "oklch(38% 0.053 278)",
+          "oklch(50% 0.06 278)",
+          "oklch(62% 0.06 278)",
+          "oklch(74% 0.06 278)",
+          "oklch(85% 0.05 278)",
+          "oklch(95% 0.04 278)"
+        ]
+      },
+      "pencil": {
+        "role": "tertiary",
+        "displayName": "Grease Pencil Red",
+        "canonical": "oklch(59.5% 0.22 25)",
+        "tonalRamp": [
+          "oklch(15% 0.11 25)",
+          "oklch(26% 0.15 25)",
+          "oklch(38% 0.194 25)",
+          "oklch(50% 0.22 25)",
+          "oklch(62% 0.22 25)",
+          "oklch(74% 0.22 25)",
+          "oklch(85% 0.183 25)",
+          "oklch(95% 0.147 25)"
+        ]
+      },
+      "pencil-dark": {
+        "role": "tertiary",
+        "displayName": "Grease Pencil Red (dark)",
+        "canonical": "oklch(66% 0.22 22)",
+        "tonalRamp": [
+          "oklch(15% 0.11 22)",
+          "oklch(26% 0.15 22)",
+          "oklch(38% 0.194 22)",
+          "oklch(50% 0.22 22)",
+          "oklch(62% 0.22 22)",
+          "oklch(74% 0.22 22)",
+          "oklch(85% 0.183 22)",
+          "oklch(95% 0.147 22)"
         ]
       },
       "ink": {
         "role": "neutral",
         "displayName": "Ink",
-        "canonical": "oklch(25.3% 0.06 278)",
+        "canonical": "oklch(20.5% 0.01 265)",
         "tonalRamp": [
-          "oklch(15% 0.03 278)",
-          "oklch(26% 0.06 278)",
-          "oklch(38% 0.06 278)",
-          "oklch(49% 0.06 278)",
-          "oklch(61% 0.06 278)",
-          "oklch(72% 0.06 278)",
-          "oklch(84% 0.06 278)",
-          "oklch(95% 0.03 278)"
+          "oklch(15% 0.005 265)",
+          "oklch(26% 0.007 265)",
+          "oklch(38% 0.009 265)",
+          "oklch(50% 0.01 265)",
+          "oklch(62% 0.01 265)",
+          "oklch(74% 0.01 265)",
+          "oklch(85% 0.008 265)",
+          "oklch(95% 0.007 265)"
         ]
       },
       "ink-soft": {
         "role": "neutral",
         "displayName": "Soft Ink",
-        "canonical": "oklch(44.6% 0.055 278)",
+        "canonical": "oklch(50% 0.02 265)",
         "tonalRamp": [
-          "oklch(15% 0.028 278)",
-          "oklch(26% 0.055 278)",
-          "oklch(38% 0.055 278)",
-          "oklch(49% 0.055 278)",
-          "oklch(61% 0.055 278)",
-          "oklch(72% 0.055 278)",
-          "oklch(84% 0.055 278)",
-          "oklch(95% 0.028 278)"
+          "oklch(15% 0.01 265)",
+          "oklch(26% 0.014 265)",
+          "oklch(38% 0.018 265)",
+          "oklch(50% 0.02 265)",
+          "oklch(62% 0.02 265)",
+          "oklch(74% 0.02 265)",
+          "oklch(85% 0.017 265)",
+          "oklch(95% 0.013 265)"
         ]
       },
       "paper": {
         "role": "neutral",
-        "displayName": "Cool Print White",
-        "canonical": "oklch(97.1% 0.003 265)",
+        "displayName": "Paper",
+        "canonical": "oklch(98.5% 0 0)",
         "tonalRamp": [
-          "oklch(15% 0.002 265)",
-          "oklch(26% 0.003 265)",
-          "oklch(38% 0.003 265)",
-          "oklch(49% 0.003 265)",
-          "oklch(61% 0.003 265)",
-          "oklch(72% 0.003 265)",
-          "oklch(84% 0.003 265)",
-          "oklch(95% 0.002 265)"
+          "oklch(15% 0.0 0)",
+          "oklch(26% 0.0 0)",
+          "oklch(38% 0.0 0)",
+          "oklch(50% 0 0)",
+          "oklch(62% 0 0)",
+          "oklch(74% 0 0)",
+          "oklch(85% 0.0 0)",
+          "oklch(95% 0.0 0)"
         ]
       },
       "print": {
         "role": "neutral",
-        "displayName": "Print White",
+        "displayName": "Print",
         "canonical": "oklch(100% 0 0)",
         "tonalRamp": [
           "oklch(15% 0.0 0)",
-          "oklch(26% 0 0)",
-          "oklch(38% 0 0)",
-          "oklch(49% 0 0)",
-          "oklch(61% 0 0)",
-          "oklch(72% 0 0)",
-          "oklch(84% 0 0)",
+          "oklch(26% 0.0 0)",
+          "oklch(38% 0.0 0)",
+          "oklch(50% 0 0)",
+          "oklch(62% 0 0)",
+          "oklch(74% 0 0)",
+          "oklch(85% 0.0 0)",
           "oklch(95% 0.0 0)"
         ]
       },
       "line": {
         "role": "neutral",
-        "displayName": "Rule Grey",
-        "canonical": "oklch(88.2% 0.01 270)",
+        "displayName": "Line",
+        "canonical": "oklch(92.6% 0.004 286)",
         "tonalRamp": [
-          "oklch(15% 0.005 270)",
-          "oklch(26% 0.01 270)",
-          "oklch(38% 0.01 270)",
-          "oklch(49% 0.01 270)",
-          "oklch(61% 0.01 270)",
-          "oklch(72% 0.01 270)",
-          "oklch(84% 0.01 270)",
-          "oklch(95% 0.005 270)"
-        ]
-      },
-      "pencil": {
-        "role": "tertiary",
-        "displayName": "Grease-Pencil Red",
-        "canonical": "oklch(59% 0.22 25)",
-        "tonalRamp": [
-          "oklch(15% 0.11 25)",
-          "oklch(26% 0.22 25)",
-          "oklch(38% 0.22 25)",
-          "oklch(49% 0.22 25)",
-          "oklch(61% 0.22 25)",
-          "oklch(72% 0.22 25)",
-          "oklch(84% 0.22 25)",
-          "oklch(95% 0.11 25)"
+          "oklch(15% 0.002 286)",
+          "oklch(26% 0.003 286)",
+          "oklch(38% 0.004 286)",
+          "oklch(50% 0.004 286)",
+          "oklch(62% 0.004 286)",
+          "oklch(74% 0.004 286)",
+          "oklch(85% 0.003 286)",
+          "oklch(95% 0.003 286)"
         ]
       },
       "film": {
         "role": "neutral",
-        "displayName": "Film Base",
-        "canonical": "oklch(19.6% 0.01 75)",
+        "displayName": "Film",
+        "canonical": "oklch(20.5% 0.01 265)",
         "tonalRamp": [
-          "oklch(15% 0.005 75)",
-          "oklch(26% 0.01 75)",
-          "oklch(38% 0.01 75)",
-          "oklch(49% 0.01 75)",
-          "oklch(61% 0.01 75)",
-          "oklch(72% 0.01 75)",
-          "oklch(84% 0.01 75)",
-          "oklch(95% 0.005 75)"
+          "oklch(15% 0.005 265)",
+          "oklch(26% 0.007 265)",
+          "oklch(38% 0.009 265)",
+          "oklch(50% 0.01 265)",
+          "oklch(62% 0.01 265)",
+          "oklch(74% 0.01 265)",
+          "oklch(85% 0.008 265)",
+          "oklch(95% 0.007 265)"
         ]
       },
-      "darkroom-ink": {
+      "ink-dark": {
         "role": "neutral",
-        "displayName": "Darkroom Ink",
-        "canonical": "oklch(95.1% 0.008 80)",
+        "displayName": "Ink (dark)",
+        "canonical": "oklch(96% 0.002 286)",
         "tonalRamp": [
-          "oklch(15% 0.004 80)",
-          "oklch(26% 0.008 80)",
-          "oklch(38% 0.008 80)",
-          "oklch(49% 0.008 80)",
-          "oklch(61% 0.008 80)",
-          "oklch(72% 0.008 80)",
-          "oklch(84% 0.008 80)",
-          "oklch(95% 0.004 80)"
+          "oklch(15% 0.002 286)",
+          "oklch(26% 0.003 286)",
+          "oklch(38% 0.004 286)",
+          "oklch(50% 0.004 286)",
+          "oklch(62% 0.004 286)",
+          "oklch(74% 0.004 286)",
+          "oklch(85% 0.003 286)",
+          "oklch(95% 0.003 286)"
         ]
       },
-      "darkroom-ink-soft": {
+      "ink-soft-dark": {
         "role": "neutral",
-        "displayName": "Darkroom Soft Ink",
-        "canonical": "oklch(75.5% 0.022 80)",
+        "displayName": "Soft Ink (dark)",
+        "canonical": "oklch(72% 0.012 265)",
         "tonalRamp": [
-          "oklch(15% 0.011 80)",
-          "oklch(26% 0.022 80)",
-          "oklch(38% 0.022 80)",
-          "oklch(49% 0.022 80)",
-          "oklch(61% 0.022 80)",
-          "oklch(72% 0.022 80)",
-          "oklch(84% 0.022 80)",
-          "oklch(95% 0.011 80)"
+          "oklch(15% 0.006 265)",
+          "oklch(26% 0.008 265)",
+          "oklch(38% 0.011 265)",
+          "oklch(50% 0.012 265)",
+          "oklch(62% 0.012 265)",
+          "oklch(74% 0.012 265)",
+          "oklch(85% 0.01 265)",
+          "oklch(95% 0.008 265)"
         ]
       },
-      "darkroom-print": {
+      "paper-dark": {
         "role": "neutral",
-        "displayName": "Darkroom Print Band",
-        "canonical": "oklch(23.4% 0.013 75)",
+        "displayName": "Paper (dark)",
+        "canonical": "oklch(14.5% 0.004 286)",
         "tonalRamp": [
-          "oklch(15% 0.006 75)",
-          "oklch(26% 0.013 75)",
-          "oklch(38% 0.013 75)",
-          "oklch(49% 0.013 75)",
-          "oklch(61% 0.013 75)",
-          "oklch(72% 0.013 75)",
-          "oklch(84% 0.013 75)",
-          "oklch(95% 0.006 75)"
+          "oklch(15% 0.002 286)",
+          "oklch(26% 0.003 286)",
+          "oklch(38% 0.004 286)",
+          "oklch(50% 0.004 286)",
+          "oklch(62% 0.004 286)",
+          "oklch(74% 0.004 286)",
+          "oklch(85% 0.003 286)",
+          "oklch(95% 0.003 286)"
         ]
       },
-      "darkroom-line": {
+      "print-dark": {
         "role": "neutral",
-        "displayName": "Darkroom Rule",
-        "canonical": "oklch(33.6% 0.017 75)",
+        "displayName": "Print (dark)",
+        "canonical": "oklch(20% 0.005 286)",
         "tonalRamp": [
-          "oklch(15% 0.009 75)",
-          "oklch(26% 0.017 75)",
-          "oklch(38% 0.017 75)",
-          "oklch(49% 0.017 75)",
-          "oklch(61% 0.017 75)",
-          "oklch(72% 0.017 75)",
-          "oklch(84% 0.017 75)",
-          "oklch(95% 0.009 75)"
+          "oklch(15% 0.003 286)",
+          "oklch(26% 0.003 286)",
+          "oklch(38% 0.004 286)",
+          "oklch(50% 0.005 286)",
+          "oklch(62% 0.005 286)",
+          "oklch(74% 0.005 286)",
+          "oklch(85% 0.004 286)",
+          "oklch(95% 0.003 286)"
         ]
       },
-      "darkroom-pencil": {
-        "role": "tertiary",
-        "displayName": "Darkroom Pencil Red",
-        "canonical": "oklch(66% 0.21 22)",
+      "line-dark": {
+        "role": "neutral",
+        "displayName": "Line (dark)",
+        "canonical": "oklch(28% 0.006 286)",
         "tonalRamp": [
-          "oklch(15% 0.105 22)",
-          "oklch(26% 0.21 22)",
-          "oklch(38% 0.21 22)",
-          "oklch(49% 0.21 22)",
-          "oklch(61% 0.21 22)",
-          "oklch(72% 0.21 22)",
-          "oklch(84% 0.21 22)",
-          "oklch(95% 0.105 22)"
+          "oklch(15% 0.003 286)",
+          "oklch(26% 0.004 286)",
+          "oklch(38% 0.005 286)",
+          "oklch(50% 0.006 286)",
+          "oklch(62% 0.006 286)",
+          "oklch(74% 0.006 286)",
+          "oklch(85% 0.005 286)",
+          "oklch(95% 0.004 286)"
         ]
       }
     },
     "typographyMeta": {
-      "wordmark": {
-        "displayName": "Wordmark",
-        "purpose": "Lowercase zivra lockup; landing hero at full bleed, chrome and auth header smaller."
-      },
       "display": {
         "displayName": "Display",
-        "purpose": "Landing hero headline; profile names."
+        "purpose": "Landing hero headline only."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Lowercase zivra logotype and the profile 404 line."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Page titles, section headings, slip titles; 14-16ch measures."
+        "purpose": "Page titles and empty-state headings."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Buttons, nav, sheet headings, counts, text-only posts (wdth 112)."
+        "purpose": "Profile username, text-only post body, section titles."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Post text, comments, lists; tabular numerals globally."
-      },
-      "lead": {
-        "displayName": "Lead",
-        "purpose": "Paragraph under a headline, 34-60ch."
+        "purpose": "Captions, comments, bios; tabular numerals."
       },
       "label": {
-        "displayName": "Edge Code",
-        "purpose": "Frame codes, counters, field labels, tab labels (wdth 70)."
+        "displayName": "Label",
+        "purpose": "Field labels, errors, small meta."
       }
     },
-    "shadows": [
-      {
-        "name": "print-drop",
-        "value": "0 18px 40px -18px rgb(27 31 59 / 0.45)",
-        "purpose": "Prints and feed post frames."
-      },
-      {
-        "name": "slip-drop",
-        "value": "0 24px 50px -24px rgb(27 31 59 / 0.55)",
-        "purpose": "Auth slip and sealed-envelope card."
-      }
-    ],
+    "shadows": [],
     "motion": [
+      {
+        "name": "color-fast",
+        "value": "150ms",
+        "purpose": "Button fill and hover-wash transitions."
+      },
       {
         "name": "ease-out-expo",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Loop draw and CTA lift."
+        "purpose": "Declared easing for entrances."
       },
       {
-        "name": "loop-draw",
-        "value": "stroke-dashoffset 520ms ease-out-expo",
-        "purpose": "Grease-pencil like mark drawing in."
-      },
-      {
-        "name": "lift",
-        "value": "translateY(-2px) 200ms ease-out-expo",
-        "purpose": "Hero CTA hover."
-      },
-      {
-        "name": "state-color",
-        "value": "200ms",
-        "purpose": "Nav hover fills and field rule color."
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "All animation and transition durations under prefers-reduced-motion."
       }
     ],
     "breakpoints": [
@@ -303,6 +298,28 @@
         "name": "md",
         "value": "768px"
       }
+    ],
+    "effects": [
+      {
+        "name": "top-bar-glass",
+        "value": "background: rgb(255 255 255 / .9); backdrop-filter: blur(12px)",
+        "purpose": "Sticky top bar only."
+      },
+      {
+        "name": "hover-wash",
+        "value": "background: rgb(22 24 29 / .05)",
+        "purpose": "Hover on icon buttons, tabs, list rows."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid var(--ink); outline-offset: 2px",
+        "purpose": "All focus-visible; on-envelope color on yellow."
+      },
+      {
+        "name": "modal-backdrop",
+        "value": "rgb(22 24 29 / .7)",
+        "purpose": "Dialog backdrop."
+      }
     ]
   },
   "components": [
@@ -310,125 +327,113 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Envelope-ink block with yellow letters; every primary action.",
-      "html": "<button class=\"ds-btn-primary\">Criar minha conta</button>",
-      "css": ".ds-btn-primary{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;background:var(--on-envelope,#1b1f3b);color:var(--envelope,#ffc629);border:0;border-radius:6px;padding:16px 24px;font-size:1.125rem;font-weight:700;font-variation-settings:'wdth' 112;cursor:pointer;transition:transform 200ms cubic-bezier(0.16,1,0.3,1)}.ds-btn-primary:hover{transform:translateY(-2px)}.ds-btn-primary:focus-visible{outline:2px solid #1b1f3b;outline-offset:2px}.ds-btn-primary:disabled{opacity:.6}"
+      "description": "Envelope yellow fill; one per decision (Postar, Seguir, Aceitar).",
+      "html": "<button class=\"ds-btn-primary\">Seguir</button>",
+      "css": ":host{--envelope:#ffc629;--envelope-deep:#f2b200;--on-envelope:#1b1f3b;--ink:#16181d;--ink-soft:#5f6470;--paper:#fafafa;--print:#fff;--line:#e7e7ea;--pencil:#e5262f;font-family:Archivo,system-ui,sans-serif}.ds-btn-primary{border:0;border-radius:.5rem;background:var(--envelope);color:var(--on-envelope);padding:.5rem 1.25rem;font:700 1rem/1.5 inherit;font-family:inherit;cursor:pointer;transition:background-color 150ms}.ds-btn-primary:hover{background:var(--envelope-deep)}.ds-btn-primary:focus-visible{outline:2px solid var(--on-envelope);outline-offset:2px}.ds-btn-primary:disabled{opacity:.5}"
     },
     {
-      "name": "Outline Button",
+      "name": "Secondary Button",
       "kind": "button",
-      "refersTo": "button-outline",
-      "description": "Secondary profile actions on the yellow header.",
-      "html": "<div class=\"ds-on-env\"><button class=\"ds-btn-outline\">Editar perfil</button></div>",
-      "css": ".ds-on-env{background:#ffc629;padding:16px}.ds-btn-outline{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;background:transparent;color:#1b1f3b;border:2px solid #1b1f3b;border-radius:6px;padding:10px 24px;font-weight:700;font-variation-settings:'wdth' 112;cursor:pointer}.ds-btn-outline:hover{background:#f2b200}.ds-btn-outline:focus-visible{outline:2px solid #1b1f3b;outline-offset:2px}"
+      "refersTo": "button-secondary",
+      "description": "Line-gray fill for the alternative action (Entrar, Seguindo, Recusar).",
+      "html": "<button class=\"ds-btn-secondary\">Seguindo</button>",
+      "css": ":host{--envelope:#ffc629;--envelope-deep:#f2b200;--on-envelope:#1b1f3b;--ink:#16181d;--ink-soft:#5f6470;--paper:#fafafa;--print:#fff;--line:#e7e7ea;--pencil:#e5262f;font-family:Archivo,system-ui,sans-serif}.ds-btn-secondary{border:0;border-radius:.5rem;background:var(--line);color:var(--ink);padding:.5rem 1.25rem;font-weight:700;font-family:inherit;font-size:1rem;cursor:pointer;transition:opacity 150ms}.ds-btn-secondary:hover{opacity:.8}.ds-btn-secondary:focus-visible{outline:2px solid var(--ink);outline-offset:2px}"
     },
     {
-      "name": "Order-Form Field",
+      "name": "Destructive Button",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "description": "Red outline to open account deletion; solid red to confirm.",
+      "html": "<button class=\"ds-btn-danger\">Excluir minha conta</button>",
+      "css": ":host{--envelope:#ffc629;--envelope-deep:#f2b200;--on-envelope:#1b1f3b;--ink:#16181d;--ink-soft:#5f6470;--paper:#fafafa;--print:#fff;--line:#e7e7ea;--pencil:#e5262f;font-family:Archivo,system-ui,sans-serif}.ds-btn-danger{border:2px solid var(--pencil);border-radius:.375rem;background:transparent;color:var(--pencil);padding:.5rem 1rem;font-weight:700;font-family:inherit;font-size:1rem;cursor:pointer}.ds-btn-danger:hover{background:var(--pencil);color:#fff}.ds-btn-danger:focus-visible{outline:2px solid var(--ink);outline-offset:2px}"
+    },
+    {
+      "name": "Text Field",
       "kind": "input",
-      "refersTo": "field",
-      "description": "Condensed uppercase label over an underline; the value is written on the line.",
-      "html": "<div class=\"ds-slip-bg\"><label class=\"ds-field\"><span>E-mail</span><input placeholder=\"voce@email.com\"></label></div>",
-      "css": ".ds-slip-bg{background:#fff;padding:20px}.ds-field{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;display:flex;flex-direction:column}.ds-field span{font-size:.75rem;font-weight:700;letter-spacing:.04em;font-variation-settings:'wdth' 70;text-transform:uppercase;color:rgb(27 31 59/.7)}.ds-field input{font:inherit;font-size:1rem;color:#1b1f3b;background:transparent;border:0;border-bottom:2px solid rgb(27 31 59/.25);padding:8px 0;outline:none;transition:border-color 150ms}.ds-field input:focus{border-bottom-color:#1b1f3b}.ds-field input[aria-invalid=true]{border-bottom-color:#e5262f}"
+      "refersTo": "input-field",
+      "description": "Labeled field on Paper; border goes Ink on focus, red on error.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-nick\">Nick</label><input id=\"ds-nick\" placeholder=\"seunick\"></div>",
+      "css": ":host{--envelope:#ffc629;--envelope-deep:#f2b200;--on-envelope:#1b1f3b;--ink:#16181d;--ink-soft:#5f6470;--paper:#fafafa;--print:#fff;--line:#e7e7ea;--pencil:#e5262f;font-family:Archivo,system-ui,sans-serif}.ds-field{display:flex;flex-direction:column;max-width:20rem}.ds-field label{font-size:.875rem;font-weight:600;color:var(--ink-soft)}.ds-field input{margin-top:.25rem;border:1px solid var(--line);border-radius:.5rem;background:var(--paper);color:var(--ink);padding:.625rem .75rem;font:inherit;font-size:1rem;outline:none;transition:border-color 150ms}.ds-field input::placeholder{color:var(--ink-soft)}.ds-field input:focus{border-color:var(--ink)}.ds-field input[aria-invalid=true]{border-color:var(--pencil)}"
     },
     {
-      "name": "Rail Navigation",
+      "name": "Top Bar",
       "kind": "nav",
-      "refersTo": "nav-item",
-      "description": "Desktop yellow side rail; current page inverts to ink.",
-      "html": "<nav class=\"ds-rail\"><a href=\"#\" aria-current=\"page\">Feed</a><a href=\"#\">Perfil</a><a href=\"#\">Pedidos</a><a href=\"#\">Ajustes</a></nav>",
-      "css": ".ds-rail{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;display:flex;flex-direction:column;gap:4px;width:208px;background:#ffc629;padding:24px}.ds-rail a{color:#1b1f3b;text-decoration:none;font-size:1.125rem;font-weight:700;font-variation-settings:'wdth' 112;padding:10px 12px;border-radius:6px;transition:background 200ms}.ds-rail a:hover{background:#f2b200}.ds-rail a[aria-current=page]{background:#1b1f3b;color:#ffc629}.ds-rail a:focus-visible{outline:2px solid #1b1f3b;outline-offset:2px}"
+      "refersTo": "top-bar",
+      "description": "Sticky translucent bar: wordmark left, icon tabs and avatar right.",
+      "html": "<header class=\"ds-bar\"><span class=\"ds-word\">zivra</span><nav><a href=\"#\" class=\"ds-tab\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 7.5h12a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V9A1.5 1.5 0 0 1 6 7.5ZM7 4.5h10M4.5 15l4-3.5 3.5 3 2.5-2 5 3.5\"/></svg></a><a href=\"#\" class=\"ds-tab\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6.5 11h11v8.5h-11ZM8.5 11V8a3.5 3.5 0 0 1 7 0v3\"/></svg></a><span class=\"ds-av\">V</span></nav></header>",
+      "css": ":host{--envelope:#ffc629;--envelope-deep:#f2b200;--on-envelope:#1b1f3b;--ink:#16181d;--ink-soft:#5f6470;--paper:#fafafa;--print:#fff;--line:#e7e7ea;--pencil:#e5262f;font-family:Archivo,system-ui,sans-serif}.ds-bar{display:flex;align-items:center;justify-content:space-between;height:3.5rem;padding:0 1rem;background:rgb(255 255 255/.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.ds-word{font-weight:900;font-size:1.5rem;letter-spacing:-.02em;font-variation-settings:'wdth' 125;color:var(--ink)}.ds-bar nav{display:flex;align-items:center;gap:.25rem}.ds-tab{display:grid;place-items:center;padding:.5rem;border-radius:.5rem;color:var(--ink-soft);transition:background-color 150ms}.ds-tab[aria-current=page]{color:var(--ink)}.ds-tab:hover{background:rgb(22 24 29/.05)}.ds-tab:focus-visible{outline:2px solid var(--ink);outline-offset:2px}.ds-av{display:grid;place-items:center;width:2rem;height:2rem;margin-left:.25rem;border-radius:9999px;background:var(--envelope);color:var(--on-envelope);font-weight:700;font-size:.875rem}"
     },
     {
-      "name": "Film Tab Bar",
-      "kind": "nav",
-      "refersTo": "tab-bar",
-      "description": "Mobile bottom nav on film black; current item turns envelope yellow.",
-      "html": "<nav class=\"ds-tabs\"><a href=\"#\" aria-current=\"page\">Feed</a><a href=\"#\">Perfil</a><a href=\"#\">Pedidos</a><a href=\"#\">Ajustes</a></nav>",
-      "css": ".ds-tabs{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;display:grid;grid-template-columns:repeat(4,1fr);background:#17140f;width:360px}.ds-tabs a{color:rgb(255 255 255/.7);text-decoration:none;text-align:center;padding:10px 0;font-size:11px;font-weight:700;letter-spacing:.04em;font-variation-settings:'wdth' 70}.ds-tabs a[aria-current=page]{color:#ffc629}.ds-tabs a:focus-visible{outline:2px solid #ffc629;outline-offset:-2px}"
-    },
-    {
-      "name": "Print",
+      "name": "Post Card",
       "kind": "card",
-      "refersTo": "print",
-      "description": "Every photo: white border, soft blue-black drop, frame code underneath.",
-      "html": "<figure class=\"ds-print\"><div class=\"ds-photo\"></div><figcaption><b>@mel</b><span>07A &#9656;</span></figcaption></figure>",
-      "css": ".ds-print{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;margin:0;width:220px;background:#fff;padding:5% 5% 12px;box-shadow:0 18px 40px -18px rgb(27 31 59/.45)}.ds-photo{aspect-ratio:4/5;background:linear-gradient(160deg,#8a9bb0,#3d4a5c)}.ds-print figcaption{margin-top:8px;display:flex;justify-content:space-between;align-items:center;color:rgb(27 31 59/.7)}.ds-print b{font-size:.875rem;color:#1b1f3b}.ds-print span{font-size:.75rem;font-weight:700;letter-spacing:.04em;font-variation-settings:'wdth' 70}"
+      "refersTo": "card",
+      "description": "Instagram-style feed card: header, media on black, loop like and comment, caption.",
+      "html": "<article class=\"ds-post\"><header><span class=\"ds-av\">M</span><b>marina</b><span class=\"ds-soft\"> · há 2 horas</span></header><div class=\"ds-media\"></div><div class=\"ds-actions\"><button aria-label=\"Curtir\" aria-pressed=\"true\" class=\"ds-icon ds-liked\"><svg viewBox=\"0 0 24 24\" width=\"28\" height=\"28\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12.5 5.2c4.6.2 7.3 2.7 7 6.4-.3 4-4.2 7-8.6 6.9-4.2-.1-7-2.6-6.9-6 .1-3.7 3.6-6.6 8.3-6.9 1.4-.1 2.6.1 3.6.5\"/></svg></button><button aria-label=\"Comentários\" class=\"ds-icon\"><svg viewBox=\"0 0 24 24\" width=\"28\" height=\"28\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 6.5A1.5 1.5 0 0 1 6.5 5h11A1.5 1.5 0 0 1 19 6.5v8a1.5 1.5 0 0 1-1.5 1.5H11l-4 3.5V16h-.5A1.5 1.5 0 0 1 5 14.5Z\"/></svg></button></div><div class=\"ds-body\"><b>12 curtidas</b><p><b>marina</b> pôr do sol na laje</p><button class=\"ds-more\">Ver os 3 comentários</button></div></article>",
+      "css": ":host{--envelope:#ffc629;--envelope-deep:#f2b200;--on-envelope:#1b1f3b;--ink:#16181d;--ink-soft:#5f6470;--paper:#fafafa;--print:#fff;--line:#e7e7ea;--pencil:#e5262f;font-family:Archivo,system-ui,sans-serif}.ds-post{max-width:500px;background:var(--print);color:var(--ink);border:1px solid var(--line);border-radius:.75rem;overflow:hidden}.ds-post header{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem}.ds-av{display:grid;place-items:center;width:2rem;height:2rem;border-radius:9999px;background:var(--envelope);color:var(--on-envelope);font-weight:700;font-size:.875rem}.ds-soft{color:var(--ink-soft)}.ds-media{aspect-ratio:4/5;background:linear-gradient(160deg,#3a4a5c,#c98a5a)}.ds-actions{display:flex;gap:.25rem;padding:.25rem .5rem 0}.ds-icon{border:0;background:none;color:var(--ink);padding:.5rem;border-radius:.5rem;cursor:pointer}.ds-icon:hover{background:rgb(22 24 29/.05)}.ds-icon:focus-visible{outline:2px solid var(--ink);outline-offset:2px}.ds-liked{color:var(--pencil)}.ds-body{padding:0 1rem 1rem}.ds-body p{margin:.25rem 0 0}.ds-more{border:0;background:none;padding:0;margin-top:.25rem;color:var(--ink-soft);font:inherit;cursor:pointer}"
     },
     {
-      "name": "Grease-Pencil Loop",
+      "name": "Profile Masonry",
       "kind": "custom",
-      "refersTo": "print",
-      "description": "Signature like mark: a waxy red loop that draws itself around the print.",
-      "html": "<div class=\"ds-loopwrap\"><div class=\"ds-photo2\"></div><svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\" class=\"ds-loop\"><path pathLength=\"1\" d=\"M54 4C80 5 97 22 96 50c-1 29-22 46-48 46C21 96 3 78 4 50 5 22 25 4 52 5c8 0 15 2 20 5\"/></svg></div>",
-      "css": ".ds-loopwrap{position:relative;width:180px;background:#fff;padding:10px;box-shadow:0 18px 40px -18px rgb(27 31 59/.45)}.ds-photo2{aspect-ratio:4/5;background:linear-gradient(160deg,#c9a46a,#5a4630)}.ds-loop{position:absolute;inset:-6%;width:112%;height:112%;overflow:visible;pointer-events:none}.ds-loop path{fill:none;stroke:#e5262f;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 520ms cubic-bezier(0.16,1,0.3,1)}.ds-loopwrap:hover .ds-loop path{stroke-dashoffset:0}"
+      "description": "Pinterest-style columns; hover reveals counts; text-only posts as yellow tiles.",
+      "html": "<ol class=\"ds-grid\"><li><button class=\"ds-tile\"><span class=\"ds-ph\" style=\"aspect-ratio:4/5\"></span><span class=\"ds-over\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12.5 5.2c4.6.2 7.3 2.7 7 6.4-.3 4-4.2 7-8.6 6.9-4.2-.1-7-2.6-6.9-6 .1-3.7 3.6-6.6 8.3-6.9 1.4-.1 2.6.1 3.6.5\"/></svg> 12</span></button></li><li><button class=\"ds-tile\"><span class=\"ds-text\">primeiro dia de praia do ano</span><span class=\"ds-over\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12.5 5.2c4.6.2 7.3 2.7 7 6.4-.3 4-4.2 7-8.6 6.9-4.2-.1-7-2.6-6.9-6 .1-3.7 3.6-6.6 8.3-6.9 1.4-.1 2.6.1 3.6.5\"/></svg> 4</span></button></li><li><button class=\"ds-tile\"><span class=\"ds-ph\" style=\"aspect-ratio:1\"></span><span class=\"ds-over\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12.5 5.2c4.6.2 7.3 2.7 7 6.4-.3 4-4.2 7-8.6 6.9-4.2-.1-7-2.6-6.9-6 .1-3.7 3.6-6.6 8.3-6.9 1.4-.1 2.6.1 3.6.5\"/></svg> 7</span></button></li><li><button class=\"ds-tile\"><span class=\"ds-ph\" style=\"aspect-ratio:3/4\"></span><span class=\"ds-over\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12.5 5.2c4.6.2 7.3 2.7 7 6.4-.3 4-4.2 7-8.6 6.9-4.2-.1-7-2.6-6.9-6 .1-3.7 3.6-6.6 8.3-6.9 1.4-.1 2.6.1 3.6.5\"/></svg> 2</span></button></li></ol>",
+      "css": ":host{--envelope:#ffc629;--envelope-deep:#f2b200;--on-envelope:#1b1f3b;--ink:#16181d;--ink-soft:#5f6470;--paper:#fafafa;--print:#fff;--line:#e7e7ea;--pencil:#e5262f;font-family:Archivo,system-ui,sans-serif}.ds-grid{list-style:none;margin:0;padding:0;columns:3;column-gap:1rem;max-width:40rem}.ds-grid li{break-inside:avoid;margin-bottom:1rem}.ds-tile{position:relative;display:block;width:100%;padding:0;border:0;border-radius:.75rem;overflow:hidden;cursor:pointer;text-align:left}.ds-ph{display:block;background:linear-gradient(160deg,#5c6b4a,#d9b98a)}.ds-text{display:block;padding:1rem;background:var(--envelope);color:var(--on-envelope);font-weight:600;font-size:1.125rem;line-height:1.375}.ds-over{position:absolute;inset:auto 0 0 0;display:flex;align-items:center;gap:.25rem;padding:2rem .75rem .75rem;background:linear-gradient(to top,rgb(0 0 0/.6),transparent);color:#fff;font-weight:600;font-size:.875rem;opacity:0;transition:opacity 150ms}.ds-tile:hover .ds-over,.ds-tile:focus-visible .ds-over{opacity:1}.ds-tile:focus-visible{outline:2px solid var(--ink);outline-offset:2px}"
     },
     {
-      "name": "Order Slip",
-      "kind": "card",
-      "refersTo": "slip",
-      "description": "Auth container: white paper with a perforated top edge on the yellow field.",
-      "html": "<div class=\"ds-env\"><section class=\"ds-slip\"><h1>Entrar</h1><p>Order-form fields go here.</p></section></div>",
-      "css": ".ds-env{background:#ffc629;padding:24px}.ds-slip{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;position:relative;background:#fff;color:#1b1f3b;border-radius:4px;padding:36px 24px 32px;box-shadow:0 24px 50px -24px rgb(27 31 59/.55)}.ds-slip::before{content:'';position:absolute;left:0;right:0;top:0;height:12px;background:radial-gradient(circle at 6px 0,#ffc629 4px,transparent 4.5px) 0 0/12px 12px repeat-x}.ds-slip h1{margin:0;font-size:2.25rem;font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:-.02em;line-height:.92}"
+      "name": "Icon Chip",
+      "kind": "chip",
+      "refersTo": "icon-chip",
+      "description": "44px yellow circle with an ink icon beside a short feature title.",
+      "html": "<div class=\"ds-feat\"><span class=\"ds-chip\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6.5 11h11v8.5h-11ZM8.5 11V8a3.5 3.5 0 0 1 7 0v3\"/></svg></span><div><b>Perfil privado de verdade</b><p>Só entra quem você aceitar.</p></div></div>",
+      "css": ":host{--envelope:#ffc629;--envelope-deep:#f2b200;--on-envelope:#1b1f3b;--ink:#16181d;--ink-soft:#5f6470;--paper:#fafafa;--print:#fff;--line:#e7e7ea;--pencil:#e5262f;font-family:Archivo,system-ui,sans-serif}.ds-feat{display:flex;gap:1rem;color:var(--ink)}.ds-chip{display:grid;place-items:center;flex-shrink:0;width:2.75rem;height:2.75rem;border-radius:9999px;background:var(--envelope);color:var(--on-envelope)}.ds-feat p{margin:.25rem 0 0;color:var(--ink-soft)}"
     }
   ],
   "narrative": {
-    "northStar": "The One-Hour Photo Lab Envelope",
-    "overview": "Zivra is the envelope you picked up from the photo lab: chrome-yellow paper, blue-black printed ink, white-bordered prints inside, frame numbers along the film edge, a red grease pencil for circling the shots you like. Every surface is one of those physical things. The yellow envelope is the chrome (top strip, side rail, profile header, composer, auth background); the prints are the content; the film base is the dark strip that carries frames (the tab bar, the contact sheet, the landing's roll section, the footer).\n\nDensity is low and rhythm is chronological. One column of prints, in order, with generous vertical air between frames. Type is a single variable family, Archivo, pushed to its extremes on the width axis: expanded black for anything that announces, normal width for reading, condensed bold for the film's edge code. The world refuses the white-card gradient feed and the dark neon short-video feed; it is warm, printed, analog and tactile.\n\nMotion is rare and physical: the grease-pencil loop drawing itself around a liked print, a primary CTA lifting 2px on hover. Nothing pulses, glows or bounces.",
+    "northStar": "The Quiet Feed",
+    "overview": "Zivra is a plain social layout that gets out of the way of people's photos. One shell serves every signed-in and public screen: a sticky translucent top bar with the wordmark and icon actions, a single centered content column, and a bottom tab bar on phones. There is no side menu. The feed reads like Instagram (one 500px column of cards); the profile reads like Pinterest (a masonry of prints in columns).\n\nThe surface is neutral: near-white paper, white cards, hairline gray borders, near-black ink, with a full dark scheme driven by `prefers-color-scheme`. Envelope yellow is the single accent and appears in small, deliberate doses: the primary action, the avatar fallback, the round icon chips, and text-only posts in the profile grid. Red is functional only (liked state, errors, destruction). Photos supply the rest of the color.",
     "keyCharacteristics": [
-      "Chrome-yellow envelope chrome around white prints; blue-black envelope ink on both.",
-      "One family (Archivo) carrying three voices by width: Expanded 125 display, normal body, Condensed 70 edge code.",
-      "Content is always a print: white border, soft drop shadow, frame number with arrow underneath.",
-      "Red is a pencil, not a brand color: likes, errors, the caret, your marks.",
-      "Dark mode is the darkroom: warm film-base black, never navy."
+      "One shell, no sidebar: top bar plus centered column, bottom tabs under 640px.",
+      "Neutral paper and white cards with 1px hairline borders; no decorative shadows.",
+      "Envelope yellow is an accent, never a surface.",
+      "Archivo throughout, with its width axis widened for the wordmark and hero.",
+      "Content edge-to-edge on phones, carded with rounded corners from `sm` up."
     ],
     "rules": [
       {
-        "name": "The Pencil Rule",
-        "body": "Red is only ever a mark someone made: a like, a correction, a caret, a limit crossed. If it is not a mark, it is not red.",
+        "name": "The Accent-Only Rule",
+        "body": "Envelope yellow fills controls and small marks (primary button, avatar fallback, icon chip, text-post tile), never a page, section, header, or card background. If a screen reads as yellow, it is wrong.",
         "section": "colors"
       },
       {
-        "name": "The Paper Doesn't Develop Rule",
-        "body": "Envelopes, prints and slips keep their light-mode colors in dark mode (yellow, white, blue-black ink). Only the room around them goes dark.",
+        "name": "The Red Means State Rule",
+        "body": "Pencil red only reports something: liked, error, limit reached, or destroy. It is never decoration or emphasis.",
         "section": "colors"
       },
       {
-        "name": "The Darkroom Rule",
-        "body": "Dark backgrounds are warm film-base black (film), never navy or neutral grey.",
-        "section": "colors"
-      },
-      {
-        "name": "The Three Widths Rule",
-        "body": "Width carries the role: 125 announces, 112 acts (buttons, nav, titles), 100 reads, 70 marks the edge. Do not introduce a second family.",
+        "name": "The Weight Not Size Rule",
+        "body": "Usernames, like counts and action words are set semibold at body size, like Instagram; hierarchy inside a card comes from weight, not from bigger type.",
         "section": "typography"
       },
       {
-        "name": "The Edge Code Rule",
-        "body": "Condensed edge type belongs to things printed on film and order forms: frame numbers, counts, counters, field labels. It never heads a section.",
-        "section": "typography"
-      },
-      {
-        "name": "The Only Paper Lifts Rule",
-        "body": "Shadows belong to prints, slips and envelopes. Buttons, nav, the composer, chrome and sheets stay flat.",
+        "name": "The Hairline Rule",
+        "body": "Separate with a 1px Line border or a tonal step. No drop shadows on cards, buttons, bars or sheets.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "**Do** put every photo or post inside a print: white border, print drop shadow, frame code underneath.",
-      "**Do** use envelope yellow as a field (bands, rail, strip, composer), with envelope ink for all text and icons on it.",
-      "**Do** carry voice through Archivo's width axis: wdth 125 at 900 for headlines, 112 at 700 for buttons and titles, 70 at 700 for edge codes and field labels.",
-      "**Do** keep red to marks: likes, errors, the caret, crossed limits.",
-      "**Do** go warm black (film) for dark surfaces and the darkroom theme, and keep prints, slips and envelopes in their light colors there.",
-      "**Do** honor reduced motion; the loop and lifts collapse to instant."
+      "Do route every screen except auth through the one shell: top bar, centered column, bottom tabs under 640px.",
+      "Do keep Envelope Yellow to the primary button, avatar fallback, icon chips and text-post tiles, always with Envelope Ink text.",
+      "Do separate surfaces with 1px Line borders and the Paper/Print tonal step.",
+      "Do let content run edge to edge on phones and card it (12px radius, full border) from `sm` up.",
+      "Do draw new icons on the 24px grid with 1.75 stroke and round caps, in `currentColor`.",
+      "Do define every new color for both schemes, as the root tokens do."
     ],
     "donts": [
-      "**Don't** use white rounded cards with gradients, or a dark neon video-feed look.",
-      "**Don't** use red as a button, fill, badge or brand accent.",
-      "**Don't** use navy or neutral grey for dark surfaces.",
-      "**Don't** add shadows to buttons, chrome, the composer or sheets; only paper lifts.",
-      "**Don't** head sections with small uppercase edge-type labels; edge type marks film and forms, not content structure.",
-      "**Don't** pull icons from a library or use glyph icons; draw them on the 24px, 1.75-stroke grid.",
-      "**Don't** set pencil red text on envelope yellow; it falls under AA."
+      "Don't add a side menu or a second navigation layout.",
+      "Don't fill pages, sections, headers or cards with yellow.",
+      "Don't use Pencil Red for anything but liked, error, limit and destructive states.",
+      "Don't put drop shadows on cards, buttons or bars.",
+      "Don't bring in an icon library or emoji as icons.",
+      "Don't widen Archivo beyond normal width outside the wordmark, the hero headline and sheet titles."
     ]
   }
 }

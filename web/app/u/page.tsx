@@ -87,15 +87,10 @@ function ProfileView({ username }: { username: string }) {
       </section>
 
       {!data.canSeeContent ? (
-        <div className="mx-auto my-16 max-w-sm px-4">
-          <div className="relative aspect-[4/3] rounded-sm bg-envelope p-6 text-on-envelope shadow-[0_24px_50px_-24px_rgb(27_31_59/0.5)]">
-            <div className="absolute inset-x-0 top-0 h-1/2 bg-envelope-deep [clip-path:polygon(0_0,100%_0,50%_100%)]" />
-            <div className="relative flex h-full flex-col items-center justify-end text-center">
-              <IconLock className="size-8" />
-              <p className="wide mt-2 text-xl font-bold">Envelope fechado</p>
-              <p className="text-sm">Siga {user.name} pra ver as fotos. O pedido precisa ser aceito.</p>
-            </div>
-          </div>
+        <div className="mx-auto my-16 max-w-sm px-4 text-center">
+          <span className="mx-auto grid size-16 place-items-center rounded-full border-2 border-ink"><IconLock className="size-7" /></span>
+          <p className="mt-4 text-lg font-bold">Este perfil é privado</p>
+          <p className="mt-1 text-ink-soft">Siga {user.name} pra ver as fotos. O pedido precisa ser aceito.</p>
         </div>
       ) : data.posts.length === 0 ? (
         <p className="px-4 py-20 text-center text-ink-soft">{data.isOwnProfile ? 'Você ainda não postou. Seu primeiro post aparece aqui.' : 'Nenhum post ainda.'}</p>

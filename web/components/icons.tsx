@@ -19,7 +19,5 @@ export const IconCheck = I('M5 12.5 9.5 17 19 7.5')
 export const IconClose = I('M6 6l12 12M18 6 6 18')
 export const IconTrash = I('M5 7h14M10 7V5h4v2M7 7l1 12.5h8L17 7')
 export const IconPlus = I('M12 5v14M5 12h14')
-/** Film-edge arrow that follows frame numbers */
-export const IconFrameArrow = (p: P) => <svg viewBox="0 0 10 10" width="0.7em" height="0.7em" aria-hidden="true" {...p}><path d="M1 1l8 4-8 4Z" fill="currentColor" /></svg>
 /** Grease-pencil loop: the like mark */
 export const IconLoop = I('M12.5 5.2c4.6.2 7.3 2.7 7 6.4-.3 4-4.2 7-8.6 6.9-4.2-.1-7-2.6-6.9-6 .1-3.7 3.6-6.6 8.3-6.9 1.4-.1 2.6.1 3.6.5')

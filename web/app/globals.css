@@ -82,13 +82,6 @@
   font-variation-settings: "wdth" 112;
 }
 
-/* Film edge code (frame numbers), condensed like the printed rebate */
-@utility edge {
-  font-variation-settings: "wdth" 70;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
