@@ -6,8 +6,10 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,10 @@ Route::get('check-username/{username}', function (string $username) {
     return ['available' => ! $exists && ! $reserved, 'exists' => $exists, 'reserved' => $reserved];
 });
 
+Route::get('users/{username}', [ProfileController::class, 'show']);
+Route::get('users/{username}/followers', [ProfileController::class, 'getFollowers']);
+Route::get('users/{username}/following', [ProfileController::class, 'getFollowing']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', fn (Request $r) => $r->user()->makeVisible('email'));
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
@@ -39,4 +45,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('posts/{post}/like', [LikeController::class, 'toggle']);
     Route::post('posts/{post}/comments', [CommentController::class, 'store']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
+
+    Route::patch('profile', [ProfileController::class, 'update']);
+    Route::delete('profile', [ProfileController::class, 'destroy']);
+    Route::patch('profile/privacy', [ProfileController::class, 'updatePrivacy']);
+    Route::get('follow-requests', [ProfileController::class, 'followRequests']);
+    Route::post('follow/{user}', [FollowController::class, 'store']);
+    Route::delete('follow/{user}', [FollowController::class, 'destroy']);
+    Route::post('follow-requests/{user}/accept', [FollowController::class, 'accept']);
+    Route::delete('follow-requests/{user}/reject', [FollowController::class, 'reject']);
 });

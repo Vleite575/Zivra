@@ -11,12 +11,12 @@ class FollowController extends Controller
     public function store(User $user)
     {
         if (Auth::id() === $user->id) {
-            return back()->with('error', 'Você não pode seguir a si mesmo.');
+            abort(422, 'Você não pode seguir a si mesmo.');
         }
 
         // Se já segue ou tem solicitação pendente, não faz nada
         if (Auth::user()->isFollowing($user) || Auth::user()->hasRequestedToFollow($user)) {
-            return back();
+            return response()->noContent();
         }
 
         $attributes = [];
@@ -26,7 +26,7 @@ class FollowController extends Controller
 
         Auth::user()->following()->attach($user->id, $attributes);
 
-        return back();
+        return response()->noContent();
     }
 
     public function destroy(User $user)
@@ -34,7 +34,7 @@ class FollowController extends Controller
         // Remove follow ou solicitação de follow
         Auth::user()->allFollowing()->detach($user->id);
 
-        return back();
+        return response()->noContent();
     }
 
     public function accept(User $user)
@@ -46,7 +46,7 @@ class FollowController extends Controller
             Auth::user()->followers()->updateExistingPivot($user->id, ['accepted_at' => now()]);
         }
 
-        return back();
+        return response()->noContent();
     }
 
     public function reject(User $user)
@@ -54,6 +54,6 @@ class FollowController extends Controller
         // Rejeita solicitação de seguidor (o usuário logado é quem está sendo seguido)
         Auth::user()->pendingFollowers()->detach($user->id);
 
-        return back();
+        return response()->noContent();
     }
 }

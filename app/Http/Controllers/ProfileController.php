@@ -3,53 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
-use Inertia\Response;
-
-use App\Models\User;
-use App\Models\Post;
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's public profile.
+     * Display a user's public profile.
      */
-    public function show($username, $postId = null): Response
+    public function show(Request $request, string $username)
     {
         $user = User::where('username', $username)->firstOrFail();
+        $me = $request->user('sanctum');
 
-        $isOwnProfile = Auth::check() && Auth::id() === $user->id;
-        $isFollowing = Auth::check() ? Auth::user()->isFollowing($user) : false;
-        $hasRequestedToFollow = Auth::check() ? Auth::user()->hasRequestedToFollow($user) : false;
-        $hasPendingRequestFrom = Auth::check() ? Auth::user()->pendingFollowers()->where('follower_id', $user->id)->exists() : false;
-
-        // Se o perfil for privado e não for o dono e não estiver seguindo
+        $isOwnProfile = $me?->id === $user->id;
+        $isFollowing = $me ? $me->isFollowing($user) : false;
         $canSeeContent = $user->is_public || $isOwnProfile || $isFollowing;
 
-        $posts = $canSeeContent 
-            ? $user->posts()
-                ->with(['user', 'likes', 'comments.user'])
-                ->withCount(['likes', 'comments'])
-                ->latest()
-                ->get()
-                ->map(function ($post) {
-                    $post->is_liked = Auth::check() ? $post->isLikedBy(Auth::user()) : false;
-                    return $post;
-                })
-            : [];
-
-        $initialPost = null;
-        if ($postId && $canSeeContent) {
-            $initialPost = $posts->firstWhere('id', (int) $postId);
-        }
-
-        return Inertia::render('Profile/Show', [
+        return [
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -61,142 +34,72 @@ class ProfileController extends Controller
                 'posts_count' => $user->posts()->count(),
                 'is_public' => $user->is_public,
             ],
-            'posts' => $posts,
-            'initialPost' => $initialPost,
+            'posts' => $canSeeContent ? $user->posts()->forViewer($me)->get() : [],
             'isOwnProfile' => $isOwnProfile,
             'isFollowing' => $isFollowing,
-            'hasRequestedToFollow' => $hasRequestedToFollow,
-            'hasPendingRequestFrom' => $hasPendingRequestFrom,
+            'hasRequestedToFollow' => $me ? $me->hasRequestedToFollow($user) : false,
+            'hasPendingRequestFrom' => $me ? $me->pendingFollowers()->where('follower_id', $user->id)->exists() : false,
             'canSeeContent' => $canSeeContent,
-        ]);
+        ];
     }
 
-    /**
-     * Get followers list for a user.
-     */
-    public function getFollowers($username, Request $request)
+    public function getFollowers(Request $request, string $username)
+    {
+        return $this->followList($request, $username, 'followers');
+    }
+
+    public function getFollowing(Request $request, string $username)
+    {
+        return $this->followList($request, $username, 'following');
+    }
+
+    private function followList(Request $request, string $username, string $relation)
     {
         $user = User::where('username', $username)->firstOrFail();
-        
-        $isOwnProfile = Auth::check() && Auth::id() === $user->id;
-        $isFollowing = Auth::check() ? Auth::user()->isFollowing($user) : false;
+        $me = $request->user('sanctum');
+        $isOwnProfile = $me?->id === $user->id;
 
-        if (!$user->is_public && !$isOwnProfile && !$isFollowing) {
+        if (! $user->is_public && ! $isOwnProfile && ! ($me && $me->isFollowing($user))) {
             return response()->json(['error' => 'Perfil privado'], 403);
         }
 
-        $query = $user->followers();
+        $query = $user->{$relation}();
 
         if ($isOwnProfile) {
-            if ($request->has('sort')) {
-                $sort = $request->sort === 'oldest' ? 'asc' : 'desc';
-                $query->orderBy('follows.accepted_at', $sort);
-            } else {
-                $query->orderBy('follows.accepted_at', 'desc');
-            }
+            $query->orderBy('follows.accepted_at', $request->sort === 'oldest' ? 'asc' : 'desc');
         } else {
             $query->inRandomOrder();
         }
 
-        return response()->json($query->get());
+        return $query->get();
     }
 
-    /**
-     * Get following list for a user.
-     */
-    public function getFollowing($username, Request $request)
+    public function followRequests(Request $request)
     {
-        $user = User::where('username', $username)->firstOrFail();
-        
-        $isOwnProfile = Auth::check() && Auth::id() === $user->id;
-        $isFollowing = Auth::check() ? Auth::user()->isFollowing($user) : false;
-
-        if (!$user->is_public && !$isOwnProfile && !$isFollowing) {
-            return response()->json(['error' => 'Perfil privado'], 403);
-        }
-
-        $query = $user->following();
-
-        if ($isOwnProfile) {
-            if ($request->has('sort')) {
-                $sort = $request->sort === 'oldest' ? 'asc' : 'desc';
-                $query->orderBy('follows.accepted_at', $sort);
-            } else {
-                $query->orderBy('follows.accepted_at', 'desc');
-            }
-        } else {
-            $query->inRandomOrder();
-        }
-
-        return response()->json($query->get());
+        return $request->user()->pendingFollowers()->get();
     }
 
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): Response
+    public function updatePrivacy(Request $request)
     {
-        return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-        ]);
-    }
-
-    /**
-     * Display the user's configurations form.
-     */
-    public function configurations(Request $request): Response
-    {
-        return Inertia::render('Profile/Configurations', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-        ]);
-    }
-
-    /**
-     * Display the user's follow requests.
-     */
-    public function followRequests(Request $request): Response
-    {
-        return Inertia::render('Profile/FollowRequests', [
-            'requests' => $request->user()->pendingFollowers()->get(),
-        ]);
-    }
-
-    /**
-     * Update the user's privacy settings.
-     */
-    public function updatePrivacy(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'is_public' => ['required', 'boolean'],
-        ]);
+        $request->validate(['is_public' => ['required', 'boolean']]);
 
         $user = $request->user();
-        $user->is_public = $request->is_public;
+        $user->is_public = $request->boolean('is_public');
         $user->save();
 
-        return back()->with('status', 'privacy-updated');
+        return $user;
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
         $user = $request->user();
         $user->fill($request->validated());
-
-        if ($request->has('is_public')) {
-            $user->is_public = $request->is_public;
-        }
 
         if ($request->hasFile('profile_photo')) {
             if ($user->profile_photo_path) {
                 Storage::disk('public')->delete($user->profile_photo_path);
             }
-            $path = $request->file('profile_photo')->store('profile-photos', 'public');
-            $user->profile_photo_path = $path;
+            $user->profile_photo_path = $request->file('profile_photo')->store('profile-photos', 'public');
         }
 
         if ($user->isDirty('email')) {
@@ -205,27 +108,20 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return back()->with('status', 'profile-updated');
+        return $user->makeVisible('email');
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request)
     {
-        $request->validate([
-            'password' => ['required', 'current_password'],
-        ]);
+        $request->validate(['password' => ['required', 'current_password']]);
 
         $user = $request->user();
 
-        Auth::logout();
-
+        Auth::guard('web')->logout();
         $user->delete();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return response()->noContent();
     }
 }
