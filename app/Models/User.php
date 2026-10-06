@@ -117,4 +117,34 @@ class User extends Authenticatable
     {
         return $this->is_public || $viewer?->id === $this->id || ($viewer && $viewer->isFollowing($this));
     }
+
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class)->withPivot('last_read_message_id');
+    }
+
+    /** People who follow me and whom I follow back (both accepted): the only people I can chat with. */
+    public function mutuals()
+    {
+        return User::whereIn('id', $this->following()->pluck('users.id'))
+            ->whereIn('id', $this->followers()->pluck('users.id'));
+    }
+
+    public function isMutualWith(User $other): bool
+    {
+        return $this->isFollowing($other) && $other->isFollowing($this);
+    }
+
+    /** Unread messages from others, keyed by conversation id. */
+    public function unreadByConversation(): \Illuminate\Support\Collection
+    {
+        return \DB::table('messages')
+            ->join('conversation_user as cu', function ($join) {
+                $join->on('cu.conversation_id', '=', 'messages.conversation_id')->where('cu.user_id', $this->id);
+            })
+            ->where('messages.user_id', '!=', $this->id)
+            ->whereRaw('messages.id > coalesce(cu.last_read_message_id, 0)')
+            ->groupBy('messages.conversation_id')
+            ->pluck(\DB::raw('count(*)'), 'messages.conversation_id');
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
@@ -34,7 +35,16 @@ Route::get('users/{username}/followers', [ProfileController::class, 'getFollower
 Route::get('users/{username}/following', [ProfileController::class, 'getFollowing']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('user', fn (Request $r) => $r->user()->makeVisible('email')->loadCount('pendingFollowers as pending_requests_count'));
+    Route::get('user', fn (Request $r) => $r->user()->makeVisible('email')->loadCount('pendingFollowers as pending_requests_count')
+        ->setAttribute('unread_messages_count', (int) $r->user()->unreadByConversation()->sum()));
+
+    Route::get('chat/contacts', [ChatController::class, 'contacts']);
+    Route::get('conversations', [ChatController::class, 'index']);
+    Route::post('conversations', [ChatController::class, 'store'])->middleware('throttle:social');
+    Route::get('conversations/{conversation}/messages', [ChatController::class, 'messages']);
+    Route::post('conversations/{conversation}/messages', [ChatController::class, 'send'])->middleware('throttle:messages');
+    Route::post('conversations/{conversation}/members', [ChatController::class, 'addMember'])->middleware('throttle:social');
+    Route::delete('conversations/{conversation}/members/me', [ChatController::class, 'leave']);
     Route::get('users', function (Request $r) {
         $q = trim((string) $r->query('q'));
         if (mb_strlen($q) < 2) {
