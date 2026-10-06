@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-06T16:19:21.059581+00:00",
+  "title": "Design System: Zivra",
+  "extensions": {
+    "colorMeta": {
+      "envelope": {
+        "role": "primary",
+        "displayName": "Envelope Chrome Yellow",
+        "canonical": "oklch(85.6% 0.172 86)",
+        "tonalRamp": [
+          "oklch(15% 0.085 86)",
+          "oklch(26% 0.17 86)",
+          "oklch(38% 0.17 86)",
+          "oklch(49% 0.17 86)",
+          "oklch(61% 0.17 86)",
+          "oklch(72% 0.17 86)",
+          "oklch(84% 0.17 86)",
+          "oklch(95% 0.085 86)"
+        ]
+      },
+      "envelope-deep": {
+        "role": "primary",
+        "displayName": "Envelope Fold Yellow",
+        "canonical": "oklch(81.4% 0.168 82)",
+        "tonalRamp": [
+          "oklch(15% 0.083 82)",
+          "oklch(26% 0.165 82)",
+          "oklch(38% 0.165 82)",
+          "oklch(49% 0.165 82)",
+          "oklch(61% 0.165 82)",
+          "oklch(72% 0.165 82)",
+          "oklch(84% 0.165 82)",
+          "oklch(95% 0.083 82)"
+        ]
+      },
+      "on-envelope": {
+        "role": "secondary",
+        "displayName": "Envelope Ink Blue-Black",
+        "canonical": "oklch(25.3% 0.06 278)",
+        "tonalRamp": [
+          "oklch(15% 0.03 278)",
+          "oklch(26% 0.06 278)",
+          "oklch(38% 0.06 278)",
+          "oklch(49% 0.06 278)",
+          "oklch(61% 0.06 278)",
+          "oklch(72% 0.06 278)",
+          "oklch(84% 0.06 278)",
+          "oklch(95% 0.03 278)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(25.3% 0.06 278)",
+        "tonalRamp": [
+          "oklch(15% 0.03 278)",
+          "oklch(26% 0.06 278)",
+          "oklch(38% 0.06 278)",
+          "oklch(49% 0.06 278)",
+          "oklch(61% 0.06 278)",
+          "oklch(72% 0.06 278)",
+          "oklch(84% 0.06 278)",
+          "oklch(95% 0.03 278)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "oklch(44.6% 0.055 278)",
+        "tonalRamp": [
+          "oklch(15% 0.028 278)",
+          "oklch(26% 0.055 278)",
+          "oklch(38% 0.055 278)",
+          "oklch(49% 0.055 278)",
+          "oklch(61% 0.055 278)",
+          "oklch(72% 0.055 278)",
+          "oklch(84% 0.055 278)",
+          "oklch(95% 0.028 278)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Cool Print White",
+        "canonical": "oklch(97.1% 0.003 265)",
+        "tonalRamp": [
+          "oklch(15% 0.002 265)",
+          "oklch(26% 0.003 265)",
+          "oklch(38% 0.003 265)",
+          "oklch(49% 0.003 265)",
+          "oklch(61% 0.003 265)",
+          "oklch(72% 0.003 265)",
+          "oklch(84% 0.003 265)",
+          "oklch(95% 0.002 265)"
+        ]
+      },
+      "print": {
+        "role": "neutral",
+        "displayName": "Print White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0.0 0)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Rule Grey",
+        "canonical": "oklch(88.2% 0.01 270)",
+        "tonalRamp": [
+          "oklch(15% 0.005 270)",
+          "oklch(26% 0.01 270)",
+          "oklch(38% 0.01 270)",
+          "oklch(49% 0.01 270)",
+          "oklch(61% 0.01 270)",
+          "oklch(72% 0.01 270)",
+          "oklch(84% 0.01 270)",
+          "oklch(95% 0.005 270)"
+        ]
+      },
+      "pencil": {
+        "role": "tertiary",
+        "displayName": "Grease-Pencil Red",
+        "canonical": "oklch(59% 0.22 25)",
+        "tonalRamp": [
+          "oklch(15% 0.11 25)",
+          "oklch(26% 0.22 25)",
+          "oklch(38% 0.22 25)",
+          "oklch(49% 0.22 25)",
+          "oklch(61% 0.22 25)",
+          "oklch(72% 0.22 25)",
+          "oklch(84% 0.22 25)",
+          "oklch(95% 0.11 25)"
+        ]
+      },
+      "film": {
+        "role": "neutral",
+        "displayName": "Film Base",
+        "canonical": "oklch(19.6% 0.01 75)",
+        "tonalRamp": [
+          "oklch(15% 0.005 75)",
+          "oklch(26% 0.01 75)",
+          "oklch(38% 0.01 75)",
+          "oklch(49% 0.01 75)",
+          "oklch(61% 0.01 75)",
+          "oklch(72% 0.01 75)",
+          "oklch(84% 0.01 75)",
+          "oklch(95% 0.005 75)"
+        ]
+      },
+      "darkroom-ink": {
+        "role": "neutral",
+        "displayName": "Darkroom Ink",
+        "canonical": "oklch(95.1% 0.008 80)",
+        "tonalRamp": [
+          "oklch(15% 0.004 80)",
+          "oklch(26% 0.008 80)",
+          "oklch(38% 0.008 80)",
+          "oklch(49% 0.008 80)",
+          "oklch(61% 0.008 80)",
+          "oklch(72% 0.008 80)",
+          "oklch(84% 0.008 80)",
+          "oklch(95% 0.004 80)"
+        ]
+      },
+      "darkroom-ink-soft": {
+        "role": "neutral",
+        "displayName": "Darkroom Soft Ink",
+        "canonical": "oklch(75.5% 0.022 80)",
+        "tonalRamp": [
+          "oklch(15% 0.011 80)",
+          "oklch(26% 0.022 80)",
+          "oklch(38% 0.022 80)",
+          "oklch(49% 0.022 80)",
+          "oklch(61% 0.022 80)",
+          "oklch(72% 0.022 80)",
+          "oklch(84% 0.022 80)",
+          "oklch(95% 0.011 80)"
+        ]
+      },
+      "darkroom-print": {
+        "role": "neutral",
+        "displayName": "Darkroom Print Band",
+        "canonical": "oklch(23.4% 0.013 75)",
+        "tonalRamp": [
+          "oklch(15% 0.006 75)",
+          "oklch(26% 0.013 75)",
+          "oklch(38% 0.013 75)",
+          "oklch(49% 0.013 75)",
+          "oklch(61% 0.013 75)",
+          "oklch(72% 0.013 75)",
+          "oklch(84% 0.013 75)",
+          "oklch(95% 0.006 75)"
+        ]
+      },
+      "darkroom-line": {
+        "role": "neutral",
+        "displayName": "Darkroom Rule",
+        "canonical": "oklch(33.6% 0.017 75)",
+        "tonalRamp": [
+          "oklch(15% 0.009 75)",
+          "oklch(26% 0.017 75)",
+          "oklch(38% 0.017 75)",
+          "oklch(49% 0.017 75)",
+          "oklch(61% 0.017 75)",
+          "oklch(72% 0.017 75)",
+          "oklch(84% 0.017 75)",
+          "oklch(95% 0.009 75)"
+        ]
+      },
+      "darkroom-pencil": {
+        "role": "tertiary",
+        "displayName": "Darkroom Pencil Red",
+        "canonical": "oklch(66% 0.21 22)",
+        "tonalRamp": [
+          "oklch(15% 0.105 22)",
+          "oklch(26% 0.21 22)",
+          "oklch(38% 0.21 22)",
+          "oklch(49% 0.21 22)",
+          "oklch(61% 0.21 22)",
+          "oklch(72% 0.21 22)",
+          "oklch(84% 0.21 22)",
+          "oklch(95% 0.105 22)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Lowercase zivra lockup; landing hero at full bleed, chrome and auth header smaller."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Landing hero headline; profile names."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles, section headings, slip titles; 14-16ch measures."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Buttons, nav, sheet headings, counts, text-only posts (wdth 112)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Post text, comments, lists; tabular numerals globally."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Paragraph under a headline, 34-60ch."
+      },
+      "label": {
+        "displayName": "Edge Code",
+        "purpose": "Frame codes, counters, field labels, tab labels (wdth 70)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "print-drop",
+        "value": "0 18px 40px -18px rgb(27 31 59 / 0.45)",
+        "purpose": "Prints and feed post frames."
+      },
+      {
+        "name": "slip-drop",
+        "value": "0 24px 50px -24px rgb(27 31 59 / 0.55)",
+        "purpose": "Auth slip and sealed-envelope card."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Loop draw and CTA lift."
+      },
+      {
+        "name": "loop-draw",
+        "value": "stroke-dashoffset 520ms ease-out-expo",
+        "purpose": "Grease-pencil like mark drawing in."
+      },
+      {
+        "name": "lift",
+        "value": "translateY(-2px) 200ms ease-out-expo",
+        "purpose": "Hero CTA hover."
+      },
+      {
+        "name": "state-color",
+        "value": "200ms",
+        "purpose": "Nav hover fills and field rule color."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Envelope-ink block with yellow letters; every primary action.",
+      "html": "<button class=\"ds-btn-primary\">Criar minha conta</button>",
+      "css": ".ds-btn-primary{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;background:var(--on-envelope,#1b1f3b);color:var(--envelope,#ffc629);border:0;border-radius:6px;padding:16px 24px;font-size:1.125rem;font-weight:700;font-variation-settings:'wdth' 112;cursor:pointer;transition:transform 200ms cubic-bezier(0.16,1,0.3,1)}.ds-btn-primary:hover{transform:translateY(-2px)}.ds-btn-primary:focus-visible{outline:2px solid #1b1f3b;outline-offset:2px}.ds-btn-primary:disabled{opacity:.6}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary profile actions on the yellow header.",
+      "html": "<div class=\"ds-on-env\"><button class=\"ds-btn-outline\">Editar perfil</button></div>",
+      "css": ".ds-on-env{background:#ffc629;padding:16px}.ds-btn-outline{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;background:transparent;color:#1b1f3b;border:2px solid #1b1f3b;border-radius:6px;padding:10px 24px;font-weight:700;font-variation-settings:'wdth' 112;cursor:pointer}.ds-btn-outline:hover{background:#f2b200}.ds-btn-outline:focus-visible{outline:2px solid #1b1f3b;outline-offset:2px}"
+    },
+    {
+      "name": "Order-Form Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Condensed uppercase label over an underline; the value is written on the line.",
+      "html": "<div class=\"ds-slip-bg\"><label class=\"ds-field\"><span>E-mail</span><input placeholder=\"voce@email.com\"></label></div>",
+      "css": ".ds-slip-bg{background:#fff;padding:20px}.ds-field{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;display:flex;flex-direction:column}.ds-field span{font-size:.75rem;font-weight:700;letter-spacing:.04em;font-variation-settings:'wdth' 70;text-transform:uppercase;color:rgb(27 31 59/.7)}.ds-field input{font:inherit;font-size:1rem;color:#1b1f3b;background:transparent;border:0;border-bottom:2px solid rgb(27 31 59/.25);padding:8px 0;outline:none;transition:border-color 150ms}.ds-field input:focus{border-bottom-color:#1b1f3b}.ds-field input[aria-invalid=true]{border-bottom-color:#e5262f}"
+    },
+    {
+      "name": "Rail Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Desktop yellow side rail; current page inverts to ink.",
+      "html": "<nav class=\"ds-rail\"><a href=\"#\" aria-current=\"page\">Feed</a><a href=\"#\">Perfil</a><a href=\"#\">Pedidos</a><a href=\"#\">Ajustes</a></nav>",
+      "css": ".ds-rail{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;display:flex;flex-direction:column;gap:4px;width:208px;background:#ffc629;padding:24px}.ds-rail a{color:#1b1f3b;text-decoration:none;font-size:1.125rem;font-weight:700;font-variation-settings:'wdth' 112;padding:10px 12px;border-radius:6px;transition:background 200ms}.ds-rail a:hover{background:#f2b200}.ds-rail a[aria-current=page]{background:#1b1f3b;color:#ffc629}.ds-rail a:focus-visible{outline:2px solid #1b1f3b;outline-offset:2px}"
+    },
+    {
+      "name": "Film Tab Bar",
+      "kind": "nav",
+      "refersTo": "tab-bar",
+      "description": "Mobile bottom nav on film black; current item turns envelope yellow.",
+      "html": "<nav class=\"ds-tabs\"><a href=\"#\" aria-current=\"page\">Feed</a><a href=\"#\">Perfil</a><a href=\"#\">Pedidos</a><a href=\"#\">Ajustes</a></nav>",
+      "css": ".ds-tabs{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;display:grid;grid-template-columns:repeat(4,1fr);background:#17140f;width:360px}.ds-tabs a{color:rgb(255 255 255/.7);text-decoration:none;text-align:center;padding:10px 0;font-size:11px;font-weight:700;letter-spacing:.04em;font-variation-settings:'wdth' 70}.ds-tabs a[aria-current=page]{color:#ffc629}.ds-tabs a:focus-visible{outline:2px solid #ffc629;outline-offset:-2px}"
+    },
+    {
+      "name": "Print",
+      "kind": "card",
+      "refersTo": "print",
+      "description": "Every photo: white border, soft blue-black drop, frame code underneath.",
+      "html": "<figure class=\"ds-print\"><div class=\"ds-photo\"></div><figcaption><b>@mel</b><span>07A &#9656;</span></figcaption></figure>",
+      "css": ".ds-print{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;margin:0;width:220px;background:#fff;padding:5% 5% 12px;box-shadow:0 18px 40px -18px rgb(27 31 59/.45)}.ds-photo{aspect-ratio:4/5;background:linear-gradient(160deg,#8a9bb0,#3d4a5c)}.ds-print figcaption{margin-top:8px;display:flex;justify-content:space-between;align-items:center;color:rgb(27 31 59/.7)}.ds-print b{font-size:.875rem;color:#1b1f3b}.ds-print span{font-size:.75rem;font-weight:700;letter-spacing:.04em;font-variation-settings:'wdth' 70}"
+    },
+    {
+      "name": "Grease-Pencil Loop",
+      "kind": "custom",
+      "refersTo": "print",
+      "description": "Signature like mark: a waxy red loop that draws itself around the print.",
+      "html": "<div class=\"ds-loopwrap\"><div class=\"ds-photo2\"></div><svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\" class=\"ds-loop\"><path pathLength=\"1\" d=\"M54 4C80 5 97 22 96 50c-1 29-22 46-48 46C21 96 3 78 4 50 5 22 25 4 52 5c8 0 15 2 20 5\"/></svg></div>",
+      "css": ".ds-loopwrap{position:relative;width:180px;background:#fff;padding:10px;box-shadow:0 18px 40px -18px rgb(27 31 59/.45)}.ds-photo2{aspect-ratio:4/5;background:linear-gradient(160deg,#c9a46a,#5a4630)}.ds-loop{position:absolute;inset:-6%;width:112%;height:112%;overflow:visible;pointer-events:none}.ds-loop path{fill:none;stroke:#e5262f;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 520ms cubic-bezier(0.16,1,0.3,1)}.ds-loopwrap:hover .ds-loop path{stroke-dashoffset:0}"
+    },
+    {
+      "name": "Order Slip",
+      "kind": "card",
+      "refersTo": "slip",
+      "description": "Auth container: white paper with a perforated top edge on the yellow field.",
+      "html": "<div class=\"ds-env\"><section class=\"ds-slip\"><h1>Entrar</h1><p>Order-form fields go here.</p></section></div>",
+      "css": ".ds-env{background:#ffc629;padding:24px}.ds-slip{font-family:var(--font-archivo),Archivo,system-ui,sans-serif;position:relative;background:#fff;color:#1b1f3b;border-radius:4px;padding:36px 24px 32px;box-shadow:0 24px 50px -24px rgb(27 31 59/.55)}.ds-slip::before{content:'';position:absolute;left:0;right:0;top:0;height:12px;background:radial-gradient(circle at 6px 0,#ffc629 4px,transparent 4.5px) 0 0/12px 12px repeat-x}.ds-slip h1{margin:0;font-size:2.25rem;font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:-.02em;line-height:.92}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The One-Hour Photo Lab Envelope",
+    "overview": "Zivra is the envelope you picked up from the photo lab: chrome-yellow paper, blue-black printed ink, white-bordered prints inside, frame numbers along the film edge, a red grease pencil for circling the shots you like. Every surface is one of those physical things. The yellow envelope is the chrome (top strip, side rail, profile header, composer, auth background); the prints are the content; the film base is the dark strip that carries frames (the tab bar, the contact sheet, the landing's roll section, the footer).\n\nDensity is low and rhythm is chronological. One column of prints, in order, with generous vertical air between frames. Type is a single variable family, Archivo, pushed to its extremes on the width axis: expanded black for anything that announces, normal width for reading, condensed bold for the film's edge code. The world refuses the white-card gradient feed and the dark neon short-video feed; it is warm, printed, analog and tactile.\n\nMotion is rare and physical: the grease-pencil loop drawing itself around a liked print, a primary CTA lifting 2px on hover. Nothing pulses, glows or bounces.",
+    "keyCharacteristics": [
+      "Chrome-yellow envelope chrome around white prints; blue-black envelope ink on both.",
+      "One family (Archivo) carrying three voices by width: Expanded 125 display, normal body, Condensed 70 edge code.",
+      "Content is always a print: white border, soft drop shadow, frame number with arrow underneath.",
+      "Red is a pencil, not a brand color: likes, errors, the caret, your marks.",
+      "Dark mode is the darkroom: warm film-base black, never navy."
+    ],
+    "rules": [
+      {
+        "name": "The Pencil Rule",
+        "body": "Red is only ever a mark someone made: a like, a correction, a caret, a limit crossed. If it is not a mark, it is not red.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Doesn't Develop Rule",
+        "body": "Envelopes, prints and slips keep their light-mode colors in dark mode (yellow, white, blue-black ink). Only the room around them goes dark.",
+        "section": "colors"
+      },
+      {
+        "name": "The Darkroom Rule",
+        "body": "Dark backgrounds are warm film-base black (film), never navy or neutral grey.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Widths Rule",
+        "body": "Width carries the role: 125 announces, 112 acts (buttons, nav, titles), 100 reads, 70 marks the edge. Do not introduce a second family.",
+        "section": "typography"
+      },
+      {
+        "name": "The Edge Code Rule",
+        "body": "Condensed edge type belongs to things printed on film and order forms: frame numbers, counts, counters, field labels. It never heads a section.",
+        "section": "typography"
+      },
+      {
+        "name": "The Only Paper Lifts Rule",
+        "body": "Shadows belong to prints, slips and envelopes. Buttons, nav, the composer, chrome and sheets stay flat.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** put every photo or post inside a print: white border, print drop shadow, frame code underneath.",
+      "**Do** use envelope yellow as a field (bands, rail, strip, composer), with envelope ink for all text and icons on it.",
+      "**Do** carry voice through Archivo's width axis: wdth 125 at 900 for headlines, 112 at 700 for buttons and titles, 70 at 700 for edge codes and field labels.",
+      "**Do** keep red to marks: likes, errors, the caret, crossed limits.",
+      "**Do** go warm black (film) for dark surfaces and the darkroom theme, and keep prints, slips and envelopes in their light colors there.",
+      "**Do** honor reduced motion; the loop and lifts collapse to instant."
+    ],
+    "donts": [
+      "**Don't** use white rounded cards with gradients, or a dark neon video-feed look.",
+      "**Don't** use red as a button, fill, badge or brand accent.",
+      "**Don't** use navy or neutral grey for dark surfaces.",
+      "**Don't** add shadows to buttons, chrome, the composer or sheets; only paper lifts.",
+      "**Don't** head sections with small uppercase edge-type labels; edge type marks film and forms, not content structure.",
+      "**Don't** pull icons from a library or use glyph icons; draw them on the 24px, 1.75-stroke grid.",
+      "**Don't** set pencil red text on envelope yellow; it falls under AA."
+    ]
+  }
+}

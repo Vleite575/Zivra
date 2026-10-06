@@ -68,13 +68,13 @@ function Composer({ onPost }: { onPost: (p: Post) => void }) {
             className="absolute -right-2 -top-2 rounded-full bg-on-envelope p-1 text-envelope"><IconClose className="size-4" /></button>
         </div>
       )}
-      {error && <p role="alert" className="mt-2 text-sm font-semibold text-pencil">{error}</p>}
+      {error && <p role="alert" className="mt-2 text-sm font-bold underline decoration-pencil decoration-2 underline-offset-4">{error}</p>}
       <div className="mt-3 flex items-center gap-3">
         <label className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 font-semibold hover:bg-envelope-deep">
           <IconCamera className="size-6" /> Foto ou vídeo
           <input ref={input} type="file" accept={ACCEPT} className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
         </label>
-        <span className={`edge ml-auto text-xs ${content.length > 260 ? 'text-pencil' : 'text-on-envelope/60'}`}>{content.length}/280</span>
+        <span className={`edge ml-auto text-xs ${content.length > 260 ? 'font-bold text-on-envelope' : 'text-on-envelope/70'}`}>{content.length}/280</span>
         <button disabled={busy || !content.trim()} className="wide rounded-md bg-on-envelope px-5 py-2.5 font-bold text-envelope disabled:bg-transparent disabled:text-on-envelope/60 disabled:ring-2 disabled:ring-inset disabled:ring-on-envelope/30">
           {busy ? 'Postando…' : 'Postar'}
         </button>
