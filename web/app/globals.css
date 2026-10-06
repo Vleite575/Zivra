@@ -1,28 +1,27 @@
 @import "tailwindcss";
 
-/* Photo-lab envelope world: see PRODUCT.md and DESIGN.md */
+/* Zivra: clean social layout, envelope yellow as the accent only. See DESIGN.md */
 :root {
   --envelope: #ffc629;
   --envelope-deep: #f2b200;
   --on-envelope: #1b1f3b;
-  --ink: #1b1f3b;
-  --ink-soft: #4a4f6e;
-  --paper: #f4f5f7;
+  --ink: #16181d;
+  --ink-soft: #5f6470;
+  --paper: #fafafa;
   --print: #ffffff;
-  --line: #d5d7de;
+  --line: #e7e7ea;
   --pencil: #e5262f;
-  --film: #17140f;
+  --film: #16181d;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    /* Darkroom: the film base itself, warm black, never a navy */
-    --ink: #f1eee8;
-    --ink-soft: #b5ad9f;
-    --paper: #17140f;
-    --print: #221e18;
-    --line: #3a342b;
+    --ink: #f2f2f3;
+    --ink-soft: #a3a6ae;
+    --paper: #0d0d0f;
+    --print: #17171a;
+    --line: #2a2a2e;
     --pencil: #ff4a52;
     color-scheme: dark;
   }
@@ -61,7 +60,7 @@
     outline-offset: 2px;
   }
   /* On envelope-yellow and white print surfaces the ring uses envelope ink in both schemes */
-  .bg-envelope :focus-visible, .bg-white :focus-visible {
+  .bg-envelope :focus-visible {
     outline-color: var(--on-envelope);
   }
   a {
@@ -97,19 +96,24 @@
   }
 }
 
+/* Primary action: envelope yellow with ink text, the one place the accent fills a control */
 @utility btn-solid {
-  border-radius: 0.375rem;
-  background: var(--ink);
-  color: var(--paper);
-  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--envelope);
+  color: var(--on-envelope);
+  padding: 0.5rem 1.25rem;
   font-weight: 700;
-  font-variation-settings: "wdth" 112;
+  transition: background-color 150ms;
+  &:hover { background: var(--envelope-deep); }
+  &:disabled { opacity: 0.5; }
 }
 
 @utility btn-outline {
-  border-radius: 0.375rem;
-  border: 2px solid var(--ink);
-  padding: 0.5rem 1.125rem;
+  border-radius: 0.5rem;
+  background: var(--line);
+  color: var(--ink);
+  padding: 0.5rem 1.25rem;
   font-weight: 700;
-  font-variation-settings: "wdth" 112;
+  transition: opacity 150ms;
+  &:hover { opacity: 0.8; }
 }

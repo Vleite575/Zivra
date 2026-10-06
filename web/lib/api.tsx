@@ -15,8 +15,8 @@ export class ApiError extends Error {
 
 let onUnauthorized: (() => void) | null = null
 
-/** App base path (Apache serves the app under /zivra); prefix for raw fetch/img URLs. Next Link/router add it themselves. */
-export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+import { BASE } from './base'
+export { BASE }
 
 /** Profiles are served by one static page (app/u) via an Apache rewrite, so link with a plain <a>. */
 export const profileHref = (username: string) => `${BASE}/${username}`

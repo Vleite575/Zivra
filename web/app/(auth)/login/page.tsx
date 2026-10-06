@@ -15,7 +15,7 @@ export default function Login() {
 
   return (
     <Slip title="Entrar">
-      <form className="flex flex-col gap-6" onSubmit={(e) => {
+      <form className="flex flex-col gap-4" onSubmit={(e) => {
         e.preventDefault()
         const form = e.currentTarget
         run(async () => {
@@ -28,7 +28,7 @@ export default function Login() {
         <Field label="Senha" name="password" type="password" autoComplete="current-password" required error={errors.password} />
         <div className="flex items-center justify-between gap-4 text-sm">
           <label className="flex items-center gap-2">
-            <input type="checkbox" name="remember" value="1" className="size-4 accent-[var(--on-envelope)]" /> Manter conectado
+            <input type="checkbox" name="remember" value="1" className="size-4 accent-[var(--ink)]" /> Manter conectado
           </label>
           <Link href="/forgot-password" className="font-semibold underline">Esqueci a senha</Link>
         </div>

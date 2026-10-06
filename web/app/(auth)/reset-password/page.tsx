@@ -12,7 +12,7 @@ export default function ResetPassword() {
   const { errors, message, busy, run } = useSubmit()
   return (
     <Slip title="Nova senha">
-      <form className="flex flex-col gap-6" onSubmit={(e) => {
+      <form className="flex flex-col gap-4" onSubmit={(e) => {
         e.preventDefault()
         const form = e.currentTarget
         run(async () => {

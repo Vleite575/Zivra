@@ -24,12 +24,12 @@ export default function Register() {
   }, [username])
 
   const status = username.length < 3 || !check ? null
-    : check.available ? <p className="mt-1 text-sm font-semibold text-on-envelope">Nick disponível.</p>
+    : check.available ? <p className="mt-1 text-sm font-semibold text-ink-soft">Nick disponível.</p>
     : <p className="mt-1 text-sm font-semibold text-pencil">{check.reserved ? 'Esse nick é reservado. Escolha outro.' : 'Esse nick já está em uso.'}</p>
 
   return (
     <Slip title="Criar conta">
-      <form className="flex flex-col gap-6" onSubmit={(e) => {
+      <form className="flex flex-col gap-4" onSubmit={(e) => {
         e.preventDefault()
         const form = e.currentTarget
         run(async () => {
@@ -45,7 +45,7 @@ export default function Register() {
           error={errors.username} hint={status} />
         <Field label="E-mail" name="email" type="email" autoComplete="email" required error={errors.email} />
         <Field label="Data de nascimento" name="birth_date" type="date" autoComplete="bday" required error={errors.birth_date}
-          hint={<p className="mt-1 text-sm text-on-envelope/70">Precisa ter 14 anos ou mais.</p>} />
+          hint={<p className="mt-1 text-sm text-ink-soft">Precisa ter 14 anos ou mais.</p>} />
         <Field label="Senha" name="password" type="password" autoComplete="new-password" required minLength={8} error={errors.password} />
         <Field label="Repita a senha" name="password_confirmation" type="password" autoComplete="new-password" required />
         {message && <p role="alert" className="text-sm font-semibold text-pencil">{message}</p>}

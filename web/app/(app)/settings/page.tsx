@@ -9,12 +9,13 @@ export default function Settings() {
   const { me } = useMe()
   if (!me) return null
   return (
-    <div className="mx-auto max-w-xl px-4 py-6 sm:px-6 md:py-10">
-      <h1 className="display text-4xl md:text-5xl">Ajustes</h1>
-      <div className="mt-8 flex flex-col gap-6">
+    <div className="mx-auto max-w-xl py-6 sm:px-4 md:py-10">
+      <h1 className="px-4 text-2xl font-bold sm:px-0">Ajustes</h1>
+      <div className="mt-6 flex flex-col gap-4">
         <ProfileForm me={me} />
         <Privacy me={me} />
         <PasswordForm />
+        <Logout />
         <DeleteAccount />
       </div>
     </div>
@@ -23,8 +24,8 @@ export default function Settings() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-sm bg-white px-5 py-6 text-on-envelope shadow-[0_18px_40px_-26px_rgb(27_31_59/0.5)] sm:px-7">
-      <h2 className="wide mb-5 text-xl font-bold">{title}</h2>
+    <section className="border-y border-line bg-print px-5 py-6 sm:rounded-xl sm:border sm:px-7">
+      <h2 className="mb-5 text-lg font-bold">{title}</h2>
       {children}
     </section>
   )
@@ -44,7 +45,7 @@ function ProfileForm({ me }: { me: User }) {
 
   return (
     <Section title="Perfil">
-      <form className="flex flex-col gap-6" onSubmit={(e) => {
+      <form className="flex flex-col gap-4" onSubmit={(e) => {
         e.preventDefault()
         const body = new FormData(e.currentTarget)
         body.append('_method', 'PATCH')
@@ -56,7 +57,7 @@ function ProfileForm({ me }: { me: User }) {
             // eslint-disable-next-line @next/next/no-img-element
             ? <img src={preview} alt="Prévia da foto nova" className="size-20 rounded-full object-cover" />
             : <Avatar path={me.profile_photo_path} name={me.name} size="size-20 text-2xl!" />}
-          <label className="cursor-pointer rounded-md border-2 border-on-envelope px-4 py-2 font-semibold">
+          <label className="btn-outline cursor-pointer">
             Trocar foto
             <input type="file" name="profile_photo" accept="image/jpeg,image/png" className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
           </label>
@@ -76,10 +77,10 @@ function Bio({ initial, error }: { initial: string; error?: string[] }) {
   const [bio, setBio] = useState(initial)
   return (
     <div className="flex flex-col">
-      <label htmlFor="bio" className="edge text-xs uppercase text-on-envelope/70">Bio</label>
+      <label htmlFor="bio" className="text-sm font-semibold text-ink-soft">Bio</label>
       <textarea id="bio" name="bio" value={bio} onChange={(e) => setBio(e.target.value)} maxLength={160} rows={3}
-        className="resize-none border-b-2 border-on-envelope/25 bg-transparent py-2 outline-none focus:border-on-envelope" />
-      <span className="edge mt-1 self-end text-xs text-on-envelope/60">{bio.length}/160</span>
+        className="mt-1 resize-none rounded-lg border border-line bg-paper px-3 py-2.5 outline-none focus:border-ink" />
+      <span className="mt-1 self-end text-xs tabular-nums text-ink-soft">{bio.length}/160</span>
       {error && <p className="text-sm font-semibold text-pencil">{error[0]}</p>}
     </div>
   )
@@ -99,11 +100,11 @@ function Privacy({ me }: { me: User }) {
         <IconLock className="mt-1 size-6 shrink-0" />
         <div className="flex-1">
           <p className="font-semibold">Perfil privado</p>
-          <p className="mt-1 text-sm text-on-envelope/75">Com o perfil privado, cada pessoa nova precisa pedir pra te seguir. Quem já te segue continua vendo.</p>
+          <p className="mt-1 text-sm text-ink-soft">Com o perfil privado, cada pessoa nova precisa pedir pra te seguir. Quem já te segue continua vendo.</p>
         </div>
         <button role="switch" aria-checked={!me.is_public} aria-label="Perfil privado" onClick={toggle} disabled={busy}
-          className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${me.is_public ? 'bg-on-envelope/20' : 'bg-on-envelope'}`}>
-          <span className={`absolute top-1 size-6 rounded-full bg-envelope transition-[left] duration-200 ease-out-expo ${me.is_public ? 'left-1' : 'left-7'}`} />
+          className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${me.is_public ? 'bg-line' : 'bg-envelope'}`}>
+          <span className={`absolute top-1 size-6 rounded-full bg-print shadow transition-[left] duration-200 ease-out-expo ${me.is_public ? 'left-1' : 'left-7'}`} />
         </button>
       </div>
     </Section>
@@ -115,7 +116,7 @@ function PasswordForm() {
   const [saved, setSaved] = useState(false)
   return (
     <Section title="Senha">
-      <form className="flex flex-col gap-6" onSubmit={(e) => {
+      <form className="flex flex-col gap-4" onSubmit={(e) => {
         e.preventDefault()
         const form = e.currentTarget
         run(async () => { await api('/api/password', { method: 'PUT', body: formJson(form) }); form.reset(); setSaved(true); setTimeout(() => setSaved(false), 2500) })
@@ -135,10 +136,10 @@ function DeleteAccount() {
   const { errors, message, busy, run } = useSubmit()
   return (
     <Section title="Excluir conta">
-      <p className="text-sm text-on-envelope/75">Apaga seu perfil, posts, curtidas e comentários. Não dá pra desfazer.</p>
+      <p className="text-sm text-ink-soft">Apaga seu perfil, posts, curtidas e comentários. Não dá pra desfazer.</p>
       <button onClick={() => dialog.current?.showModal()} className="mt-4 rounded-md border-2 border-pencil px-4 py-2 font-bold text-pencil">Excluir minha conta</button>
-      <dialog ref={dialog} aria-label="Confirmar exclusão" className="m-auto w-[min(28rem,calc(100%-2rem))] rounded-sm bg-white p-6 text-on-envelope backdrop:bg-film/70">
-        <h3 className="display text-2xl">Excluir conta?</h3>
+      <dialog ref={dialog} aria-label="Confirmar exclusão" className="m-auto w-[min(28rem,calc(100%-2rem))] rounded-2xl bg-print p-6 text-ink backdrop:bg-black/60">
+        <h3 className="text-xl font-bold">Excluir conta?</h3>
         <p className="mt-2 text-sm">Digite sua senha pra confirmar. Tudo será apagado agora.</p>
         <form className="mt-6 flex flex-col gap-6" onSubmit={(e) => {
           e.preventDefault()
@@ -158,6 +159,15 @@ function DeleteAccount() {
           </div>
         </form>
       </dialog>
+    </Section>
+  )
+}
+
+function Logout() {
+  const { setMe } = useMe()
+  return (
+    <Section title="Sessão">
+      <button onClick={async () => { await api('/api/logout', { method: 'POST' }); setMe(null) }} className="btn-outline">Sair da conta</button>
     </Section>
   )
 }
