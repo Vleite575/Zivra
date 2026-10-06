@@ -18,6 +18,13 @@ export const IconLock = I('M6.5 11h11v8.5h-11ZM8.5 11V8a3.5 3.5 0 0 1 7 0v3')
 export const IconCheck = I('M5 12.5 9.5 17 19 7.5')
 export const IconClose = I('M6 6l12 12M18 6 6 18')
 export const IconTrash = I('M5 7h14M10 7V5h4v2M7 7l1 12.5h8L17 7')
+/** Chat: two speech bubbles */
+export const IconChat = I('M4.5 6A1.5 1.5 0 0 1 6 4.5h8A1.5 1.5 0 0 1 15.5 6v5A1.5 1.5 0 0 1 14 12.5H9.5L6.5 15v-2.5H6A1.5 1.5 0 0 1 4.5 11ZM15.5 8.5H18A1.5 1.5 0 0 1 19.5 10v5a1.5 1.5 0 0 1-1.5 1.5h-.5V19l-3-2.5H11A1.5 1.5 0 0 1 9.5 15v-.5')
+export const IconUserPlus = I('M10 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM3 20a7 7 0 0 1 14 0M19 8v6M16 11h6')
+export const IconBack = I('M15 5l-7 7 7 7')
+export const IconSend = I('M4.5 12 19.5 5l-4 14-3.5-5.5Zm8 1.5 7-8.5')
+export const IconEye = I('M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z')
+export const IconEyeOff = I('M4 4l16 16M10.6 6A9.8 9.8 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a17 17 0 0 1-2.6 3.4M6.6 7.6C3.9 9.4 2.5 12 2.5 12S6 18.5 12 18.5c1.7 0 3.2-.5 4.4-1.2M9.9 9.9a3 3 0 0 0 4.2 4.2')
 export const IconSearch = I('M10.5 17.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14ZM15.5 15.5 20 20')
 export const IconPlus = I('M12 5v14M5 12h14')
 /** Grease-pencil loop: the like mark */

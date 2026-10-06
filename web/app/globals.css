@@ -82,6 +82,28 @@
   font-variation-settings: "wdth" 112;
 }
 
+/* Motion: short, ease-out, only where it explains a change. Reduced-motion collapses all of it below. */
+@keyframes rise { from { opacity: 0; transform: translateY(6px) } }
+@keyframes pop { 0% { transform: scale(1) } 40% { transform: scale(1.28) } 100% { transform: scale(1) } }
+@keyframes badge { from { transform: scale(0) } }
+
+.msg-in { animation: rise 220ms var(--ease-out-expo) both; }
+.badge-pop { animation: badge 280ms var(--ease-out-expo) both; }
+.like-pop[aria-pressed="true"] svg { animation: pop 360ms var(--ease-out-expo); }
+.feed-item { animation: rise 320ms var(--ease-out-expo) both; }
+
+/* Popovers and dialogs fade/scale in and out (discrete transitions keep them animating on close) */
+[popover], dialog {
+  transition: opacity 160ms, transform 160ms var(--ease-out-expo), overlay 160ms allow-discrete, display 160ms allow-discrete;
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+}
+[popover]:popover-open, dialog[open] { opacity: 1; transform: none; }
+@starting-style {
+  [popover]:popover-open, dialog[open] { opacity: 0; transform: translateY(-4px) scale(0.98); }
+}
+dialog::backdrop { transition: background-color 160ms, overlay 160ms allow-discrete, display 160ms allow-discrete; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

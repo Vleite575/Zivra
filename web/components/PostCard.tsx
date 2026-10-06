@@ -51,7 +51,7 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
   }
 
   return (
-    <article className="overflow-hidden border-line bg-print sm:rounded-xl sm:border" aria-labelledby={`post-${post.id}`}>
+    <article className="feed-item overflow-hidden border-line bg-print sm:rounded-xl sm:border" aria-labelledby={`post-${post.id}`}>
       <header className="flex items-center gap-3 px-4 py-3">
         <a href={profileHref(post.user.username)}><Avatar path={post.user.profile_photo_path} name={post.user.name} size="size-8" /></a>
         <div className="min-w-0 flex-1 leading-tight">
@@ -78,7 +78,7 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
 
       <div className="flex items-center gap-1 px-2 pt-1">
         <button onClick={like} disabled={!me} aria-pressed={post.is_liked} aria-label={post.is_liked ? 'Tirar curtida' : 'Curtir'}
-          className={`rounded-lg p-2 transition-colors hover:bg-ink/5 ${post.is_liked ? 'text-pencil' : ''}`}>
+          className={`like-pop rounded-lg p-2 transition-colors hover:bg-ink/5 ${post.is_liked ? 'text-pencil' : ''}`}>
           <IconLoop className="size-7" />
         </button>
         <button onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Comentários" className="rounded-lg p-2 hover:bg-ink/5">

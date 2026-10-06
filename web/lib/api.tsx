@@ -1,12 +1,19 @@
 'use client'
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 
-export type User = { id: number; name: string; username: string; bio: string | null; profile_photo_path: string | null; is_public: boolean; email?: string; pending_requests_count?: number }
+export type User = { id: number; name: string; username: string; bio: string | null; profile_photo_path: string | null; is_public: boolean; email?: string; pending_requests_count?: number; unread_messages_count?: number }
 export type Comment = { id: number; content: string; user_id: number; created_at: string; user: User }
 export type Post = { id: number; content: string; media_path: string | null; media_type: 'image' | 'video' | null; created_at: string; user: User; likes_count: number; comments_count: number; is_liked: boolean; comments: Comment[] }
 export type Profile = {
   user: User & { followers_count: number; following_count: number; posts_count: number }
   posts: Post[]; isOwnProfile: boolean; isFollowing: boolean; hasRequestedToFollow: boolean; hasPendingRequestFrom: boolean; canSeeContent: boolean
+}
+
+export type Message = { id: number; user_id: number; body: string; created_at: string; user?: User }
+export type Conversation = {
+  id: number; name: string | null; is_group: boolean; unread_count?: number
+  members: Pick<User, 'id' | 'name' | 'username' | 'profile_photo_path'>[]
+  last_message: Omit<Message, 'user'> | null
 }
 
 export class ApiError extends Error {
@@ -62,7 +69,11 @@ export function MeProvider({ children }: { children: ReactNode }) {
   const [me, setMe] = useState<User | null>()
   useEffect(() => {
     onUnauthorized = () => setMe(null)
-    api<User>('/api/user').then(setMe, () => setMe(null))
+    const load = () => api<User>('/api/user').then(setMe, () => setMe(null))
+    load()
+    // Keep badges (requests, unread messages) fresh while the tab is open.
+    const t = setInterval(() => { if (document.visibilityState === 'visible') api<User>('/api/user').then(setMe, () => {}) }, 30000)
+    return () => clearInterval(t)
   }, [])
   return <MeContext.Provider value={{ me, setMe }}>{children}</MeContext.Provider>
 }

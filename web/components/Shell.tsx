@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { api, BASE, profileHref, type User } from '@/lib/api'
 import { Logo } from './Logo'
 import { Avatar } from './Avatar'
-import { IconEnvelope, IconFeed, IconLogout, IconPlus, IconSearch, IconSettings, IconUser } from './icons'
+import { IconChat, IconFeed, IconLogout, IconPlus, IconSearch, IconSettings, IconUser, IconUserPlus } from './icons'
 
 /**
  * The one app layout: sticky top bar with logo and actions, a centered content column,
@@ -15,9 +15,10 @@ export function Shell({ me, children }: { me: User | null; children: React.React
   const on = (href: string) => (path === href ? 'page' : undefined)
   const pending = me?.pending_requests_count ?? 0
   const requestsLabel = pending ? `Pedidos para seguir: ${pending} novos` : 'Pedidos para seguir'
-  const badge = pending > 0 && (
-    <span aria-hidden="true" className="absolute right-0.5 top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-pencil px-1 text-[10px] font-bold text-white">{pending > 9 ? '9+' : pending}</span>
-  )
+  const badge = pending > 0 && <Badge n={pending} />
+  const unread = me?.unread_messages_count ?? 0
+  const chatLabel = unread ? `Mensagens: ${unread} não lidas` : 'Mensagens'
+  const chatBadge = unread > 0 && <Badge n={unread} />
   const tab = 'grid place-items-center rounded-lg p-2 text-ink transition-colors hover:bg-ink/5 aria-[current=page]:text-ink [&:not([aria-current])]:text-ink-soft'
 
   return (
@@ -30,7 +31,8 @@ export function Shell({ me, children }: { me: User | null; children: React.React
               <Link href="/feed" aria-label="Feed" aria-current={on('/feed')} className={`${tab} hidden sm:grid`}><IconFeed className="size-6" /></Link>
               <Link href="/feed#novo" aria-label="Novo post" className={`${tab} hidden sm:grid`}><IconPlus className="size-6" /></Link>
               <Link href="/search" aria-label="Buscar pessoas" aria-current={on('/search')} className={`${tab} hidden sm:grid`}><IconSearch className="size-6" /></Link>
-              <Link href="/follow-requests" aria-label={requestsLabel} aria-current={on('/follow-requests')} className={`${tab} relative hidden sm:grid`}><IconEnvelope className="size-6" />{badge}</Link>
+              <Link href="/messages" aria-label={chatLabel} aria-current={on('/messages')} className={`${tab} relative hidden sm:grid`}><IconChat className="size-6" />{chatBadge}</Link>
+              <Link href="/follow-requests" aria-label={requestsLabel} aria-current={on('/follow-requests')} className={`${tab} relative`}><IconUserPlus className="size-6" />{badge}</Link>
               <UserMenu me={me} />
             </nav>
           ) : (
@@ -49,7 +51,7 @@ export function Shell({ me, children }: { me: User | null; children: React.React
           <Link href="/feed" aria-label="Feed" aria-current={on('/feed')} className={`${tab} py-3`}><IconFeed className="size-7" /></Link>
           <Link href="/search" aria-label="Buscar pessoas" aria-current={on('/search')} className={`${tab} py-3`}><IconSearch className="size-7" /></Link>
           <Link href="/feed#novo" aria-label="Novo post" className={`${tab} py-3`}><IconPlus className="size-7" /></Link>
-          <Link href="/follow-requests" aria-label={requestsLabel} aria-current={on('/follow-requests')} className={`${tab} relative py-3`}><span className="relative"><IconEnvelope className="size-7" />{badge}</span></Link>
+          <Link href="/messages" aria-label={chatLabel} aria-current={on('/messages')} className={`${tab} relative py-3`}><span className="relative"><IconChat className="size-7" />{chatBadge}</span></Link>
           <a href={profileHref(me.username)} aria-label="Seu perfil" className="grid place-items-center py-3">
             <Avatar path={me.profile_photo_path} name={me.name} size="size-7" />
           </a>
@@ -88,4 +90,8 @@ function UserMenu({ me }: { me: User }) {
       </div>
     </>
   )
+}
+
+function Badge({ n }: { n: number }) {
+  return <span aria-hidden="true" className="badge-pop absolute right-0.5 top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-pencil px-1 text-[10px] font-bold text-white">{n > 9 ? '9+' : n}</span>
 }
