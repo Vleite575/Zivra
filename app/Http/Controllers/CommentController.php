@@ -15,12 +15,12 @@ class CommentController extends Controller
             'content' => 'required|string|max:1000',
         ]);
 
-        $post->comments()->create([
+        $comment = $post->comments()->create([
             'user_id' => Auth::id(),
             'content' => $request->content,
         ]);
 
-        return back();
+        return response()->json($comment->load('user'), 201);
     }
 
     public function destroy(Comment $comment)
@@ -31,6 +31,6 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        return back();
+        return response()->noContent();
     }
 }

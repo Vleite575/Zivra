@@ -23,8 +23,11 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function isLikedBy(User $user)
+    public function scopeForViewer($query, ?User $viewer)
     {
-        return $this->likes()->where('user_id', $user->id)->exists();
+        return $query->with(['user', 'comments.user'])
+            ->withCount(['likes', 'comments'])
+            ->withExists(['likes as is_liked' => fn ($q) => $q->where('user_id', $viewer?->id)])
+            ->latest();
     }
 }

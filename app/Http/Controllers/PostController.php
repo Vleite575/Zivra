@@ -4,51 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with(['user', 'likes', 'comments.user'])
-            ->withCount(['likes', 'comments'])
-            ->latest()
-            ->get()
-            ->map(function ($post) {
-                $post->is_liked = Auth::check() ? $post->isLikedBy(Auth::user()) : false;
-                return $post;
-            });
+        $me = $request->user();
+        $visible = $me->following()->pluck('users.id')->push($me->id);
 
-        return Inertia::render('Dashboard', [
-            'posts' => $posts
-        ]);
+        // ponytail: no pagination, switch to cursorPaginate once the feed outgrows 50
+        return Post::forViewer($me)
+            ->where(fn ($q) => $q->whereIn('user_id', $visible)
+                ->orWhereHas('user', fn ($u) => $u->where('is_public', true)))
+            ->limit(50)
+            ->get();
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'content' => 'required|string|max:280',
-            'media' => 'nullable|file|mimes:jpg,jpeg,png,mp4,mov,avi|max:20480', // 20MB max
+            'media' => 'nullable|file|mimes:jpg,jpeg,png,mp4,mov,avi|max:20480',
         ]);
 
-        $post = new Post();
-        $post->user_id = Auth::id();
-        $post->content = $request->content;
+        $post = new Post(['content' => $request->content]);
+        $post->user_id = $request->user()->id;
 
-        if ($request->hasFile('media')) {
-            $file = $request->file('media');
-            $path = $file->store('posts-media', 'public');
-            $post->media_path = $path;
-            
-            $extension = strtolower($file->getClientOriginalExtension());
-            $post->media_type = in_array($extension, ['mp4', 'mov', 'avi']) ? 'video' : 'image';
+        if ($file = $request->file('media')) {
+            $post->media_path = $file->store('posts-media', 'public');
+            $post->media_type = in_array(strtolower($file->getClientOriginalExtension()), ['mp4', 'mov', 'avi']) ? 'video' : 'image';
         }
 
         $post->save();
 
-        return redirect()->route('dashboard');
+        return response()->json(Post::forViewer($request->user())->find($post->id), 201);
     }
 }
