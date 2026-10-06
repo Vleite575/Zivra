@@ -21,3 +21,15 @@ export function HeroCta() {
     </>
   )
 }
+
+/** Landing header links: hidden once signed in (the hero CTA already points to the feed). */
+export function HeaderCta() {
+  const { me } = useMe()
+  if (me) return null
+  return (
+    <>
+      <Link href="/login" className="rounded-md px-3 py-2.5 font-semibold underline-offset-4 hover:underline">Entrar</Link>
+      <Link href="/register" className="hidden rounded-md bg-on-envelope px-4 py-2.5 font-semibold text-envelope sm:inline-block">Criar conta</Link>
+    </>
+  )
+}

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Logo, Mark } from '@/components/Logo'
 import { HeroPrints } from '@/components/LandingHero'
-import { HeroCta } from '@/components/LandingCta'
+import { HeaderCta, HeroCta } from '@/components/LandingCta'
 import { Print, FrameCode } from '@/components/Print'
 import { IconLock } from '@/components/icons'
 
@@ -20,8 +20,7 @@ export default function Landing() {
         <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-8">
           <Logo className="text-3xl" />
           <nav className="flex items-center gap-2 sm:gap-4">
-            <Link href="/login" className="rounded-md px-3 py-2.5 font-semibold underline-offset-4 hover:underline">Entrar</Link>
-            <Link href="/register" className="hidden rounded-md bg-on-envelope px-4 py-2.5 font-semibold text-envelope sm:inline-block">Criar conta</Link>
+            <HeaderCta />
           </nav>
         </header>
 
@@ -90,7 +89,7 @@ export default function Landing() {
             </p>
           </div>
           <Print src="/prints/64.jpg" alt="Garota de óculos escuros segurando flores" n={7} caption="@mel"
-            className="mx-auto w-full max-w-xs rotate-2">
+            className="relative mx-auto w-full max-w-xs rotate-2">
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" className="pointer-events-none absolute -inset-[6%] h-[112%] w-[112%] overflow-visible">
               <path d="M54 4C80 5 97 22 96 50c-1 29-22 46-48 46C21 96 3 78 4 50 5 22 25 4 52 5c8 0 15 2 20 5" fill="none" stroke="var(--pencil)" strokeLinecap="round" style={{ strokeWidth: 0.9 }} />
             </svg>
