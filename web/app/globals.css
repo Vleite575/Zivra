@@ -1,26 +1,93 @@
 @import "tailwindcss";
 
+/* Photo-lab envelope world: see PRODUCT.md and DESIGN.md */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --envelope: #ffc629;
+  --envelope-deep: #f2b200;
+  --on-envelope: #1b1f3b;
+  --ink: #1b1f3b;
+  --ink-soft: #4a4f6e;
+  --paper: #f4f5f7;
+  --print: #ffffff;
+  --line: #d5d7de;
+  --pencil: #e5262f;
+  --film: #17140f;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --ink: #eef0f8;
+    --ink-soft: #a8adc6;
+    --paper: #0f1124;
+    --print: #181b33;
+    --line: #2c3050;
+    --pencil: #ff4a52;
+    color-scheme: dark;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --color-envelope: var(--envelope);
+  --color-envelope-deep: var(--envelope-deep);
+  --color-on-envelope: var(--on-envelope);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-print: var(--print);
+  --color-line: var(--line);
+  --color-pencil: var(--pencil);
+  --color-film: var(--film);
+  --font-sans: var(--font-archivo);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    caret-color: var(--pencil);
+    font-family: var(--font-archivo), system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    scrollbar-color: var(--line) transparent;
+  }
+  ::selection {
+    background: var(--envelope);
+    color: var(--on-envelope);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+}
+
+@utility display {
+  font-variation-settings: "wdth" 125;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+}
+
+@utility wide {
+  font-variation-settings: "wdth" 112;
+}
+
+/* Film edge code (frame numbers), condensed like the printed rebate */
+@utility edge {
+  font-variation-settings: "wdth" 70;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
