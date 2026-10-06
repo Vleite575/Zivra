@@ -47,7 +47,11 @@ class PostController extends Controller
         abort_unless($post->media_path && $post->user->isVisibleTo($request->user('sanctum')), 404);
 
         // BinaryFileResponse handles Range requests, which video seeking needs.
-        return response()->file(Storage::disk('local')->path($post->media_path), ['Cache-Control' => 'private, max-age=3600']);
+        $response = response()->file(Storage::disk('local')->path($post->media_path));
+        $response->setPrivate();
+        $response->setMaxAge(3600);
+
+        return $response;
     }
 
     public function destroy(Request $request, Post $post)
