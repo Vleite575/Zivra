@@ -61,7 +61,7 @@ export default function Landing() {
 
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-8 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
-          <span className="flex items-center gap-2"><Mark className="size-5 text-ink" /> Zivra, feita no Brasil.</span>
+          <span className="flex items-center gap-2"><Mark className="size-5" /> Zivra, feita no Brasil.</span>
           <nav className="flex gap-6">
             <Link href="/privacy" className="hover:text-ink">Privacidade</Link>
             <Link href="/security" className="hover:text-ink">Segurança</Link>

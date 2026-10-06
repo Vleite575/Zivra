@@ -191,7 +191,7 @@ Flat. Depth comes from tonal layering (white Print cards on gray Paper) and 1px 
 
 Soft, consistent corners. Controls and icon hit areas are rounded 8px (`lg`); cards, the composer, settings sections and masonry tiles 12px (`xl`) from `sm` up; the auth card 16px (`2xl`); sheets 8px (top corners only on phones, where they rise as bottom sheets). Avatars and icon chips are full circles. Destructive buttons use 6px (`md`). Photos are cropped by their card's radius and never framed.
 
-Icons are authored for Zivra: 24px grid, 1.75 stroke, round caps and joins, single `currentColor` path. The like mark is a hand-drawn loop, not a heart. The logo mark is a rounded square with sprocket holes and a knocked-out Z.
+Icons are authored for Zivra: 24px grid, 1.75 stroke, round caps and joins, single `currentColor` path. The like mark is a hand-drawn loop, not a heart. The logo mark is an Envelope Yellow rounded square with navy sprocket holes and a heavy navy Z, in fixed brand colors on both schemes. In the lockup it tilts -8deg like a stuck-on sticker, and the wordmark's i carries a small yellow square for its dot. App icons stay upright.
 
 ## Components
 
