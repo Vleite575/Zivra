@@ -34,3 +34,15 @@
 
     ErrorDocument 404 /zivra/web/out/404.html
 </IfModule>
+
+# Security headers for the static app (API responses set the same from Laravel).
+# script-src needs 'unsafe-inline': the Next static export inlines its bootstrap scripts.
+# ponytail: switch to hashes/nonces if the app moves off static export.
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+    Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
+</IfModule>

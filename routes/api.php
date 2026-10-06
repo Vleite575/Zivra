@@ -15,10 +15,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredUserController::class, 'store'])->middleware('throttle:auth');
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
-    Route::post('forgot-password', [PasswordResetLinkController::class, 'store']);
-    Route::post('reset-password', [NewPasswordController::class, 'store']);
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->middleware('throttle:auth');
+    Route::post('reset-password', [NewPasswordController::class, 'store'])->middleware('throttle:auth');
 });
 
 Route::get('check-username/{username}', function (string $username) {
@@ -47,17 +47,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('password', [PasswordController::class, 'update']);
 
     Route::get('feed', [PostController::class, 'index']);
-    Route::post('posts', [PostController::class, 'store']);
+    Route::post('posts', [PostController::class, 'store'])->middleware('throttle:posts');
     Route::delete('posts/{post}', [PostController::class, 'destroy']);
-    Route::post('posts/{post}/like', [LikeController::class, 'toggle']);
-    Route::post('posts/{post}/comments', [CommentController::class, 'store']);
+    Route::post('posts/{post}/like', [LikeController::class, 'toggle'])->middleware('throttle:social');
+    Route::post('posts/{post}/comments', [CommentController::class, 'store'])->middleware('throttle:social');
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
 
     Route::patch('profile', [ProfileController::class, 'update']);
     Route::delete('profile', [ProfileController::class, 'destroy']);
     Route::patch('profile/privacy', [ProfileController::class, 'updatePrivacy']);
     Route::get('follow-requests', [ProfileController::class, 'followRequests']);
-    Route::post('follow/{user}', [FollowController::class, 'store']);
+    Route::post('follow/{user}', [FollowController::class, 'store'])->middleware('throttle:social');
     Route::delete('follow/{user}', [FollowController::class, 'destroy']);
     Route::post('follow-requests/{user}/accept', [FollowController::class, 'accept']);
     Route::delete('follow-requests/{user}/reject', [FollowController::class, 'reject']);
