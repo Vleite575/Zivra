@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { api, BASE, profileHref, type User } from '@/lib/api'
 import { Logo } from './Logo'
 import { Avatar } from './Avatar'
-import { IconChat, IconFeed, IconLogout, IconPlus, IconSearch, IconSettings, IconUser, IconUserPlus } from './icons'
+import { IconChat, IconFeed, IconLogout, IconLoop, IconPlus, IconSearch, IconSettings, IconUser, IconUserPlus } from './icons'
 
 /**
  * The one app layout: sticky top bar with logo and actions, a centered content column,
@@ -85,6 +85,7 @@ function UserMenu({ me }: { me: User }) {
         <div className="pt-1.5">
           <a href={profileHref(me.username)} className={item}><IconUser className="size-5" />Ver perfil</a>
           <Link href="/settings" className={item} onClick={() => document.getElementById('user-menu')?.hidePopover()}><IconSettings className="size-5" />Ajustes</Link>
+          <Link href="/activity" className={item} onClick={() => document.getElementById('user-menu')?.hidePopover()}><IconLoop className="size-5" />Sua atividade</Link>
           <button onClick={logout} className={`${item} text-pencil`}><IconLogout className="size-5" />Sair</button>
         </div>
       </div>

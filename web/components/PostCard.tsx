@@ -58,6 +58,16 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
     }
   }
 
+  async function likeComment(c: Comment) {
+    if (!me) return
+    const set = (patch: Partial<Comment>) => onChange({ ...post, comments: post.comments.map((x) => (x.id === c.id ? { ...c, ...patch } : x)) })
+    set({ is_liked: !c.is_liked, likes_count: c.likes_count + (c.is_liked ? -1 : 1) })
+    try {
+      const r = await api<{ liked: boolean; likes_count: number }>(`/api/comments/${c.id}/like`, { method: 'POST' })
+      set({ is_liked: r.liked, likes_count: r.likes_count })
+    } catch { set({}) }
+  }
+
   async function remove(id: number) {
     await api(`/api/comments/${id}`, { method: 'DELETE' })
     onChange({ ...post, comments: post.comments.filter((c) => c.id !== id), comments_count: post.comments_count - 1 })
@@ -112,15 +122,26 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
 
         {open && (
           <div className="mt-2">
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-3">
               {post.comments.map((c) => (
-                <li key={c.id} className="flex items-start gap-2">
-                  <p className="flex-1"><a href={profileHref(c.user.username)} className="mr-1.5 font-semibold hover:underline">{c.user.username}</a>{c.content}</p>
+                <li key={c.id} className="flex items-start gap-2.5">
+                  <a href={profileHref(c.user.username)} className="mt-0.5 shrink-0"><Avatar path={c.user.profile_photo_path} name={c.user.name} size="size-7" /></a>
+                  <div className="min-w-0 flex-1">
+                    <p className="break-words"><a href={profileHref(c.user.username)} className="mr-1.5 font-semibold hover:underline">{c.user.username}</a>{c.content}</p>
+                    <p className="mt-0.5 text-xs text-ink-soft">
+                      <time dateTime={c.created_at}>{ago(c.created_at)}</time>
+                      {c.likes_count > 0 && <span className="ml-3 font-semibold">{c.likes_count} {c.likes_count === 1 ? 'curtida' : 'curtidas'}</span>}
+                    </p>
+                  </div>
                   {me?.id === c.user_id && (
                     <button onClick={() => remove(c.id)} aria-label="Apagar comentário" className="rounded p-1 text-ink-soft hover:text-pencil">
                       <IconTrash className="size-4" />
                     </button>
                   )}
+                  <button onClick={() => likeComment(c)} disabled={!me} aria-pressed={c.is_liked} aria-label={c.is_liked ? 'Tirar curtida do comentário' : 'Curtir comentário'}
+                    className={`like-pop rounded p-1 transition-colors hover:text-ink ${c.is_liked ? 'text-pencil' : 'text-ink-soft'}`}>
+                    <IconLoop className="size-4" />
+                  </button>
                 </li>
               ))}
               {post.comments.length === 0 && <li className="text-sm text-ink-soft">Nenhum comentário ainda.</li>}

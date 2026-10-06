@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Comment;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,6 +74,34 @@ class ProfileController extends Controller
         }
 
         return $query->get()->makeHidden('pivot');
+    }
+
+    /**
+     * My own activity: posts I liked, comments I wrote, comments I liked.
+     * Only items on posts I can still see. Lists show 50 (newest first, ?sort=oldest flips), counts are totals.
+     */
+    public function activity(Request $request)
+    {
+        $me = $request->user();
+        $dir = $request->sort === 'oldest' ? 'asc' : 'desc';
+        $onVisiblePost = fn ($q) => $q->whereHas('post', fn ($p) => $p->visibleTo($me));
+
+        $likedPosts = Post::forViewer($me)->visibleTo($me)
+            ->join('likes', 'likes.post_id', '=', 'posts.id')->where('likes.user_id', $me->id)
+            ->addSelect('likes.created_at as liked_at')->withCasts(['liked_at' => 'datetime'])->reorder('likes.created_at', $dir);
+        $comments = Comment::where('user_id', $me->id)->tap($onVisiblePost)
+            ->with('post.user')->withCount('likers as likes_count')->orderBy('created_at', $dir);
+        $likedComments = Comment::tap($onVisiblePost)->with(['user', 'post.user'])
+            ->join('comment_likes', 'comment_likes.comment_id', '=', 'comments.id')->where('comment_likes.user_id', $me->id)
+            ->select('comments.*', 'comment_likes.created_at as liked_at')->withCasts(['liked_at' => 'datetime'])->orderBy('comment_likes.created_at', $dir);
+
+        $out = [];
+        foreach (['liked_posts' => $likedPosts, 'comments' => $comments, 'liked_comments' => $likedComments] as $key => $query) {
+            $out[$key.'_count'] = (clone $query)->count();
+            $out[$key] = $query->limit(50)->get();
+        }
+
+        return $out;
     }
 
     public function followRequests(Request $request)

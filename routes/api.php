@@ -63,12 +63,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('posts/{post}', [PostController::class, 'destroy']);
     Route::post('posts/{post}/like', [LikeController::class, 'toggle'])->middleware('throttle:social');
     Route::post('posts/{post}/comments', [CommentController::class, 'store'])->middleware('throttle:social');
+    Route::post('comments/{comment}/like', [CommentController::class, 'like'])->middleware('throttle:social');
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
 
     Route::patch('profile', [ProfileController::class, 'update']);
     Route::delete('profile', [ProfileController::class, 'destroy']);
     Route::patch('profile/privacy', [ProfileController::class, 'updatePrivacy']);
     Route::get('follow-requests', [ProfileController::class, 'followRequests']);
+    Route::get('me/activity', [ProfileController::class, 'activity']);
     Route::post('follow/{user}', [FollowController::class, 'store'])->middleware('throttle:social');
     Route::delete('follow/{user}', [FollowController::class, 'destroy']);
     Route::post('follow-requests/{user}/accept', [FollowController::class, 'accept']);

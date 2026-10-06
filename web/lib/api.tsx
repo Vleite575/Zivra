@@ -2,7 +2,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 
 export type User = { id: number; name: string; username: string; bio: string | null; profile_photo_path: string | null; is_public: boolean; email?: string; pending_requests_count?: number; unread_messages_count?: number }
-export type Comment = { id: number; content: string; user_id: number; created_at: string; user: User }
+export type Comment = { id: number; content: string; user_id: number; created_at: string; user: User; likes_count: number; is_liked: boolean }
 export type Post = { id: number; content: string; media_path: string | null; media_type: 'image' | 'video' | null; created_at: string; user: User; likes_count: number; comments_count: number; is_liked: boolean; comments: Comment[] }
 export type Profile = {
   user: User & { followers_count: number; following_count: number; posts_count: number }

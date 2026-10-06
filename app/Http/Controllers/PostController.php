@@ -11,12 +11,9 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $me = $request->user();
-        $visible = $me->following()->pluck('users.id')->push($me->id);
 
         // ponytail: no pagination, switch to cursorPaginate once the feed outgrows 50
-        return Post::forViewer($me)
-            ->where(fn ($q) => $q->whereIn('user_id', $visible)
-                ->orWhereHas('user', fn ($u) => $u->where('is_public', true)))
+        return Post::forViewer($me)->visibleTo($me)
             ->limit(50)
             ->get();
     }

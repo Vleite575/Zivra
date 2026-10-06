@@ -124,4 +124,53 @@ class PostTest extends TestCase
         $this->app['auth']->forgetGuards();
         $this->get("/api/posts/$id/media")->assertOk();
     }
+
+    public function test_comment_like_toggles_and_shows_in_feed(): void
+    {
+        $me = User::factory()->create();
+        $post = $this->postBy(User::factory()->create());
+        $comment = $post->comments()->create(['user_id' => $me->id, 'content' => 'legal']);
+
+        $this->actingAs($me)->postJson("/api/comments/{$comment->id}/like")->assertOk()->assertJson(['liked' => true, 'likes_count' => 1]);
+        $this->getJson('/api/feed')->assertJsonPath('0.comments.0.likes_count', 1)->assertJsonPath('0.comments.0.is_liked', true);
+        $this->postJson("/api/comments/{$comment->id}/like")->assertJson(['liked' => false, 'likes_count' => 0]);
+    }
+
+    public function test_comment_like_hidden_on_private_post(): void
+    {
+        $post = $this->postBy(User::factory()->create(['is_public' => false]));
+        $comment = $post->comments()->create(['user_id' => $post->user_id, 'content' => 'x']);
+
+        $this->actingAs(User::factory()->create())->postJson("/api/comments/{$comment->id}/like")->assertNotFound();
+    }
+
+    public function test_activity_lists_my_likes_and_comments_on_visible_posts_only(): void
+    {
+        $me = User::factory()->create();
+        $public = $this->postBy(User::factory()->create());
+        $hidden = $this->postBy(User::factory()->create(['is_public' => false]));
+        foreach ([$public, $hidden] as $p) {
+            $p->likes()->create(['user_id' => $me->id]);
+            $mine = $p->comments()->create(['user_id' => $me->id, 'content' => 'meu']);
+            $other = $p->comments()->create(['user_id' => $p->user_id, 'content' => 'dele']);
+            $other->likers()->attach($me->id);
+        }
+
+        $this->actingAs($me)->getJson('/api/me/activity')->assertOk()
+            ->assertJsonPath('liked_posts_count', 1)->assertJsonPath('liked_posts.0.id', $public->id)
+            ->assertJsonPath('comments_count', 1)->assertJsonPath('comments.0.post.id', $public->id)
+            ->assertJsonPath('liked_comments_count', 1)->assertJsonPath('liked_comments.0.content', 'dele');
+    }
+
+    public function test_activity_sort_oldest_flips_order(): void
+    {
+        $me = User::factory()->create();
+        $old = $this->postBy(User::factory()->create());
+        $new = $this->postBy(User::factory()->create());
+        $old->likes()->forceCreate(['user_id' => $me->id, 'created_at' => now()->subDay()]);
+        $new->likes()->create(['user_id' => $me->id]);
+
+        $this->actingAs($me)->getJson('/api/me/activity')->assertJsonPath('liked_posts.0.id', $new->id);
+        $this->getJson('/api/me/activity?sort=oldest')->assertJsonPath('liked_posts.0.id', $old->id);
+    }
 }

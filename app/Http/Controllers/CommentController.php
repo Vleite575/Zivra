@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +23,24 @@ class CommentController extends Controller
             'content' => $request->content,
         ]);
 
-        return response()->json($comment->load('user'), 201);
+        return response()->json([...$comment->load('user')->toArray(), 'likes_count' => 0, 'is_liked' => false], 201);
+    }
+
+    public function like(Request $request, Comment $comment)
+    {
+        abort_unless($comment->post->user->isVisibleTo($request->user()), 404);
+
+        $me = $request->user()->id;
+        $deleted = $comment->likers()->detach($me);
+        if (! $deleted) {
+            try {
+                $comment->likers()->attach($me);
+            } catch (UniqueConstraintViolationException) {
+                // Double tap: the other request already liked it.
+            }
+        }
+
+        return ['liked' => ! $deleted, 'likes_count' => $comment->likers()->count()];
     }
 
     public function destroy(Comment $comment)
