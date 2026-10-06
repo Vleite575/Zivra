@@ -17,9 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Local test accounts (factory password: "password").
+        User::factory()->create(['name' => 'Ana Teste', 'username' => 'ana_teste', 'email' => 'ana@zivra.test']);
+        User::factory()->create(['name' => 'Beto Privado', 'username' => 'beto_privado', 'email' => 'beto@zivra.test', 'is_public' => false]);
     }
 }
