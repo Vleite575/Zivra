@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { api, media, profileHref, useMe, type Comment, type Post } from '@/lib/api'
+import { api, postMedia, profileHref, useMe, type Comment, type Post } from '@/lib/api'
 import { Avatar } from './Avatar'
 import { IconComment, IconLoop, IconTrash } from './icons'
 
@@ -68,9 +68,9 @@ export function PostCard({ post, onChange, onDelete }: { post: Post; onChange: (
       {post.media_path ? (
         <div className="relative bg-black">
           {post.media_type === 'video'
-            ? <video src={media(post.media_path)} controls playsInline preload="metadata" className="max-h-[80vh] w-full" />
+            ? <video src={postMedia(post)} controls playsInline preload="metadata" className="max-h-[80vh] w-full" />
             // eslint-disable-next-line @next/next/no-img-element
-            : <img src={media(post.media_path)} alt={`Foto de @${post.user.username}`} className="max-h-[80vh] w-full object-contain" loading="lazy" onDoubleClick={() => !post.is_liked && like()} />}
+            : <img src={postMedia(post)} alt={`Foto de @${post.user.username}`} className="max-h-[80vh] w-full object-contain" loading="lazy" onDoubleClick={() => !post.is_liked && like()} />}
         </div>
       ) : (
         <p className="relative whitespace-pre-line px-4 pb-2 text-xl font-semibold leading-snug">{post.content}</p>

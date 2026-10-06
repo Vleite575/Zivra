@@ -54,7 +54,7 @@ class PostTest extends TestCase
 
     public function test_store_post_with_media(): void
     {
-        Storage::fake('public');
+        Storage::fake('local');
         $this->actingAs(User::factory()->create())
             ->post('/api/posts', ['content' => 'foto', 'media' => UploadedFile::fake()->image('a.jpg')], ['Accept' => 'application/json'])
             ->assertCreated()->assertJsonPath('media_type', 'image');
@@ -91,7 +91,7 @@ class PostTest extends TestCase
 
     public function test_only_author_deletes_post(): void
     {
-        Storage::fake('public');
+        Storage::fake('local');
         $a = User::factory()->create();
         $b = User::factory()->create();
         $id = $this->actingAs($a)->post('/api/posts', ['content' => 'x', 'media' => UploadedFile::fake()->image('a.jpg')], ['Accept' => 'application/json'])->json('id');
@@ -99,6 +99,29 @@ class PostTest extends TestCase
         $this->actingAs($b)->deleteJson("/api/posts/$id")->assertForbidden();
         $this->actingAs($a)->deleteJson("/api/posts/$id")->assertNoContent();
         $this->assertNull(Post::find($id));
+        Storage::disk('local')->assertMissing($path);
+    }
+
+    public function test_post_media_is_private_and_served_by_permission(): void
+    {
+        Storage::fake('local');
+        Storage::fake('public');
+        $owner = User::factory()->create(['is_public' => false]);
+        $id = $this->actingAs($owner)->post('/api/posts', ['content' => 'x', 'media' => UploadedFile::fake()->image('a.jpg')], ['Accept' => 'application/json'])->json('id');
+        $path = Post::find($id)->media_path;
+
+        Storage::disk('local')->assertExists($path);
         Storage::disk('public')->assertMissing($path);
+        $this->actingAs($owner)->get("/api/posts/$id/media")->assertOk()->assertHeader('Cache-Control', 'max-age=3600, private');
+        $this->actingAs(User::factory()->create())->get("/api/posts/$id/media")->assertNotFound();
+    }
+
+    public function test_guest_can_load_media_of_public_post(): void
+    {
+        Storage::fake('local');
+        $owner = User::factory()->create();
+        $id = $this->actingAs($owner)->post('/api/posts', ['content' => 'x', 'media' => UploadedFile::fake()->image('a.jpg')], ['Accept' => 'application/json'])->json('id');
+        $this->app['auth']->forgetGuards();
+        $this->get("/api/posts/$id/media")->assertOk();
     }
 }

@@ -53,6 +53,8 @@ export function useApi<T>(path: string | null) {
 }
 
 export const media = (path: string) => `${BASE}/storage/${path}`
+/** Post photos/videos are private files streamed by the API after a permission check. */
+export const postMedia = (post: { id: number }) => `${BASE}/api/posts/${post.id}/media`
 
 const MeContext = createContext<{ me: User | null | undefined; setMe: (u: User | null) => void }>({ me: undefined, setMe: () => {} })
 

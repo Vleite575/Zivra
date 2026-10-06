@@ -28,6 +28,7 @@ Route::get('check-username/{username}', function (string $username) {
     return ['available' => ! $exists && ! $reserved, 'exists' => $exists, 'reserved' => $reserved];
 });
 
+Route::get('posts/{post}/media', [PostController::class, 'media']);
 Route::get('users/{username}', [ProfileController::class, 'show']);
 Route::get('users/{username}/followers', [ProfileController::class, 'getFollowers']);
 Route::get('users/{username}/following', [ProfileController::class, 'getFollowing']);

@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { Suspense, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { api, BASE, media, profileHref, useApi, useMe, type Post, type Profile, type User } from '@/lib/api'
+import { api, BASE, postMedia, profileHref, useApi, useMe, type Post, type Profile, type User } from '@/lib/api'
 import { Shell } from '@/components/Shell'
 import { Avatar } from '@/components/Avatar'
 import { PostCard } from '@/components/PostCard'
@@ -101,9 +101,9 @@ function ProfileView({ username }: { username: string }) {
               <button onClick={() => open(p.id)} className="group relative block w-full overflow-hidden text-left sm:rounded-xl" aria-label={`Abrir post: ${p.content.slice(0, 60)}`}>
                 {p.media_path
                   ? (p.media_type === 'video'
-                    ? <video src={media(p.media_path)} preload="metadata" muted className="w-full bg-black" />
+                    ? <video src={postMedia(p)} preload="metadata" muted className="w-full bg-black" />
                     // eslint-disable-next-line @next/next/no-img-element
-                    : <img src={media(p.media_path)} alt="" loading="lazy" className="w-full" />)
+                    : <img src={postMedia(p)} alt="" loading="lazy" className="w-full" />)
                   : <span className="line-clamp-6 block bg-envelope p-4 text-lg font-semibold leading-snug text-on-envelope">{p.content}</span>}
                 <span className="absolute inset-x-0 bottom-0 flex items-center gap-3 bg-gradient-to-t from-black/60 to-transparent p-3 pt-8 text-sm font-semibold text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                   <span className="flex items-center gap-1"><IconLoop className="size-4" />{p.likes_count}</span>
