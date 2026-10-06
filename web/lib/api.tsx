@@ -15,7 +15,7 @@ export class ApiError extends Error {
 
 const xsrf = () => decodeURIComponent(document.cookie.match(/(?:^|; )XSRF-TOKEN=([^;]+)/)?.[1] ?? '')
 
-export async function api<T = unknown>(path: string, init: RequestInit = {}): Promise<T> {
+export async function api<T = unknown>(path: string, init: RequestInit = {}, retried = false): Promise<T> {
   const method = (init.method ?? 'GET').toUpperCase()
   if (method !== 'GET' && !xsrf()) await fetch('/sanctum/csrf-cookie')
   const json = init.body && !(init.body instanceof FormData)
@@ -23,6 +23,11 @@ export async function api<T = unknown>(path: string, init: RequestInit = {}): Pr
     ...init,
     headers: { Accept: 'application/json', 'X-XSRF-TOKEN': xsrf(), ...(json ? { 'Content-Type': 'application/json' } : {}), ...init.headers },
   })
+  // Stale CSRF token (session rotated by login/logout or expired): refresh it and retry once.
+  if (res.status === 419 && !retried) {
+    await fetch('/sanctum/csrf-cookie')
+    return api<T>(path, init, true)
+  }
   if (res.status === 204) return undefined as T
   const data = await res.json().catch(() => ({}))
   if (!res.ok) throw new ApiError(res.status, data.errors, data.message)
