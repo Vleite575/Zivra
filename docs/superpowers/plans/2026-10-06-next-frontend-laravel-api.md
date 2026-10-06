@@ -820,6 +820,8 @@ git add -A && git commit -m "feat(web): Next app with API proxy and fetch helper
 
 - [ ] **Step 1: Direção visual.** Invoque a skill `impeccable` (modo shape/design-system) e depois a skill `frontend-design`. Briefing: "Zivra, rede social de fotos e vídeos curtos, público BR, 14+; telas: landing, auth, feed, perfil, pedidos de follow, settings". Saídas: os tokens em `web/app/globals.css` (bloco `@theme` do Tailwind v4, com tema claro e escuro) e as fontes via `next/font` em `layout.tsx`. Ao final, registre a direção em `web/DESIGN.md` (agente `impeccable-documenter`).
 
+- [ ] **Step 1b: Logo e ícones (pedido do usuário em 2026-10-06).** Invoque a skill `logo-design-guide` junto com `impeccable`. Refaça a logo da Zivra como SVG vetorial em `web/components/Logo.tsx`, com marca + wordmark e variantes clara/escura via `currentColor`. Gere os ícones do app a partir da marca: `web/app/icon.svg` (favicon), `web/app/apple-icon.png` (180×180) e `web/app/opengraph-image.png`. Os ícones de interface (curtir, comentar, nav etc.) ficam como SVG inline em `web/components/icons.tsx`, todos no mesmo grid e no mesmo traço. Sem biblioteca de ícones.
+
 - [ ] **Step 2: Layout raiz.** O `web/app/layout.tsx` envolve `children` com `<MeProvider>`, usa `lang="pt-BR"` e define `metadata.title = 'Zivra'`.
 
 - [ ] **Step 3: Guard + navegação.** `web/app/(app)/layout.tsx`. O visual vem das skills; a lógica obrigatória é esta:
